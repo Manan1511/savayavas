@@ -12,6 +12,7 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 | Rendering | `vite-react-ssg` — all static routes prerendered to HTML at build |
 | Styling | Tailwind v4, tokens as CSS custom properties in `@theme` |
 | Animation | GSAP (ScrollTrigger + MotionPath) + Lenis smooth scroll |
+| Thread paths | Anchor-driven, fitted at runtime — responsive by construction, no hand-drawn `d` per breakpoint |
 | Backend | **None.** Deferred. |
 | CMS | **None.** Deferred. Content lives in typed TS modules. |
 | Forms | Stubbed behind a `submitLead()` adapter that currently no-ops |
@@ -35,7 +36,7 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 
 | # | Item | Blocks | Urgency |
 |---|---|---|---|
-| 1 | Real photography or licensed stock | Final visual quality of every page | Before launch, not before build |
+| 1 | Real photography (Manan supplying) | Final visual quality of every page | Before launch. Build proceeds on placeholders. |
 | 2 | Home hero copy for the parent brand | Home hero implementation | Phase 2 |
 | 3 | Backend + CMS decision | Forms actually working, catalogue being editable | Before launch |
 | 4 | Hindi copy + Devanagari display face | The IN toggle | Post-launch |
@@ -44,7 +45,13 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 | 7 | Real testimonials + review count | Reviews section (deck's 4.9/5, 120+ is placeholder) | Before launch |
 | 8 | Confirm licensed brand fonts, if any exist | Type swap | Anytime |
 
-**Asset reality check.** The 6 PDF boards are single flattened JPEGs, ~1500px wide, ~290KB each. No layers, no live text, no vectors — AI-generated concept renders. Nothing is extractable. Every photo, icon, torn edge, and word is being rebuilt from scratch against the render as reference. A textile brand ultimately has to show its own cloth; stock and placeholders are a bridge, not a destination.
+**Asset reality check.** The 6 PDF boards are single flattened JPEGs, ~1500px wide, ~290KB each. No layers, no live text, no vectors — AI-generated concept renders. Nothing is extractable. Every photo, icon, torn edge, and word is being rebuilt from scratch against the render as reference.
+
+**Placeholder policy (agreed).** Build proceeds on placeholders; real assets land later. To keep the swap a non-event:
+- Every image goes through `assets/registry.ts` — components reference a key, never a path.
+- Each entry declares its **final intended aspect ratio**, and the placeholder is generated at exactly that ratio. Layouts are then already correct when real photos arrive; nothing reflows.
+- Placeholders are generated in the brand palette (ivory / greige / navy / brass) with the asset key printed on them, so an un-swapped image is obvious in review rather than passing as a design choice.
+- `pnpm assets:check` fails the build if any registry entry still points at a placeholder while `VITE_STRICT_ASSETS=1` — flip that on for production builds so placeholders cannot ship by accident.
 
 ---
 
@@ -112,9 +119,31 @@ One continuous navy stroke with a needle at its head. It enters every page at th
 ### Implementation
 
 - `<ThreadCanvas>` — one fixed-position, full-height inline SVG per route, `pointer-events: none`, sitting in a dedicated z-index band.
-- Path geometry is **hand-drawn in Figma over the real built layout**, then exported as a `d` string into `docs/threads/<route>.<bp>.svg` and imported as a constant. Two breakpoints only: `desktop` (≥1024) and `mobile` (<1024).
-- Each section is a **fixed-aspect, max-width container**, so the SVG scales uniformly with `preserveAspectRatio` rather than reflowing. This is the constraint that makes hand-drawn paths survive responsive layouts — **do not break it.**
+- Path geometry is **generated at runtime from anchors placed in the markup.** No hand-drawn `d` strings, no fixed-aspect containers, no breakpoint files to maintain.
 - Drawing = `strokeDasharray`/`strokeDashoffset` scrubbed by ScrollTrigger (`scrub: 1`) against the page's scroll progress.
+
+#### Anchor-driven paths
+
+A section declares where the thread should pass by dropping markers into its own markup:
+
+```tsx
+<ThreadAnchor id="hero-cone"    side="left"   offset={[0, 12]} tension={0.8} />
+<ThreadAnchor id="hero-script"  side="center" band="front" />
+<ThreadAnchor id="about-rule"   side="right"  offset={[-40, 0]} />
+```
+
+At runtime `useThreadPath()` measures each anchor's document position, sorts by Y, and fits a Catmull-Rom spline through the points, emitted as a cubic-bezier `d` string. A `ResizeObserver` on `<body>` recomputes and calls `ScrollTrigger.refresh()` on layout change, debounced.
+
+Why this is the easier system:
+
+- **Layout changes can't break it.** Move a section, change a font, let a headline wrap to three lines — the anchors move with their content and the curve refits. Nothing to redraw.
+- **One code path for every breakpoint.** Mobile falls out for free: anchors stack vertically at narrow widths, so the curve naturally becomes the vertical serpentine we wanted. No second `d` string, no separate mobile file.
+- **Anchors live next to the content they relate to**, so it's obvious in the JSX why the thread bends where it does.
+- **Steering knobs where you need them:** `offset` nudges a waypoint in px, `tension` controls how tightly the spline hugs it, `band` sets front/behind layering per-segment. Nine times out of ten the default curve is right; the knobs handle the tenth.
+
+**The one trade-off:** a fitted spline cannot trace the exact flourish of the script word "Crafted for" the way a hand-drawn path could. Mitigation — that word ships as an inline SVG rather than live text (we're using a stand-in script font anyway), so the thread can simply *join* the letterform's own stroke at a shared endpoint. One bespoke case, on one word, on one page. Everywhere else the generated curve is indistinguishable from a drawn one.
+
+If a specific curve ever proves impossible to steer with anchors, `<ThreadCanvas>` accepts an optional `d` override for that route — the escape hatch exists, but it should stay unused.
 - The needle rides the path head via `MotionPathPlugin` with `autoRotate: true`.
 - Z-index bands are explicit and global:
 
@@ -130,7 +159,7 @@ One continuous navy stroke with a needle at its head. It enters every page at th
 
 ### Mobile
 
-A separate, simpler `d`: a gentle vertical serpentine down the page, far fewer curve segments. Same scrub, same needle. Not the desktop path scaled down.
+Falls out of the anchor system automatically — at narrow widths the anchors stack vertically and the fitted curve becomes a gentle serpentine down the page. Sections can opt an anchor out below a breakpoint (`hideBelow="lg"`) to thin the curve where it would get busy. Same scrub, same needle, no second path to maintain.
 
 ### Page transition
 
@@ -144,6 +173,8 @@ On nav click: needle accelerates to the right edge, dragging the remaining strok
 - SSR-safe: every GSAP call guarded, initialised in `useLayoutEffect` via `gsap.context()` with cleanup.
 
 ### Per-route thread choreography
+
+Anchor positions per route (the choreography below) are still a design decision — the system just means expressing it is a prop, not a redraw.
 
 | Route | Enters | Weaves through | Exits |
 |---|---|---|---|
@@ -297,8 +328,9 @@ Backend + CMS. Forms transmit. Catalogue becomes editable. Hindi.
 
 | Risk | Severity | Mitigation |
 |---|---|---|
-| Assets never materialise and placeholders ship | High | Registry makes the swap cheap, but a fabric brand showing stock cotton is a credibility problem. Set a date. |
-| Thread paths need redrawing every layout tweak | High | Fixed-aspect max-width section containers. Draw paths only after a layout is signed off. |
+| Assets never materialise and placeholders ship | Medium | Registry makes the swap a folder drop. Manan is supplying real assets later; placeholders are the agreed bridge. Still: don't launch a fabric brand on stock cotton. |
+| Generated curve looks mechanical, not designed | Medium | Anchor `offset`/`tension` knobs, plus the per-route `d` override as a last resort. Review the curve on every route before sign-off — "responsive by construction" is worth nothing if it's ugly. |
+| `ScrollTrigger.refresh()` thrashing on resize | Low | Debounce the `ResizeObserver`, skip refits under a 4px delta, never refit mid-scroll. |
 | Home hero complexity blows the schedule | Medium | It is deliberately Phase 2's whole scope. Do not add routes in parallel. |
 | Scroll scrub janks on mid-range Android | Medium | Simplified mobile path, `will-change` discipline, no scrubbed layout properties, test on a real device not a throttled desktop. |
 | "Modern Man" copy leaks into parent-brand pages | Medium | The brand split is a content decision, not a code one. Copy review before Phase 3. |
