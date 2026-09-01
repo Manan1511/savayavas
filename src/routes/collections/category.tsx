@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
 import { Seo } from '@/components/Seo'
+import { Reveal } from '@/motion'
 import { site } from '@/content/site.en'
 
 /**
@@ -31,9 +32,11 @@ export function Component() {
       />
 
       <div className="mx-auto max-w-(--container-content) px-(--spacing-gutter) py-24">
-        <Eyebrow>Collection</Eyebrow>
-        <h1 className="mt-4 text-5xl uppercase sm:text-6xl">{category.name}</h1>
-        <p className="u-prose mt-6">{category.description}</p>
+        <Reveal>
+          <Eyebrow>Collection</Eyebrow>
+          <h1 className="mt-4 text-5xl uppercase sm:text-6xl">{category.name}</h1>
+          <p className="u-prose mt-6">{category.description}</p>
+        </Reveal>
 
         <div className="mt-14 border-t border-greige pt-6">
           <Eyebrow>Planned sections</Eyebrow>

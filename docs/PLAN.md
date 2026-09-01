@@ -138,6 +138,20 @@ Built from straight lines on a strict percentage grid: it renders crisply at any
 
 A bolt-unroll reveal was built and removed. A travelling wipe across an image reads as a slide transition, however it is dressed — and restraint around photography is most of what separates a premium site from a busy one. Images simply present themselves.
 
+### Reveal on scroll — `Reveal`
+
+A short rise and fade as a section enters view: 14px of travel, 0.7s, once, never reversed. Deliberately restrained, and deliberately uniform across the site so it reads as the page waking up rather than as a set of effects.
+
+`stagger` animates an element's direct children in sequence instead of the block as a whole, for card grids and pillar rows.
+
+The hidden state is applied from JS in a layout effect, never from the markup, so prerendered HTML stays fully visible if JavaScript never runs. Verified against the built pages.
+
+### Interaction
+
+Hover is where the rest of the life lives, since it costs nothing until asked for: nav links grow a brass rule from the left, card arrows slide, cards warm to ivory, pillar rings brighten. All 300–400ms, all colour or 1–4px of travel.
+
+The mobile menu's two bars cross into an X rather than swapping for a close icon, opens on a grid-rows transition to its natural height, staggers its items in, locks page scroll, and closes on Escape or navigation.
+
 ### Rules
 
 - Respects `prefers-reduced-motion`: content renders immediately, with no threads and no animation.

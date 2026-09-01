@@ -1,5 +1,6 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
+import { Reveal } from '@/motion'
 import { home } from '@/content/home.en'
 
 export function About() {
@@ -7,7 +8,7 @@ export function About() {
     <Section tone="ivory" className="py-20 sm:py-28">
       <Container>
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-          <div className="relative">
+          <Reveal className="relative">
             <Eyebrow>{home.about.eyebrow}</Eyebrow>
 
             <h2 className="relative mt-5 text-4xl uppercase leading-[1.05] sm:text-5xl">
@@ -25,13 +26,16 @@ export function About() {
                 </p>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          <div className="relative grid grid-cols-2 gap-x-6 gap-y-10 self-center sm:grid-cols-4 lg:gap-x-4">
+          <Reveal
+            stagger
+            className="relative grid grid-cols-2 gap-x-6 gap-y-10 self-center sm:grid-cols-4 lg:gap-x-4"
+          >
             {home.pillars.items.map((pillar, i) => (
               <Pillar key={pillar.title} index={i} title={pillar.title} body={pillar.body} />
             ))}
-          </div>
+          </Reveal>
         </div>
       </Container>
     </Section>
@@ -40,8 +44,8 @@ export function About() {
 
 function Pillar({ index, title, body }: { index: number; title: string; body: string }) {
   return (
-    <div className="text-center">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-brass/45">
+    <div className="group text-center">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-brass/45 transition-colors duration-500 group-hover:border-brass">
         <PillarIcon index={index} />
       </div>
       <h3 className="mt-4 text-[0.6875rem] uppercase leading-snug tracking-(--tracking-eyebrow) text-ink">

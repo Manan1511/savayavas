@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
+import { Reveal } from '@/motion'
 import { site } from '@/content/site.en'
 
 /**
@@ -20,7 +21,7 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
   return (
     <Section tone={tone} className="py-20 sm:py-24">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_2fr] lg:gap-16">
+        <Reveal className="grid gap-12 lg:grid-cols-[0.8fr_2fr] lg:gap-16">
           <div>
             <Eyebrow>{eyebrow}</Eyebrow>
             <h2 className="mt-4 text-3xl uppercase leading-tight sm:text-4xl">{headline}</h2>
@@ -69,7 +70,7 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
               </CarouselButton>
             </div>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </Section>
   )
