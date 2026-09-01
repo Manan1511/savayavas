@@ -36,10 +36,10 @@ const PHRASE = 'The same cloth,'
  */
 const FONT = 'scripts'
 /**
- * Extra space between glyphs, in font units. Hershey cursive sets very tight,
- * which runs adjacent letters together — "cl" reads as "d" without this.
+ * Gap between glyphs, in font units, measured from the previous glyph's right
+ * edge — not added to a nominal advance. See `strokesFor`.
  */
-const TRACKING = 3.2
+const TRACKING = 2.2
 /**
  * Curve slack when refitting.
  *
@@ -57,7 +57,7 @@ if (!font) throw new Error(`Unknown Hershey font "${FONT}"`)
 
 /** Hershey stores glyphs as M/L polylines. Pull them apart into point runs. */
 function strokesFor(char) {
-  if (char === ' ') return { strokes: [], advance: 8 }
+  if (char === ' ') return { strokes: [], advance: 7 }
   const glyph = font.chars[char.charCodeAt(0) - 33]
   if (!glyph) throw new Error(`No glyph for ${JSON.stringify(char)} in ${FONT}`)
 
@@ -71,7 +71,15 @@ function strokesFor(char) {
     }
     if (pts.length > 0) strokes.push(pts)
   }
-  return { strokes, advance: glyph.o }
+
+  // Advance by the glyph's own right edge, NOT by its `o` field.
+  //
+  // `o` is the half-width: the ink runs from 0 to roughly 2*o, so advancing by
+  // `o` placed every letter halfway inside the next one. That is why "m" ran
+  // into "e" and "same" read as a smear. Measuring the ink cannot overlap,
+  // whatever the font.
+  const right = Math.max(0, ...strokes.flat().map((p) => p.x))
+  return { strokes, advance: right }
 }
 
 /** Catmull-Rom through every point, emitted as cubic beziers. */

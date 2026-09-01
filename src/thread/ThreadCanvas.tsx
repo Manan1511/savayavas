@@ -17,6 +17,12 @@ interface Segment {
 const DRAW_SECONDS = 8.5
 
 /**
+ * Fixed tilt of the needle, in degrees, tip pointing down-left toward the
+ * paper. Held constant on purpose — see the note where it is applied.
+ */
+const NEEDLE_ANGLE = -38
+
+/**
  * Draws the thread.
  *
  * Geometry is measured from anchors at runtime rather than hand-authored, so a
@@ -190,13 +196,15 @@ export function ThreadCanvas() {
 
       const { p, at } = head as { p: SVGPathElement; at: number }
       const pt = p.getPointAtLength(at)
-      const ahead = p.getPointAtLength(Math.min(at + 1, p.getTotalLength()))
-      const angle = (Math.atan2(ahead.y - pt.y, ahead.x - pt.x) * 180) / Math.PI
       // The head's own path may be scaled and offset, so map into page space.
       const m = p.getCTM()
       const x = m ? m.a * pt.x + m.c * pt.y + m.e : pt.x
       const y = m ? m.b * pt.x + m.d * pt.y + m.f : pt.y
-      needle.setAttribute('transform', `translate(${x} ${y}) rotate(${angle})`)
+      // Held at a fixed angle rather than rotated to the stroke's tangent.
+      // Cursive reverses direction constantly, so a tangent-aligned needle
+      // spins on every upstroke and reads as dancing. A real hand keeps the
+      // needle at a steady angle and moves it across the cloth.
+      needle.setAttribute('transform', `translate(${x} ${y}) rotate(${NEEDLE_ANGLE})`)
       needle.style.opacity = '1'
     }
 
