@@ -25,14 +25,14 @@ export const routes: RouteRecord[] = [
             eyebrow="Our World. Our People."
             title="Our Story"
             path="/our-story"
-            description="Three brothers, one mill, three decades of thread — and the second generation carrying it forward."
+            description="Three brothers, one mill, three decades of thread, and the second generation carrying it forward."
             sections={[
-              'Header with thread terminus',
-              'Three brothers — Arvind, Vinod and Paresh Parmar',
-              'The name: सावयव + वस् — Various Types of Fabrics',
-              'The second generation — Priyank and Sherin Parmar',
+              'Header',
+              'Three brothers: Arvind, Vinod and Paresh Parmar',
+              'The name: सावयव + वस्, meaning Various Types of Fabrics',
+              'The second generation: Priyank and Sherin Parmar',
               'The VAS origin',
-              'Tribe wall — poster grid with lightbox',
+              'Tribe wall: poster grid with lightbox',
             ]}
           />
         ),
@@ -47,9 +47,9 @@ export const routes: RouteRecord[] = [
             description="Cotton, linen and performance-engineered blends, built on one principle: consistency at scale."
             sections={[
               'Materials that speak for themselves',
-              'Consistency at scale — positioning',
+              'Positioning: consistency at scale',
               'The five fabric categories',
-              'Crafted with purpose — spinning, weaving, finishing',
+              'Crafted with purpose: spinning, weaving, finishing',
               'Manufactured under Shubh Shantinath Silk Mills',
               'Catalogue PDF download',
             ]}
@@ -69,13 +69,13 @@ export const routes: RouteRecord[] = [
             eyebrow="Our Quality"
             title="VAS"
             path="/vas"
-            description="Our menswear shirting line — and the first full expression of everything Savayavas stands for."
+            description="Our menswear shirting line, and the first full expression of everything Savayavas stands for."
             sections={[
-              'Hero — Crafted for the Modern Man',
+              'Hero: Crafted for the Modern Man',
               'What VAS is, and the Vas root',
               'Quality you can feel. Standards you can trust.',
               'Five quality pillars',
-              'Quality in every detail — five test tiles',
+              'Quality in every detail: five test tiles',
               'Standards and commitment stats band',
             ]}
           />
@@ -95,7 +95,7 @@ export const routes: RouteRecord[] = [
               'What dealers get',
               'Three-step onboarding',
               'Pricing structure inquiry',
-              'Export terms — advance payment only',
+              'Export terms: advance payment only',
               'Reviews',
               'FAQ and CTA',
             ]}
@@ -123,10 +123,10 @@ export const routes: RouteRecord[] = [
             path="/contact"
             description="Trade and export inquiries, and where to find us in Surat."
             sections={[
-              'Header — the thread ends here',
+              'Header',
               'Reviews',
               'Get in touch',
-              'Visit us — address and static map',
+              'Visit us: address and static map',
               'Trade inquiry form',
               'Export inquiry form',
             ]}

@@ -20,7 +20,7 @@ export interface SeoProps {
  */
 export function Seo({ title, description, path, image = '/og/default.jpg', type = 'website' }: SeoProps) {
   const url = `${SITE_URL}${path}`
-  const fullTitle = path === '/' ? `${site.brand.name} — ${site.brand.tagline}` : `${title} · ${site.brand.name}`
+  const fullTitle = path === '/' ? `${site.brand.name} · ${site.brand.tagline}` : `${title} · ${site.brand.name}`
   const imageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`
 
   return (

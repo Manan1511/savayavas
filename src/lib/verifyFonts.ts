@@ -23,8 +23,8 @@ export async function verifyFonts(): Promise<void> {
   if (missing.length > 0) {
     console.error(
       `[fonts] Not loaded: ${missing.join(', ')}.\n` +
-        'The page is rendering system fallbacks. Check the stylesheet <link> in index.html — ' +
-        'note that an @import in a CSS file processed by Tailwind v4 will be silently dropped.',
+        'The page is rendering system fallbacks. Check the stylesheet <link> in index.html. ' +
+        'Note that an @import in a CSS file processed by Tailwind v4 will be silently dropped.',
     )
   }
 }

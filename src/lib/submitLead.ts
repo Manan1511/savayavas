@@ -42,7 +42,7 @@ export const LEAD_TRANSPORT_CONFIGURED = false
 export async function submitLead(lead: Lead): Promise<LeadResult> {
   if (!LEAD_TRANSPORT_CONFIGURED) {
     if (import.meta.env.DEV) {
-      console.info('[submitLead] no transport configured — captured locally:', lead)
+      console.info('[submitLead] no transport configured, captured locally:', lead)
     }
     return {
       status: 'not-configured',

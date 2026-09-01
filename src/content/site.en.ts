@@ -86,13 +86,13 @@ export const site = {
       slug: 'cotton',
       name: '100% Cotton',
       description:
-        'The foundation of our range. Pure cotton fabrics engineered for breathability, colorfastness, and consistent hand-feel across every batch — suited to everyday formal and casual shirting alike, and a proven choice for high-volume manufacturing.',
+        'The foundation of our range. Pure cotton fabrics engineered for breathability, colorfastness, and consistent hand-feel across every batch. Suited to everyday formal and casual shirting alike, and a proven choice for high-volume manufacturing.',
     },
     {
       slug: 'lyocell-cotton',
       name: 'Lyocell Cotton',
       description:
-        'A refined cotton blend that brings a softer drape and a subtle sheen without compromising durability. Increasingly sought after by brands looking to offer a premium hand-feel at accessible price points — a fabric that performs on the cutting table and on the shelf.',
+        'A refined cotton blend that brings a softer drape and a subtle sheen without compromising durability. Increasingly sought after by brands looking to offer a premium hand-feel at accessible price points. A fabric that performs on the cutting table and on the shelf.',
     },
     {
       slug: 'linen',
@@ -110,7 +110,7 @@ export const site = {
       slug: 'fashion-polyesters',
       name: 'Fashion Polyesters',
       description:
-        'Designed for pattern, color, and finish versatility — built for brands and manufacturers chasing trend cycles without compromising on fabric reliability. Ideal for seasonal and fast-turnaround collections.',
+        'Designed for pattern, color, and finish versatility, and built for brands and manufacturers chasing trend cycles without compromising on fabric reliability. Ideal for seasonal and fast-turnaround collections.',
     },
   ],
 } as const

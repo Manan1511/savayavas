@@ -40,7 +40,7 @@ export function Component() {
           <ol className="u-prose mt-4 space-y-2">
             {[
               'Category hero',
-              'Specification table — composition, GSM, width, weave, finish',
+              'Specification table: composition, GSM, width, weave, finish',
               'Fabric and colourway grid',
               'Who this is for',
               'Related categories',

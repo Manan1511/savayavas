@@ -23,7 +23,7 @@ export const home = {
     headline: ['Woven with purpose.', 'Made to inspire.'],
     body: [
       'Savayavas & Co. is a premium textile house specialising in exceptional shirting fabrics. We blend three decades of manufacturing tradition with innovation, to create fabrics that speak of quality, comfort and quiet luxury.',
-      'From the world’s finest cottons, linens and blends to our refined designs and meticulous finishing — every detail reflects a commitment to craftsmanship and timeless style.',
+      'From the world’s finest cottons, linens and blends to our refined designs and meticulous finishing. Every detail reflects a commitment to craftsmanship and timeless style.',
       'We don’t just make fabrics. We weave stories that last.',
     ],
   },
@@ -58,13 +58,13 @@ export const home = {
     },
     story: {
       headline: 'Our Story',
-      body: 'Three brothers, one mill, three decades of thread — and the second generation carrying it forward.',
+      body: 'Three brothers, one mill, three decades of thread, and the second generation carrying it forward.',
       cta: { label: 'Read our story', to: '/our-story' },
     },
   },
 
   seo: {
     description:
-      'Savayavas & Co. — premium shirting fabrics with consistent quality at scale. Cotton, linen and engineered blends for traders, manufacturers and menswear brands. Manufactured under Shubh Shantinath Silk Mills, Surat.',
+      'Savayavas & Co. Premium shirting fabrics with consistent quality at scale. Cotton, linen and engineered blends for traders, manufacturers and menswear brands. Manufactured under Shubh Shantinath Silk Mills, Surat.',
   },
 } as const

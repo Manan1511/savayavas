@@ -65,7 +65,7 @@ export const assets = {
 
   // --- Contact -----------------------------------------------------------
   'contact.fabric-fold': P('contact-fabric-fold', 3 / 2, 'Folded textured fabrics in neutral tones', 'Soft neutral fabric folds, calm and quiet.'),
-  'contact.map': P('contact-map', 3 / 2, 'Map showing the Savayavas & Co. showroom in Surat', 'Static map export. Deliberately not a live embed — see docs/PLAN.md.'),
+  'contact.map': P('contact-map', 3 / 2, 'Map showing the Savayavas & Co. showroom in Surat', 'Static map export. Deliberately not a live embed. See docs/PLAN.md.'),
 } as const satisfies Record<string, AssetEntry>
 
 export type AssetKey = keyof typeof assets

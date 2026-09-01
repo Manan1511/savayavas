@@ -15,7 +15,7 @@ export function Nav() {
         <Link
           to="/"
           className="whitespace-nowrap font-(family-name:--font-display) text-base tracking-[0.05em] text-ink sm:text-xl sm:tracking-[0.06em]"
-          aria-label={`${site.brand.name} — home`}
+          aria-label={`${site.brand.name}, home`}
         >
           SAVAYAVAS &amp; CO
         </Link>
