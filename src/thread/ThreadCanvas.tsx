@@ -17,16 +17,6 @@ interface Segment {
 const DRAW_SECONDS = 8.5
 
 /**
- * How much of that time the handwriting gets, regardless of how long the
- * lead-in and tail are.
- *
- * Budgeting purely by path length lets a long approach curve eat the clock and
- * makes the writing rush past — the writing is the moment, the line into it is
- * just arrival. This weights the timeline toward the words.
- */
-const LETTERING_TIME_SHARE = 0.72
-
-/**
  * Draws the thread.
  *
  * Geometry is measured from anchors at runtime rather than hand-authored, so a
@@ -34,9 +24,12 @@ const LETTERING_TIME_SHARE = 0.72
  * zoom — refits the curve instead of breaking it. See docs/PLAN.md §5.
  *
  * A run of anchors becomes a fitted curve; a `ThreadLettering` becomes the
- * glyph outlines of a phrase. Both are segments of one stroke, drawn by one
- * progress value, so the needle draws a line, writes a word, and carries on
- * without a seam.
+ * single-stroke centreline of a phrase. Both are segments of one stroke driven
+ * by one progress value.
+ *
+ * The hero uses lettering alone, with no approach or exit line: a travelling
+ * line advertises its own direction and reads as something dancing across the
+ * page. Only the handwriting should draw.
  *
  * The draw is an intro that plays once on landing — not a scroll scrub. It is
  * the brand's opening gesture and should perform on arrival.
@@ -62,7 +55,10 @@ export function ThreadCanvas() {
 
     const measure = () => {
       const anchors = [...registry.anchorsRef.current.values()]
-      if (anchors.length < 2) {
+      // One lettering node is already a complete figure; only plain waypoints
+      // need a partner before they can describe a curve.
+      const enough = anchors.length >= 2 || anchors.some((a) => a.lettering)
+      if (!enough) {
         setSegments([])
         return
       }
@@ -86,7 +82,7 @@ export function ThreadCanvas() {
           return a.entry.y - b.entry.y
         })
 
-      if (placed.length < 2) {
+      if (placed.length === 0) {
         setSegments([])
         return
       }
@@ -157,19 +153,7 @@ export function ThreadCanvas() {
     // scale applied to lettering, so time is budgeted by what the eye sees.
     const local = ordered.map((p) => p.getTotalLength())
     const scales = ordered.map((p) => Number(p.dataset.scale ?? 1))
-    const isLettering = ordered.map((p) => p.dataset.lettering === 'true')
-    const visual = local.map((len, i) => len * scales[i]!)
-
-    // Re-weight so the writing owns most of the timeline rather than competing
-    // with the approach curve on raw length alone.
-    const letteringLen = visual.reduce((a, b, i) => (isLettering[i] ? a + b : a), 0)
-    const restLen = visual.reduce((a, b, i) => (isLettering[i] ? a : a + b), 0)
-    const weights = visual.map((len, i) => {
-      if (letteringLen === 0 || restLen === 0) return len
-      return isLettering[i]
-        ? (len / letteringLen) * LETTERING_TIME_SHARE
-        : (len / restLen) * (1 - LETTERING_TIME_SHARE)
-    })
+    const weights = local.map((len, i) => len * scales[i]!)
 
     const total = weights.reduce((a, b) => a + b, 0)
     if (total === 0) return

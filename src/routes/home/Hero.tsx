@@ -1,9 +1,8 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
-import { ThreadAnchor, ThreadLettering } from '@/thread'
+import { ThreadLettering } from '@/thread'
 import { heroScriptLettering } from '@/content/heroLettering'
-import { useViewportWidth, clamp } from '@/lib/motion'
 import { home } from '@/content/home.en'
 
 /**
@@ -15,12 +14,6 @@ import { home } from '@/content/home.en'
  * as a single sentence and should be announced as one.
  */
 export function Hero() {
-  const vw = useViewportWidth()
-  // ~4% of viewport width, held between a readable minimum and a tasteful
-  // maximum. Falls back to the mid value before the first client measurement so
-  // the prerendered markup is never width-dependent.
-  const amp = vw === 0 ? 34 : clamp(vw * 0.04, 24, 80)
-
   return (
     <Section className="overflow-hidden pb-20 pt-10 sm:pb-28">
 
@@ -50,26 +43,17 @@ export function Hero() {
           <h1 className="mt-5">
             {/* The script line is not text on the page — it is the thread.
                 The needle arrives from the left, writes the phrase in its own
-                stroke as a single-stroke centreline, and carries on out to
-                the right. The words stay available to assistive tech and to
-                search engines via the visually-hidden span below. */}
+                stroke as a single-stroke centreline.
+
+                There is deliberately no lead-in or tail line: a travelling
+                line exposes the direction of motion and reads as something
+                dancing across the page, not as a hand writing. The only thing
+                that draws is the handwriting itself. The words stay available
+                to assistive tech and search engines via the hidden span. */}
             <span className="sr-only">{home.hero.script}</span>
 
             <span className="relative block max-w-2xl">
               <ThreadLettering id="hero-script" order={2} source={heroScriptLettering} band="front" />
-              {/* Lead-in from the page's left edge, and the tail that leaves to
-                  the right once the word is written. Amplitude scales with
-                  viewport width so the gesture reads the same on a phone and on
-                  a wide desktop. Every node is numbered because the figure
-                  rises as well as falls, and Y-sorting could only descend. */}
-              {/* Lead-in from the page's left edge, and the tail that leaves to
-                  the right after the word is written. Amplitude scales with
-                  viewport width so the gesture reads the same on a phone and
-                  on a wide desktop. */}
-              <ThreadAnchor id="hero-in-1" order={0} side="left" offset={[-40, amp * 0.4]} band="front" />
-              <ThreadAnchor id="hero-in-2" order={1} side={0.06} offset={[0, -amp * 0.5]} band="front" tension={1.4} />
-              <ThreadAnchor id="hero-out-1" order={3} side={0.9} offset={[0, -amp * 0.6]} band="front" tension={1.4} />
-              <ThreadAnchor id="hero-out-2" order={4} side="right" offset={[40, amp * 0.3]} band="behind" />
             </span>
             <span className="mt-2 block text-5xl uppercase leading-[0.95] sm:text-6xl lg:text-7xl">
               {home.hero.headline}

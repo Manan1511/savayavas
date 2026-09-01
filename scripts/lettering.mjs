@@ -39,9 +39,15 @@ const FONT = 'scripts'
  * Extra space between glyphs, in font units. Hershey cursive sets very tight,
  * which runs adjacent letters together — "cl" reads as "d" without this.
  */
-const TRACKING = 2.4
-/** Curve slack when refitting. Above 1 loosens the hand. */
-const TENSION = 1.1
+const TRACKING = 3.2
+/**
+ * Curve slack when refitting.
+ *
+ * Kept below 1 on purpose: higher values round the small humps off, and in
+ * cursive that is the difference between an m and an n — "same" was reading as
+ * "sane". Low tension stays faithful to the glyph's own points.
+ */
+const TENSION = 0.8
 
 const fonts = JSON.parse(
   await readFile(join(root, 'node_modules/hersheytext/hersheytext.json'), 'utf8'),
