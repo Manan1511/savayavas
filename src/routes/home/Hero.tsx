@@ -50,7 +50,7 @@ export function Hero() {
           <h1 className="mt-5">
             {/* The script line is not text on the page — it is the thread.
                 The needle arrives from the left, writes the phrase in its own
-                stroke using the real Allura outlines, and carries on out to
+                stroke as a single-stroke centreline, and carries on out to
                 the right. The words stay available to assistive tech and to
                 search engines via the visually-hidden span below. */}
             <span className="sr-only">{home.hero.script}</span>

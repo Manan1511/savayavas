@@ -18,9 +18,8 @@
   /* Stand-ins for the brand faces. Swapping to licensed fonts is a
      one-line change here plus the @font-face blocks in fonts.css. */
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  /* Closest free match to the deck's flowing thick-thin calligraphy.
-     Parisienne is the warmer, rounder alternative if this reads too fine. */
-  --font-script: 'Allura', 'Playfair Display', cursive;
+  /* No script webfont: the deck's script line is drawn by the thread itself,
+     from a single-stroke Hershey centreline (scripts/lettering.mjs). */
   --font-body: 'Jost', ui-sans-serif, system-ui, sans-serif;
   --font-deva: 'Noto Serif Devanagari', 'Playfair Display', serif;
 

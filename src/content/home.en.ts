@@ -10,7 +10,7 @@
 export const home = {
   hero: {
     eyebrow: 'Various Types of Fabrics',
-    /** Script line, set in Allura. Short connective phrase by design. */
+    /** Script line — drawn by the thread itself, not set in a font. */
     script: 'The same cloth,',
     /** All-caps Didone anchor. The line that has to survive a three-second skim. */
     headline: 'Every Single Batch',
