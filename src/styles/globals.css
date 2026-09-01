@@ -1,14 +1,30 @@
 @import 'tailwindcss';
 @import './tokens.css';
 
-/* Fonts are loaded from Google Fonts during development. Before launch these
-   get self-hosted as subset woff2 — see docs/PLAN.md §8 Phase 4. */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Jost:ital,wght@0,200..700;1,200..700&family=Petit+Formal+Script&family=Noto+Serif+Devanagari:wght@400..700&display=swap');
+/* Fonts are loaded via <link> in index.html, NOT with @import here.
+   Tailwind v4 inlines its own @import, which pushes any later @import out of
+   first position — CSS then treats it as invalid and drops it silently, and
+   every face falls back to a system font that looks close enough to miss.
+   Before launch these get self-hosted as subset woff2 — see PLAN.md Phase 4. */
 
 @layer base {
   html {
     /* Lenis drives scrolling; native smooth scroll would fight it. */
     scroll-behavior: auto;
+
+    /* Reserve the scrollbar gutter always. Without this the fixed full-bleed
+       header sizes to the viewport *including* the scrollbar while the
+       document's clientWidth excludes it, which produces a few px of
+       horizontal overflow. It also stops the page shifting sideways when the
+       lightbox locks scrolling. */
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    /* Guard rail: the page must never scroll horizontally (docs/PLAN.md).
+       `clip` rather than `hidden` — `hidden` would silently break
+       position: sticky and ScrollTrigger pinning. */
+    overflow-x: clip;
   }
 
   body {

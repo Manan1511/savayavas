@@ -18,7 +18,9 @@
   /* Stand-ins for the brand faces. Swapping to licensed fonts is a
      one-line change here plus the @font-face blocks in fonts.css. */
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
-  --font-script: 'Petit Formal Script', 'Playfair Display', cursive;
+  /* Closest free match to the deck's flowing thick-thin calligraphy.
+     Parisienne is the warmer, rounder alternative if this reads too fine. */
+  --font-script: 'Allura', 'Playfair Display', cursive;
   --font-body: 'Jost', ui-sans-serif, system-ui, sans-serif;
   --font-deva: 'Noto Serif Devanagari', 'Playfair Display', serif;
 

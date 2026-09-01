@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
+import { verifyFonts } from '@/lib/verifyFonts'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { OrganizationSchema } from '@/components/Seo'
@@ -6,6 +8,10 @@ import { SmoothScroll } from '@/app/providers/SmoothScroll'
 import { site } from '@/content/site.en'
 
 export default function RootLayout() {
+  useEffect(() => {
+    void verifyFonts()
+  }, [])
+
   return (
     <SmoothScroll>
       <OrganizationSchema />
