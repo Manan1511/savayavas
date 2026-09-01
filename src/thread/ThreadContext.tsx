@@ -44,7 +44,7 @@ export interface RegisteredAnchor extends ThreadAnchorOptions {
   /** Present when this node spells a phrase instead of being a curve waypoint. */
   lettering?: {
     phrase: string
-    d: string
+    strokes: readonly string[]
     viewBox: string
     width: number
     height: number

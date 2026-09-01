@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: pre-scaffold. No code written yet. This document is the contract.
+Status: Phase 1 complete, Phase 2 (Home) in progress. This document is the contract.
 
 ---
 
@@ -11,8 +11,8 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 | Framework | React 19 + Vite 8 + TypeScript 7, **React Router 6** |
 | Rendering | `vite-react-ssg` — all static routes prerendered to HTML at build |
 | Styling | Tailwind v4, tokens as CSS custom properties in `@theme` |
-| Animation | GSAP (ScrollTrigger + MotionPath) + Lenis smooth scroll |
-| Thread paths | Anchor-driven, fitted at runtime — responsive by construction, no hand-drawn `d` per breakpoint |
+| Animation | GSAP + Lenis smooth scroll. The hero thread is an intro that plays once on landing, not a scroll scrub. |
+| Thread | Hero lettering drawn by the thread itself, single-stroke Hershey centreline, generated at author time |
 | Backend | **None.** Deferred. |
 | CMS | **None.** Deferred. Content lives in typed TS modules. |
 | Forms | Stubbed behind a `submitLead()` adapter that currently no-ops |
@@ -75,7 +75,8 @@ src/
   assets/         registry.ts + placeholder files
   styles/         tokens.css, fonts.css, globals.css
   lib/            submitLead(), analytics, hooks
-docs/             this file, thread path source SVGs
+scripts/          asset placeholders, lettering generator
+docs/             this file
 ```
 
 **Content contract.** Every route imports its copy from `content/<route>.en.ts`, typed. No string literals in JSX. This is what makes both the CMS swap and Hindi cheap later.
@@ -98,7 +99,7 @@ Sampled from the renders; treat as calibrated starting values, not gospel.
   --color-brass:      #A8845C;  /* eyebrow labels, icons, rules */
 
   --font-display:     "Playfair Display", Georgia, serif;
-  --font-script:      "Petit Formal Script", cursive;
+  /* No script webfont — the script line is drawn by the thread itself. */
   --font-body:        "Jost", system-ui, sans-serif;
 }
 ```
@@ -122,56 +123,34 @@ The single most important thing on this site. Everything else is a competent bra
 
 ### Model
 
-One continuous navy stroke with a needle at its head. It enters every page at the **left viewport edge at a fixed Y**, weaves through that page's content, and exits at the **right viewport edge at a fixed Y**. Because the entry/exit Y values are shared constants, navigation can be sold as continuous even though each route owns its own path.
+The hero's script line is not text with a thread near it — **the thread writes it**. A needle traces the phrase in a single continuous stroke, and that stroke *is* the words.
+
+There is deliberately **no lead-in or tail line**. A line travelling across the page advertises its own direction, so the eye follows the movement rather than the writing; it reads as something dancing across the hero. Only the handwriting draws.
 
 ### Implementation
 
-- `<ThreadCanvas>` — one fixed-position, full-height inline SVG per route, `pointer-events: none`, sitting in a dedicated z-index band.
-- Path geometry is **generated at runtime from anchors placed in the markup.** No hand-drawn `d` strings, no fixed-aspect containers, no breakpoint files to maintain.
-- Drawing = `strokeDasharray`/`strokeDashoffset` scrubbed by ScrollTrigger (`scrub: 1`) against the page's scroll progress.
+- `scripts/lettering.mjs` (`npm run lettering`) converts the phrase to a **single-stroke centreline** using the Hershey `scripts` engraving font, refitting each stroke as a Catmull-Rom spline. Output is committed to `src/content/heroLettering.ts`; visitors download no font and no generator.
+- **Not an outline font.** Stroking a glyph contour draws the outside edge of each letter — two parallel lines per stroke — which reads as hairline lettering, never as thread.
+- **Not a "complex" Hershey face.** Those fake weight with 3+ overlapping passes per glyph: it looks like scribbling, and a letter only becomes legible once its last pass lands.
+- **One `<path>` element per stroke.** SVG restarts the dash pattern at every subpath, so strokes sharing a path all dash *simultaneously* — every letter half-drawn at once. Separate elements are what allow sequential writing.
+- Drawing is `strokeDasharray`/`strokeDashoffset`, with one progress value walking the strokes in writing order.
+- The needle rides the head of the stroke being written, tip on the pen position, rotated to the tangent. Hidden before the first stroke and once the pen lifts.
+- Geometry is measured at runtime from a `ThreadLettering` node, so a resize or browser zoom refits rather than breaks.
 
-#### Anchor-driven paths
+### Tuning
 
-A section declares where the thread should pass by dropping markers into its own markup:
+| Knob | Where | Effect |
+|---|---|---|
+| `DRAW_SECONDS` | `ThreadCanvas.tsx` | Overall pace (currently 8.5s) |
+| `TENSION` | `lettering.mjs` | Curve slack. Above ~1 rounds the m's third hump into an n |
+| `TRACKING` | `lettering.mjs` | Letter spacing. Too tight and "cl" reads as "d" |
+| `FONT` | `lettering.mjs` | `scripts` (current), `cursive` |
 
-```tsx
-<ThreadAnchor id="hero-cone"    side="left"   offset={[0, 12]} tension={0.8} />
-<ThreadAnchor id="hero-script"  side="center" band="front" />
-<ThreadAnchor id="about-rule"   side="right"  offset={[-40, 0]} />
-```
+Timing is linear: a hand writing holds a steady pace, and any ease reads as rushing or stalling mid-word.
 
-At runtime `useThreadPath()` measures each anchor's document position, sorts by Y, and fits a Catmull-Rom spline through the points, emitted as a cubic-bezier `d` string. A `ResizeObserver` on `<body>` recomputes and calls `ScrollTrigger.refresh()` on layout change, debounced.
+### Elsewhere on the site
 
-Why this is the easier system:
-
-- **Layout changes can't break it.** Move a section, change a font, let a headline wrap to three lines — the anchors move with their content and the curve refits. Nothing to redraw.
-- **One code path for every breakpoint.** Mobile falls out for free: anchors stack vertically at narrow widths, so the curve naturally becomes the vertical serpentine we wanted. No second `d` string, no separate mobile file.
-- **Anchors live next to the content they relate to**, so it's obvious in the JSX why the thread bends where it does.
-- **Steering knobs where you need them:** `offset` nudges a waypoint in px, `tension` controls how tightly the spline hugs it, `band` sets front/behind layering per-segment. Nine times out of ten the default curve is right; the knobs handle the tenth.
-
-**The one trade-off:** a fitted spline cannot trace the exact flourish of the script word "Crafted for" the way a hand-drawn path could. Mitigation — that word ships as an inline SVG rather than live text (we're using a stand-in script font anyway), so the thread can simply *join* the letterform's own stroke at a shared endpoint. One bespoke case, on one word, on one page. Everywhere else the generated curve is indistinguishable from a drawn one.
-
-If a specific curve ever proves impossible to steer with anchors, `<ThreadCanvas>` accepts an optional `d` override for that route — the escape hatch exists, but it should stay unused.
-- The needle rides the path head via `MotionPathPlugin` with `autoRotate: true`.
-- Z-index bands are explicit and global:
-
-```
-0  page background / flat imagery
-10 THREAD-BEHIND   ← thread renders here on sections where it passes under photos
-20 photography, cards, torn-paper layers
-30 THREAD-FRONT    ← thread renders here where it crosses text
-40 text and UI
-50 nav, lightbox, needle-pull transition overlay
-```
-  A section declares which band its thread segment occupies. Where the thread must weave over *and* under within one section, the path is split into two sibling `<path>` elements sharing one dash-offset driver.
-
-### Mobile
-
-Falls out of the anchor system automatically — at narrow widths the anchors stack vertically and the fitted curve becomes a gentle serpentine down the page. Sections can opt an anchor out below a breakpoint (`hideBelow="lg"`) to thin the curve where it would get busy. Same scrub, same needle, no second path to maintain.
-
-### Page transition
-
-On nav click: needle accelerates to the right edge, dragging the remaining stroke offscreen; route swaps; the next page's thread draws in from the left at the same Y. Budget ~600ms total. Uses React Router's `useNavigate` with a deferred transition.
+Sections below the hero currently have no thread. The `ThreadAnchor` system (anchor-driven Catmull-Rom curves, explicit `order`, front/behind z-bands) remains available for per-section gestures.
 
 ### Non-negotiables
 

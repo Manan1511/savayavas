@@ -172,13 +172,18 @@ export function ThreadCanvas() {
         const w = weights[i]!
         const fraction = clamp01((drawn - consumed) / w)
         p.style.strokeDashoffset = `${local[i]! * (1 - fraction)}`
-        if (fraction > 0 && fraction < 1) head = { p, at: local[i]! * fraction }
+        // Any stroke with progress counts, and iteration order means the last
+        // such stroke wins — i.e. the furthest along. Requiring a fraction
+        // strictly between 0 and 1 made the needle blink out at every one of
+        // the stroke boundaries, which on a 21-stroke phrase is constant.
+        if (fraction > 0) head = { p, at: local[i]! * fraction }
         consumed += w
       })
 
       const needle = needleRef.current
       if (!needle) return
-      if (!head) {
+      // Hidden before the first stroke and once the pen lifts at the end.
+      if (!head || progress <= 0 || progress >= 0.999) {
         needle.style.opacity = '0'
         return
       }
@@ -289,12 +294,35 @@ export function ThreadCanvas() {
   )
 }
 
-/** Drawn pointing along +x, so the tangent rotation reads correctly. */
+/**
+ * A sewing needle, drawn pointing along +x so the tangent rotation aims it
+ * along the direction of travel.
+ *
+ * The tip sits exactly on the origin, because the origin is the pen position —
+ * anything extending past it would draw ahead of the stroke it is supposed to
+ * be making. The body and eye trail behind, into the part already written.
+ */
 function Needle() {
   return (
     <g>
-      <line x1={-18} y1={0} x2={5} y2={0} stroke="var(--color-navy)" strokeWidth={1.6} strokeLinecap="round" />
-      <ellipse cx={-12} cy={0} rx={3.4} ry={1.6} fill="none" stroke="var(--color-navy)" strokeWidth={1} />
+      <line
+        x1={-26}
+        y1={0}
+        x2={0}
+        y2={0}
+        stroke="var(--color-ink)"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+      />
+      <ellipse
+        cx={-20}
+        cy={0}
+        rx={3.6}
+        ry={1.7}
+        fill="none"
+        stroke="var(--color-ink)"
+        strokeWidth={1.1}
+      />
     </g>
   )
 }
@@ -308,7 +336,7 @@ interface Resolved {
   entry: Point
   /** Where it leaves. Same as entry for a plain anchor; the far side for lettering. */
   exit: Point
-  lettering?: { d: string; transform: string; scale: number }
+  lettering?: { strokes: readonly string[]; transform: string; scale: number }
 }
 
 function resolve(a: RegisteredAnchor, docW: number, scrollX: number, scrollY: number): Resolved {
@@ -332,7 +360,7 @@ function resolve(a: RegisteredAnchor, docW: number, scrollX: number, scrollY: nu
       entry: { x: tx + pen.x * scale, y: ty + pen.y * scale },
       exit: { x: tx + penEnd.x * scale, y: ty + penEnd.y * scale },
       lettering: {
-        d: a.lettering.d,
+        strokes: a.lettering.strokes,
         transform: `translate(${round(tx)} ${round(ty)}) scale(${round(scale, 4)})`,
         scale,
       },
@@ -390,16 +418,20 @@ function buildSegments(placed: readonly (Resolved & { anchor: RegisteredAnchor }
     const nodeBand: ThreadBand = node.anchor.band ?? band
 
     if (node.lettering) {
-      // Close the incoming curve at the word's left edge, write the word, then
-      // resume from its right edge.
+      // Close the incoming curve at the word's first pen position, then emit
+      // ONE SEGMENT PER STROKE. They must be separate path elements: SVG
+      // restarts the dash pattern at every subpath, so strokes sharing a path
+      // would all draw at once instead of one after another.
       run.push(node.entry)
       flush()
-      segments.push({
-        band: nodeBand,
-        d: node.lettering.d,
-        transform: node.lettering.transform,
-        scale: node.lettering.scale,
-      })
+      for (const d of node.lettering.strokes) {
+        segments.push({
+          band: nodeBand,
+          d,
+          transform: node.lettering.transform,
+          scale: node.lettering.scale,
+        })
+      }
       band = nodeBand
       run = [node.exit]
       continue

@@ -3,7 +3,8 @@ import { useThreadRegistry, type ThreadAnchorOptions } from './ThreadContext'
 
 export interface LetteringSource {
   phrase: string
-  d: string
+  /** One entry per pen stroke, in writing order. */
+  strokes: readonly string[]
   viewBox: string
   width: number
   height: number
