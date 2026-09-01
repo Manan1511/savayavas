@@ -47,6 +47,39 @@ export const site = {
     },
   },
 
+  /**
+   * ⚠️ PLACEHOLDER DATA — transcribed from the concept boards, which invented
+   * them. The rating, the review count and these three testimonials are not
+   * real and must be replaced or removed before launch. Publishing invented
+   * social proof is a genuine problem, not a design detail. See PLAN.md §8.
+   */
+  reviews: {
+    placeholder: true,
+    eyebrow: 'Kind Words',
+    headline: 'Trusted by those who value quality.',
+    intro: 'Our tribe inspires us to do better every day. Here’s what they have to say about their experience with Savayavas & Co.',
+    rating: '4.9',
+    ratingOutOf: '5',
+    count: '120+',
+    items: [
+      {
+        quote: 'The quality of the fabrics is simply outstanding. Every collection reflects their attention to detail and timeless taste.',
+        name: 'Vivek Mehta',
+        role: 'Fashion Designer, Mumbai',
+      },
+      {
+        quote: 'We’ve been working with Savayavas & Co. for over a year now and the consistency in quality and service is unmatched.',
+        name: 'Arjun Singhal',
+        role: 'Shirting Manufacturer, Ludhiana',
+      },
+      {
+        quote: 'Their fabrics elevate our creations. Premium feel, beautiful drape and our clients absolutely love them.',
+        name: 'Neha Aggarwal',
+        role: 'Boutique Owner, New Delhi',
+      },
+    ],
+  },
+
   /** Fabric taxonomy. Drives /collections and the five detail routes. */
   categories: [
     {

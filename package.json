@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "assets:generate": "node scripts/assets.mjs generate",
-    "assets:check": "node scripts/assets.mjs check"
+    "assets:check": "node scripts/assets.mjs check",
+    "lettering": "node scripts/lettering.mjs"
   },
   "repository": {
     "type": "git",
@@ -33,9 +34,11 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.4.0",
+    "@types/opentype.js": "^1.3.10",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.1",
+    "opentype.js": "^2.0.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "^8.2.2",
