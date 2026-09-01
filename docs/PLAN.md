@@ -8,7 +8,7 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 
 | Area | Decision |
 |---|---|
-| Framework | React 19 + Vite 6 + TypeScript, React Router 7 |
+| Framework | React 19 + Vite 8 + TypeScript 7, **React Router 6** |
 | Rendering | `vite-react-ssg` — all static routes prerendered to HTML at build |
 | Styling | Tailwind v4, tokens as CSS custom properties in `@theme` |
 | Animation | GSAP (ScrollTrigger + MotionPath) + Lenis smooth scroll |
@@ -22,6 +22,9 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 | Host | Netlify |
 | Brand | Savayavas & Co. is the parent trade brand. VAS is the menswear shirting line, on its own route. |
 | Build order | Landing page complete first, then the remaining routes |
+| Package manager | npm (no pnpm on this machine) |
+
+**Why React Router 6, not 7.** `vite-react-ssg` (all versions through 0.9.2) imports `react-router-dom/server.js`, a subpath React Router 7 removed — prerendering hard-fails on RR7. Verified, not assumed. RR6 is stable and this site uses only `Link`, `NavLink`, `Outlet` and `useParams`, all identical across both. Revisit if `vite-react-ssg` ships RR7 support.
 
 ### Deliberate deviations from the deck
 
@@ -51,7 +54,7 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 - Every image goes through `assets/registry.ts` — components reference a key, never a path.
 - Each entry declares its **final intended aspect ratio**, and the placeholder is generated at exactly that ratio. Layouts are then already correct when real photos arrive; nothing reflows.
 - Placeholders are generated in the brand palette (ivory / greige / navy / brass) with the asset key printed on them, so an un-swapped image is obvious in review rather than passing as a design choice.
-- `pnpm assets:check` fails the build if any registry entry still points at a placeholder while `VITE_STRICT_ASSETS=1` — flip that on for production builds so placeholders cannot ship by accident.
+- `npm run assets:check` fails the build if any registry entry still points at a placeholder while `VITE_STRICT_ASSETS=1` — flip that on in Netlify for production so placeholders cannot ship by accident.
 
 ---
 
@@ -307,8 +310,10 @@ Content as MDX in `content/journal/`, prerendered per slug. This is the route mo
 
 ## 7. Phases
 
-**Phase 1 — Foundation (no visible pages)**
-Scaffold Vite + TS + Tailwind v4 + Router + `vite-react-ssg`. Tokens, fonts, asset registry, content module pattern, i18n scaffold, region-free EN locale, Lenis provider, `Nav`/`Footer`, `submitLead()` stub, Netlify config, reduced-motion plumbing. Prove one prerendered route ships real `<title>`/OG tags.
+**Phase 1 — Foundation — ✅ done**
+Vite + TS + Tailwind v4 + Router + `vite-react-ssg`. Tokens, fonts, asset registry + placeholder generator, content module pattern, i18n scaffold, Lenis provider, `Nav`/`Footer`/`Eyebrow`/`Seo`, `submitLead()` stub, Netlify config, reduced-motion plumbing, all 9 routes stubbed.
+
+Verified, not assumed: `npm run build` prerenders **12 HTML pages**, every one with content in `#root` (no empty shell), a unique `<title>`, unique canonical, OG/Twitter tags and `Organization` JSON-LD. In the browser: tokens resolve, Playfair/Jost load, Lenis attaches (`html.lenis`), zero console errors, IN toggle renders disabled.
 
 **Phase 2 — Home, complete**
 Every section above, the full thread system, the page-transition prototype. This route is the pattern library; nothing else starts until it is genuinely finished, on desktop and mobile.

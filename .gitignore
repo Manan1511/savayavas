@@ -1,0 +1,22 @@
+node_modules/
+dist/
+dist-ssr/
+.vite/
+.netlify/
+
+*.local
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Generated from src/assets/registry.ts — run `npm run assets:generate`
+public/placeholders/

@@ -1,0 +1,48 @@
+/* Design tokens — calibrated from the concept boards.
+   Everything visual in the app resolves back to a value in this file. */
+
+@theme {
+  /* --- Colour -------------------------------------------------------- */
+  --color-paper: #fcfbf9; /* page ground */
+  --color-ivory: #f2ede5; /* alternate section ground, torn sheet */
+  --color-greige: #e4e0d6; /* hairline rules, muted fills */
+  --color-stone: #b8b2a6; /* secondary text on light */
+  --color-ink: #141414; /* headlines, dark bands */
+  --color-ink-soft: #4a4a4a; /* body copy */
+  --color-navy: #2b3441; /* the thread, denim accents */
+  --color-navy-deep: #1b2029;
+  --color-brass: #a8845c; /* eyebrows, icons, rules */
+  --color-brass-soft: #c9ab86;
+
+  /* --- Type ---------------------------------------------------------- */
+  /* Stand-ins for the brand faces. Swapping to licensed fonts is a
+     one-line change here plus the @font-face blocks in fonts.css. */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-script: 'Petit Formal Script', 'Playfair Display', cursive;
+  --font-body: 'Jost', ui-sans-serif, system-ui, sans-serif;
+  --font-deva: 'Noto Serif Devanagari', 'Playfair Display', serif;
+
+  --tracking-eyebrow: 0.18em;
+  --tracking-display: 0.02em;
+
+  /* --- Motion -------------------------------------------------------- */
+  --ease-thread: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-transition: 600ms;
+
+  /* --- Layout -------------------------------------------------------- */
+  --spacing-gutter: 1.5rem;
+  --container-content: 68rem;
+  --container-prose: 62ch;
+}
+
+/* --- Z-index bands ---------------------------------------------------
+   The thread weaves between content, so stacking is global and explicit.
+   Never invent a z-index outside this scale. */
+:root {
+  --z-base: 0; /* page background, flat imagery */
+  --z-thread-behind: 10; /* thread passing under photography */
+  --z-content: 20; /* photography, cards, torn-paper layers */
+  --z-thread-front: 30; /* thread crossing text */
+  --z-text: 40; /* text and UI */
+  --z-overlay: 50; /* nav, lightbox, page transition */
+}
