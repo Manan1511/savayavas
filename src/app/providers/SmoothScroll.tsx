@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { usePrefersReducedMotion } from '@/lib/motion'
 
 /**
@@ -14,10 +12,6 @@ import { usePrefersReducedMotion } from '@/lib/motion'
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reducedMotion = usePrefersReducedMotion()
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
-  }, [])
 
   useEffect(() => {
     if (reducedMotion) return

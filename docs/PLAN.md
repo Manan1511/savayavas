@@ -11,8 +11,7 @@ Status: Phase 1 complete, Phase 2 (Home) in progress. This document is the contr
 | Framework | React 19 + Vite 8 + TypeScript 7, **React Router 6** |
 | Rendering | `vite-react-ssg` — all static routes prerendered to HTML at build |
 | Styling | Tailwind v4, tokens as CSS custom properties in `@theme` |
-| Animation | GSAP + Lenis smooth scroll. The hero thread is an intro that plays once on landing, not a scroll scrub. |
-| Thread | Hero lettering drawn by the thread itself, single-stroke Hershey centreline, generated at author time |
+| Motion | Warp/weft weave-in on the hero lockup only. Plays once on landing, never scroll-scrubbed. Photography does not animate. |
 | Backend | **None.** Deferred. |
 | CMS | **None.** Deferred. Content lives in typed TS modules. |
 | Forms | Stubbed behind a `submitLead()` adapter that currently no-ops |
@@ -70,12 +69,12 @@ src/
   app/            router, layouts, providers (Lenis, i18n, region)
   routes/         one folder per route, colocated sections
   components/     shared UI primitives
-  thread/         the thread system (see §5)
+  motion/         WeaveReveal (see §5)
   content/        typed content modules — en.ts per route + shared
   assets/         registry.ts + placeholder files
   styles/         tokens.css, fonts.css, globals.css
   lib/            submitLead(), analytics, hooks
-scripts/          asset placeholders, lettering generator
+scripts/          asset placeholder generator
 docs/             this file
 ```
 
@@ -117,65 +116,40 @@ Sampled from the renders; treat as calibrated starting values, not gospel.
 
 ---
 
-## 5. The thread system
+## 5. Motion
 
-The single most important thing on this site. Everything else is a competent brand page; this is the reason anyone remembers it.
+One gesture, taken from the mill floor, and otherwise stillness. The weave is memorable because it is the only thing that moves.
 
-### Model
+### Warp & weft weave-in — `WeaveReveal`
 
-The hero's script line is not text with a thread near it — **the thread writes it**. A needle traces the phrase in a single continuous stroke, and that stroke *is* the words.
+The hero lockup is woven into place. Warp threads (vertical) drop in first, left to right, as they would be dressed onto a loom. Weft threads (horizontal) then pass through them one after another, each chasing a shuttle across the width. The content surfaces **through** the cloth while it is still being woven, and the threads lift away once it is there.
 
-There is deliberately **no lead-in or tail line**. A line travelling across the page advertises its own direction, so the eye follows the movement rather than the writing; it reads as something dancing across the hero. Only the handwriting draws.
+Measured from navigation: warp dressed by 0.9s, text emerging from 1.2s, cloth complete and text full at 1.9s, threads lifted by 2.3s.
 
-### Implementation
+The content deliberately does not wait for the weave to finish. A hero that sits blank for three seconds reads as a slow page however deliberate the animation is.
 
-- `scripts/lettering.mjs` (`npm run lettering`) converts the phrase to a **single-stroke centreline** using the Hershey `scripts` engraving font, refitting each stroke as a Catmull-Rom spline. Output is committed to `src/content/heroLettering.ts`; visitors download no font and no generator.
-- **Not an outline font.** Stroking a glyph contour draws the outside edge of each letter — two parallel lines per stroke — which reads as hairline lettering, never as thread.
-- **Not a "complex" Hershey face.** Those fake weight with 3+ overlapping passes per glyph: it looks like scribbling, and a letter only becomes legible once its last pass lands.
-- **One `<path>` element per stroke.** SVG restarts the dash pattern at every subpath, so strokes sharing a path all dash *simultaneously* — every letter half-drawn at once. Separate elements are what allow sequential writing.
-- Drawing is `strokeDasharray`/`strokeDashoffset`, with one progress value walking the strokes in writing order.
-- The needle rides the head of the stroke being written, tip on the pen position, rotated to the tangent. Hidden before the first stroke and once the pen lifts.
-- Geometry is measured at runtime from a `ThreadLettering` node, so a resize or browser zoom refits rather than breaks.
+Built from straight lines on a strict percentage grid: it renders crisply at any size, has nothing to approximate, and cannot drift out of register.
 
-### Tuning
+### Photography does not animate
 
-| Knob | Where | Effect |
-|---|---|---|
-| `DRAW_SECONDS` | `ThreadCanvas.tsx` | Overall pace (currently 8.5s) |
-| `TENSION` | `lettering.mjs` | Curve slack. Above ~1 rounds the m's third hump into an n |
-| `TRACKING` | `lettering.mjs` | Letter spacing. Too tight and "cl" reads as "d" |
-| `FONT` | `lettering.mjs` | `scripts` (current), `cursive` |
+A bolt-unroll reveal was built and removed. A travelling wipe across an image reads as a slide transition, however it is dressed — and restraint around photography is most of what separates a premium site from a busy one. Images simply present themselves.
 
-Timing is linear: a hand writing holds a steady pace, and any ease reads as rushing or stalling mid-word.
+### Rules
 
-### Elsewhere on the site
+- Both respect `prefers-reduced-motion`: content renders immediately, no threads, no travel, no selvedge.
+- GSAP plugins are registered at module scope in `lib/gsap.ts`, never in a provider effect — child effects run before parent effects, so a component would otherwise construct a ScrollTrigger before it existed.
+- New motion must clear one bar: would a reader notice it is *missing*? If not, do not add it.
+- Prerendered HTML always contains the real content; motion only affects how it is uncovered.
 
-Sections below the hero currently have no thread. The `ThreadAnchor` system (anchor-driven Catmull-Rom curves, explicit `order`, front/behind z-bands) remains available for per-section gestures.
+### Rejected: the thread that writes the hero phrase
 
-### Non-negotiables
+An earlier build had a needle drawing "The same cloth," in single-stroke lettering. It was abandoned, and the reasoning is worth keeping:
 
-- `prefers-reduced-motion` → thread renders fully drawn and static, needle hidden, no scrub, no page transition. Lenis disabled.
-- The thread is decorative: `aria-hidden="true"`, no focus, no announcement.
-- Must never block first paint. Path draws only after fonts settle.
-- SSR-safe: every GSAP call guarded, initialised in `useLayoutEffect` via `gsap.context()` with cleanup.
+- Outline fonts give glyph *contours*, so stroking one draws the outside edge of every letter — two parallel lines, never a thread.
+- Hershey engraving fonts do give true centrelines, but they are pen-plotter data from 1967. Their cursive is crude at hero size, and no amount of smoothing or tracking fixes the letterforms themselves.
+- Higher smoothing rounds the small humps off, which in cursive is the difference between an m and an n.
 
-### Per-route thread choreography
-
-Anchor positions per route (the choreography below) are still a design decision — the system just means expressing it is a prop, not a redraw.
-
-| Route | Enters | Weaves through | Exits |
-|---|---|---|---|
-| `/` | Left, from the yarn cone in the hero | Behind the collage, over the script word, underlines the About headline, ends in a needle at the pillars | Right, mid-page |
-| `/our-story` | Left, threaded through a needle eye | Through the `SAVAYAVAS & CO TRIBE` headline | Right, above the tile grid |
-| `/collections` | Left, at the eyebrow | Across the category grid gutters | Right |
-| `/vas` | Left, at the hero | Around the Modern Man lockup, down through the quality pillars | Right, above the stats band |
-| `/for-dealers` | Left | Under the headline, along the 3-step program | Right |
-| `/journal` | Left | Single soft arc behind the index header | Right |
-| `/contact` | Left, at the eyebrow | Under `TRUSTED BY THOSE WHO VALUE QUALITY`, over the form | Terminates in the needle, no exit — end of the site |
-
-Note the last row: the thread should *end* somewhere. `/contact` is that place.
-
----
+The lesson: a signature animation has to be made of shapes that are *robust at any size*. Straight lines on a grid are. Reconstructed handwriting is not.
 
 ## 6. Per-page plan
 

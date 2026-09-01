@@ -10,7 +10,7 @@
 export const home = {
   hero: {
     eyebrow: 'Various Types of Fabrics',
-    /** Script line — drawn by the thread itself, not set in a font. */
+    /** Script line, set in the script face. */
     script: 'The same cloth,',
     /** All-caps Didone anchor. The line that has to survive a three-second skim. */
     headline: 'Every Single Batch',

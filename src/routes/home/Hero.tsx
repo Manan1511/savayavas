@@ -1,22 +1,22 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
-import { ThreadLettering } from '@/thread'
-import { heroScriptLettering } from '@/content/heroLettering'
+import { WeaveReveal } from '@/motion'
 import { home } from '@/content/home.en'
 
 /**
- * The hero collage.
+ * The hero.
  *
- * Photography sits in a grid behind the type rather than as one flat image, so
- * the thread can pass between layers and each piece can carry its own depth.
- * The lockup is one <h1> — script lead-in, all-caps anchor — because it reads
- * as a single sentence and should be announced as one.
+ * One gesture, drawn from the mill floor: the lockup is woven into place, warp
+ * threads dressed onto the loom and weft passed through them.
+ *
+ * The photography deliberately does not animate. A travelling wipe across an
+ * image reads as a slide transition, not as craft — and restraint around
+ * photography is most of what separates a premium site from a busy one.
  */
 export function Hero() {
   return (
     <Section className="overflow-hidden pb-20 pt-10 sm:pb-28">
-
       {/* Collage. Decorative, so it is hidden from assistive tech entirely. */}
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ zIndex: 'var(--z-content)' }}>
         <div className="mx-auto grid h-full max-w-[1600px] grid-cols-12 gap-3 px-3 opacity-70 sm:opacity-100">
@@ -36,24 +36,13 @@ export function Hero() {
         </div>
       </div>
 
-      <Container className="relative" >
-        <div className="relative max-w-3xl py-16 sm:py-24">
+      <Container className="relative">
+        <WeaveReveal className="max-w-3xl py-16 sm:py-24" warp={16} weft={10}>
           <Eyebrow>{home.hero.eyebrow}</Eyebrow>
 
           <h1 className="mt-5">
-            {/* The script line is not text on the page — it is the thread.
-                The needle arrives from the left, writes the phrase in its own
-                stroke as a single-stroke centreline.
-
-                There is deliberately no lead-in or tail line: a travelling
-                line exposes the direction of motion and reads as something
-                dancing across the page, not as a hand writing. The only thing
-                that draws is the handwriting itself. The words stay available
-                to assistive tech and search engines via the hidden span. */}
-            <span className="sr-only">{home.hero.script}</span>
-
-            <span className="relative block max-w-2xl">
-              <ThreadLettering id="hero-script" order={2} source={heroScriptLettering} band="front" />
+            <span className="block font-(family-name:--font-script) text-5xl leading-[1.15] tracking-normal text-brass sm:text-6xl lg:text-7xl">
+              {home.hero.script}
             </span>
             <span className="mt-2 block text-5xl uppercase leading-[0.95] sm:text-6xl lg:text-7xl">
               {home.hero.headline}
@@ -65,7 +54,7 @@ export function Hero() {
           <p className="mt-6 max-w-md text-xs uppercase leading-relaxed tracking-[0.14em] text-ink-soft sm:text-sm">
             {home.hero.subline}
           </p>
-        </div>
+        </WeaveReveal>
       </Container>
     </Section>
   )

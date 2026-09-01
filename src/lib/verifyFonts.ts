@@ -9,7 +9,7 @@
  * noticing. Fonts now load via <link> in index.html; this makes a regression loud.
  */
 
-const REQUIRED = ['Playfair Display', 'Jost'] as const
+const REQUIRED = ['Playfair Display', 'Jost', 'Allura'] as const
 
 export async function verifyFonts(): Promise<void> {
   if (!import.meta.env.DEV) return
