@@ -14,7 +14,7 @@ interface Segment {
 }
 
 /** How long the full thread takes to draw itself on landing. */
-const DRAW_SECONDS = 4
+const DRAW_SECONDS = 5.2
 
 /**
  * Draws the thread.
@@ -211,8 +211,10 @@ export function ThreadCanvas() {
       gsap.to(state, {
         p: 1,
         duration: DRAW_SECONDS,
-        delay: 0.35,
-        ease: 'power1.inOut',
+        delay: 0.4,
+        // Gentle in and out with a long even middle: a hand writing, not a
+        // machine plotting. power-eases spend too long crawling at the ends.
+        ease: 'sine.inOut',
         onUpdate: () => draw(state.p),
         onComplete: () => {
           hasPlayedRef.current = true
@@ -310,9 +312,15 @@ function resolve(a: RegisteredAnchor, docW: number, scrollX: number, scrollY: nu
     const tx = rect.left + scrollX + ox - vx * scale
     const ty = rect.top + scrollY + oy - vy * scale
 
+    // Meet the handwriting exactly where the pen starts and finishes, rather
+    // than at the corners of its box — otherwise the lead-in visibly jumps to
+    // the first letter and the tail leaves from thin air.
+    const pen = a.lettering.start ?? { x: vx, y: vy }
+    const penEnd = a.lettering.end ?? { x: vx + vw, y: vy }
+
     return {
-      entry: { x: rect.left + scrollX + ox, y: rect.top + scrollY + oy + rect.height * 0.7 },
-      exit: { x: rect.right + scrollX + ox, y: rect.top + scrollY + oy + rect.height * 0.7 },
+      entry: { x: tx + pen.x * scale, y: ty + pen.y * scale },
+      exit: { x: tx + penEnd.x * scale, y: ty + penEnd.y * scale },
       lettering: {
         d: a.lettering.d,
         transform: `translate(${round(tx)} ${round(ty)}) scale(${round(scale, 4)})`,

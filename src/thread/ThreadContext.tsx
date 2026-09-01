@@ -42,7 +42,15 @@ export interface RegisteredAnchor extends ThreadAnchorOptions {
   id: string
   el: HTMLElement
   /** Present when this node spells a phrase instead of being a curve waypoint. */
-  lettering?: { phrase: string; d: string; viewBox: string; width: number; height: number }
+  lettering?: {
+    phrase: string
+    d: string
+    viewBox: string
+    width: number
+    height: number
+    start?: { x: number; y: number }
+    end?: { x: number; y: number }
+  }
 }
 
 export interface ThreadRegistry {

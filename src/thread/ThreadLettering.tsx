@@ -7,6 +7,9 @@ export interface LetteringSource {
   viewBox: string
   width: number
   height: number
+  /** Where the pen starts and finishes, in viewBox units. */
+  start?: { x: number; y: number }
+  end?: { x: number; y: number }
 }
 
 /**
