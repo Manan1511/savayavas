@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1 complete, Phase 2 (Home) in progress. This document is the contract.
+Status: Phase 1 complete. Phase 2 (Home) built and running; awaiting real assets. This document is the contract.
 
 ---
 
@@ -94,11 +94,11 @@ Sampled from the renders; treat as calibrated starting values, not gospel.
   --color-ivory:      #F2EDE5;  /* section alt ground, torn sheet */
   --color-greige:     #E4E0D6;  /* borders, muted fills */
   --color-ink:        #141414;  /* headlines, dark bands */
-  --color-navy:       #2B3441;  /* the thread, denim accents */
+  --color-navy:       #2B3441;  /* weave threads, denim accents */
   --color-brass:      #A8845C;  /* eyebrow labels, icons, rules */
 
   --font-display:     "Playfair Display", Georgia, serif;
-  /* No script webfont — the script line is drawn by the thread itself. */
+  --font-script:      "Allura", cursive;   /* the hero script line */
   --font-body:        "Jost", system-ui, sans-serif;
 }
 ```
@@ -107,6 +107,10 @@ Sampled from the renders; treat as calibrated starting values, not gospel.
 - *Display* — Playfair, tight leading, used at 3 sizes. Headlines set in **all-caps with generous tracking** (`MATERIALS THAT SPEAK`) or **title case** (`Crafted with Purpose.`), never mixed within one block.
 - *Eyebrow* — Jost, ~11px, `letter-spacing: 0.18em`, uppercase, brass. Appears above every section headline in the deck. This is the most repeated device in the design — make it one component.
 - *Body* — Jost light, 15–16px, generous line-height, max ~62ch.
+
+**Copy conventions.**
+- **No em dashes anywhere in site copy.** Rewrite instead of substituting: separate sentences where a dash joined two clauses, a colon where it introduced a list, a comma where it was doing a comma's job. En dashes stay in ranges (`Mon – Sat`, `Surat – 395002`).
+- Sentence case in body copy, all-caps only in the display and eyebrow roles.
 
 **Recurring motifs to build once:**
 - Torn-paper edge — SVG mask, 3 variants, applied as `mask-image` on section boundaries
@@ -136,7 +140,7 @@ A bolt-unroll reveal was built and removed. A travelling wipe across an image re
 
 ### Rules
 
-- Both respect `prefers-reduced-motion`: content renders immediately, no threads, no travel, no selvedge.
+- Respects `prefers-reduced-motion`: content renders immediately, with no threads and no animation.
 - GSAP plugins are registered at module scope in `lib/gsap.ts`, never in a provider effect — child effects run before parent effects, so a component would otherwise construct a ScrollTrigger before it existed.
 - New motion must clear one bar: would a reader notice it is *missing*? If not, do not add it.
 - Prerendered HTML always contains the real content; motion only affects how it is uncovered.
@@ -163,7 +167,7 @@ Nav (final): **Collections · VAS · Our Story · For Dealers · Journal · Cont
 
 | # | Section | Source | Notes |
 |---|---|---|---|
-| 1 | Hero collage + headline | p1/p2 | Layered composition: torn linen sheet, ~6 photo tiles, yarn cone, swatch book. Each is a separate positioned layer so the thread can pass between them. **Copy is TBD** — must be trade-facing, not "Modern Man". |
+| 1 | Hero collage + headline | p1/p2 | Layered composition: torn linen sheet, ~6 photo tiles, yarn cone, swatch book. Copy is settled and the lockup is wrapped in `WeaveReveal`. |
 | 2 | About teaser | p2 | `WOVEN WITH PURPOSE. / MADE TO INSPIRE.` + 3 short paragraphs. Thread underlines the second line and terminates in the needle. |
 | 3 | Four pillars | p2 | Circle icons: Premium Quality · Natural Comfort · Crafted with Precision · Made for the Modern Man. Reuse the `IconPillar` component. |
 | 4 | Category strip | new | The five fabric categories as a horizontal strip → `/collections/:category`. Not in the deck; needed, since Collections is the commercial core. |
@@ -172,7 +176,7 @@ Nav (final): **Collections · VAS · Our Story · For Dealers · Journal · Cont
 | 7 | Dual CTA | new | *For Dealers* / *Our Story*, per the sitemap doc. |
 
 **Components introduced:** `Nav`, `Footer`, `Eyebrow`, `DisplayHeading`, `IconPillar`, `TornEdge`, `ThreadCanvas`, `ReviewCarousel`, `CTABand`.
-**Risk:** the hero is the hardest layout on the site — 8 layers, responsive, and the thread weaves through it. Budget accordingly.
+**Status:** built. Hero, About, four pillars, category strip, VAS callout, Reviews and dual CTA are all in place and prerendering. Remaining work on this route is real photography and a final responsive pass.
 
 ---
 
@@ -181,7 +185,7 @@ Nav (final): **Collections · VAS · Our Story · For Dealers · Journal · Cont
 
 | # | Section | Source | Notes |
 |---|---|---|---|
-| 1 | Header + thread | p3 | Needle threads in from the left through the headline. |
+| 1 | Header | p3 | Eyebrow, headline, intro. |
 | 2 | Three brothers | your copy | Arvind, Vinod, Paresh Parmar. Shubh Shantinath Silk Mills, three decades, Mumbai. |
 | 3 | The name | your copy | सावयव + वस् = Various Types of Fabrics. **Devanagari renders here even in the EN build** — needs a Noto Serif Devanagari subset loaded regardless of locale. Design this as a deliberate typographic moment, not a footnote; it is the single best piece of copy you have. |
 | 4 | Second generation | your copy | Priyank and Sherin Parmar. |
@@ -253,11 +257,11 @@ Content as MDX in `content/journal/`, prerendered per slug. This is the route mo
 ---
 
 ### `/contact` — Inquiry
-**Job:** every remaining path to a human. The thread ends here.
+**Job:** every remaining path to a human.
 
 | # | Section | Source |
 |---|---|---|
-| 1 | Header + thread terminus | p6 |
+| 1 | Header | p6 |
 | 2 | Reviews | p6 — 4.9/5 + carousel |
 | 3 | Get in touch | p6 — phone, email, Instagram, hours |
 | 4 | Visit us + map | p6 — address, directions. **Static map image, not an embed** — a Google Maps iframe adds ~500KB and third-party cookies to your quietest page. |
@@ -273,8 +277,10 @@ Vite + TS + Tailwind v4 + Router + `vite-react-ssg`. Tokens, fonts, asset regist
 
 Verified, not assumed: `npm run build` prerenders **12 HTML pages**, every one with content in `#root` (no empty shell), a unique `<title>`, unique canonical, OG/Twitter tags and `Organization` JSON-LD. In the browser: tokens resolve, Playfair/Jost load, Lenis attaches (`html.lenis`), zero console errors, IN toggle renders disabled.
 
-**Phase 2 — Home, complete**
-Every section above, the full thread system, the page-transition prototype. This route is the pattern library; nothing else starts until it is genuinely finished, on desktop and mobile.
+**Phase 2 — Home — ✅ built**
+All seven sections, plus the `WeaveReveal` intro. This route is the pattern library: `Section`, `Container`, `Eyebrow`, `Figure`, `IconPillar`, `Reviews` and `WeaveReveal` all come from here and get reused.
+
+Outstanding on this route: real photography, and a final responsive pass once those land. Two animation approaches were built and removed along the way (see §5) — that exploration is finished, and the weave is the answer.
 
 **Phase 3 — Remaining routes**
 `/our-story` → `/vas` → `/collections` → `/for-dealers` → `/contact` → `/journal`. In that order: they descend by how much new component work each needs. Thread paths drawn per route against the built layout.
