@@ -29,7 +29,12 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 ### Deliberate deviations from the deck
 
 1. **Tribe wall** — poster grid + lightbox, not 14 live videos. The per-tile mute icons and the global "Pause All" control are removed; they have nothing to control.
-2. **Hero copy** — "Crafted for the Modern Man" is VAS language, not parent-brand language. The Home hero needs trade-facing copy; the Modern Man lockup moves to `/vas`. **Needs a copy decision.**
+2. **Hero copy** — "Crafted for the Modern Man" is VAS language, not parent-brand language, and moves to `/vas`. The Home hero is now trade-facing:
+
+   > *The same cloth,* / **EVERY SINGLE BATCH**
+   > Cotton. Linen. Engineered blends. From single-piece cut & sew to bulk production runs.
+
+   It names the sourcing buyer's real anxiety — batch variation — in the first three seconds, and leaves VAS to carry the beauty story. Keeps the deck's three-part lockup: script lead-in, all-caps anchor, small-caps subline.
 3. **Reviews** — not a standalone route. Runs as a section on `/` and `/for-dealers`, where it sits next to a CTA.
 4. **Nav** — the deck's nav differs across boards and doesn't match the sitemap doc. Final nav below.
 
@@ -40,7 +45,7 @@ Status: pre-scaffold. No code written yet. This document is the contract.
 | # | Item | Blocks | Urgency |
 |---|---|---|---|
 | 1 | Real photography (Manan supplying) | Final visual quality of every page | Before launch. Build proceeds on placeholders. |
-| 2 | Home hero copy for the parent brand | Home hero implementation | Phase 2 |
+| 2 | ~~Home hero copy~~ — ✅ decided, in `content/home.en.ts` | — | Done |
 | 3 | Backend + CMS decision | Forms actually working, catalogue being editable | Before launch |
 | 4 | Hindi copy + Devanagari display face | The IN toggle | Post-launch |
 | 5 | Fabric catalogue data (SKUs, colourways, images per category) | `/collections/:category` having real content | Phase 3 |
