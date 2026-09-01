@@ -1,6 +1,7 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { gsap } from '@/lib/gsap'
 import { usePrefersReducedMotion } from '@/lib/motion'
+import { useIsomorphicLayoutEffect } from '@/lib/useIsomorphicLayoutEffect'
 
 /**
  * The mill's own process as the page's opening gesture.
@@ -31,14 +32,27 @@ export function WeaveReveal({
   const rootRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const [done, setDone] = useState(false)
+  // The threads are never server-rendered: without JS they would be a static
+  // grid drawn over the hero for no reason.
+  const [mounted, setMounted] = useState(false)
   const uid = useId().replace(/:/g, '')
 
-  useEffect(() => {
+  // Prepare: hide the content and mount the threads. Must happen before paint,
+  // so the hero is never briefly visible and then snatched away.
+  useIsomorphicLayoutEffect(() => {
     if (reducedMotion) {
       setDone(true)
       return
     }
+    gsap.set(contentRef.current, { opacity: 0 })
+    setMounted(true)
+  }, [reducedMotion])
 
+  // Animate: only once the threads are actually in the DOM. Building the
+  // timeline in the effect above would select them before React had rendered
+  // them, leaving every tween without a target.
+  useIsomorphicLayoutEffect(() => {
+    if (!mounted || reducedMotion) return
     const root = rootRef.current
     if (!root) return
 
@@ -74,11 +88,11 @@ export function WeaveReveal({
     }, root)
 
     return () => ctx.revert()
-  }, [reducedMotion, uid])
+  }, [mounted, reducedMotion, uid])
 
   return (
     <div ref={rootRef} className={`relative ${className}`}>
-      {!done && (
+      {mounted && !done && (
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -103,7 +117,7 @@ export function WeaveReveal({
         </div>
       )}
 
-      <div ref={contentRef} style={{ opacity: reducedMotion || done ? 1 : 0 }}>
+      <div ref={contentRef} style={done ? { opacity: 1 } : undefined}>
         {children}
       </div>
     </div>
