@@ -26,12 +26,22 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 
 /** Must match `home.hero.script` in src/content/home.en.ts. */
 const PHRASE = 'The same cloth,'
-/** Hershey Script Complex — the most fluid cursive in the set. */
-const FONT = 'scriptc'
-/** Extra space between glyphs, in font units. Cursive wants a little air. */
-const TRACKING = 0.5
+/**
+ * Hershey Script SIMPLEX — one pass per letter.
+ *
+ * Not `scriptc` (Script Complex): the "complex" Hershey faces fake stroke
+ * weight by drawing three or more overlapping passes per glyph, which reads as
+ * scribbling and means a letter only becomes legible once its last pass lands.
+ * Simplex is what a single thread actually looks like.
+ */
+const FONT = 'scripts'
+/**
+ * Extra space between glyphs, in font units. Hershey cursive sets very tight,
+ * which runs adjacent letters together — "cl" reads as "d" without this.
+ */
+const TRACKING = 2.4
 /** Curve slack when refitting. Above 1 loosens the hand. */
-const TENSION = 1.15
+const TENSION = 1.1
 
 const fonts = JSON.parse(
   await readFile(join(root, 'node_modules/hersheytext/hersheytext.json'), 'utf8'),

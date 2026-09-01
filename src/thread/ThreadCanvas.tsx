@@ -14,7 +14,17 @@ interface Segment {
 }
 
 /** How long the full thread takes to draw itself on landing. */
-const DRAW_SECONDS = 5.2
+const DRAW_SECONDS = 8.5
+
+/**
+ * How much of that time the handwriting gets, regardless of how long the
+ * lead-in and tail are.
+ *
+ * Budgeting purely by path length lets a long approach curve eat the clock and
+ * makes the writing rush past — the writing is the moment, the line into it is
+ * just arrival. This weights the timeline toward the words.
+ */
+const LETTERING_TIME_SHARE = 0.72
 
 /**
  * Draws the thread.
@@ -147,8 +157,21 @@ export function ThreadCanvas() {
     // scale applied to lettering, so time is budgeted by what the eye sees.
     const local = ordered.map((p) => p.getTotalLength())
     const scales = ordered.map((p) => Number(p.dataset.scale ?? 1))
+    const isLettering = ordered.map((p) => p.dataset.lettering === 'true')
     const visual = local.map((len, i) => len * scales[i]!)
-    const total = visual.reduce((a, b) => a + b, 0)
+
+    // Re-weight so the writing owns most of the timeline rather than competing
+    // with the approach curve on raw length alone.
+    const letteringLen = visual.reduce((a, b, i) => (isLettering[i] ? a + b : a), 0)
+    const restLen = visual.reduce((a, b, i) => (isLettering[i] ? a : a + b), 0)
+    const weights = visual.map((len, i) => {
+      if (letteringLen === 0 || restLen === 0) return len
+      return isLettering[i]
+        ? (len / letteringLen) * LETTERING_TIME_SHARE
+        : (len / restLen) * (1 - LETTERING_TIME_SHARE)
+    })
+
+    const total = weights.reduce((a, b) => a + b, 0)
     if (total === 0) return
 
     ordered.forEach((p, i) => {
@@ -162,11 +185,11 @@ export function ThreadCanvas() {
       let head: { p: SVGPathElement; at: number } | null = null
 
       ordered.forEach((p, i) => {
-        const vis = visual[i]!
-        const fraction = clamp01((drawn - consumed) / vis)
+        const w = weights[i]!
+        const fraction = clamp01((drawn - consumed) / w)
         p.style.strokeDashoffset = `${local[i]! * (1 - fraction)}`
         if (fraction > 0 && fraction < 1) head = { p, at: local[i]! * fraction }
-        consumed += vis
+        consumed += w
       })
 
       const needle = needleRef.current
@@ -212,9 +235,11 @@ export function ThreadCanvas() {
         p: 1,
         duration: DRAW_SECONDS,
         delay: 0.4,
-        // Gentle in and out with a long even middle: a hand writing, not a
-        // machine plotting. power-eases spend too long crawling at the ends.
-        ease: 'sine.inOut',
+        // Linear. A hand writing holds a steady pace — it does not accelerate
+        // out of the first letter or coast into the last, and any ease here
+        // reads as the animation rushing or stalling mid-word. Pacing is
+        // handled by the length weighting above, not by an ease curve.
+        ease: 'none',
         onUpdate: () => draw(state.p),
         onComplete: () => {
           hasPlayedRef.current = true
@@ -257,6 +282,7 @@ export function ThreadCanvas() {
       key={s.i}
       data-index={s.i}
       data-scale={s.scale}
+      data-lettering={s.transform ? 'true' : 'false'}
       d={s.d}
       transform={s.transform}
       {...strokeProps}
