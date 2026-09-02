@@ -113,7 +113,7 @@ Sampled from the renders; treat as calibrated starting values, not gospel.
 - Sentence case in body copy, all-caps only in the display and eyebrow roles.
 
 **Recurring motifs to build once:**
-- Torn-paper edge — SVG mask, 3 variants, applied as `mask-image` on section boundaries
+- Torn-paper edge — `TornEdge`, an SVG strip filled with the page colour whose jagged side eats into the band. Profile is generated from a fixed seed so it is stable across renders and identical on server and client.
 - Short brass rule under eyebrows and beside headlines
 - Circle-outline icon (Quality pillars, About pillars) — one component, SVG children
 - Small-caps stat block (`20+ / QUALITY CHECKS / At every stage`)
@@ -181,7 +181,7 @@ Nav (final): **Collections · VAS · Our Story · For Dealers · Journal · Cont
 
 | # | Section | Source | Notes |
 |---|---|---|---|
-| 1 | Hero collage + headline | p1/p2 | Layered composition: torn linen sheet, ~6 photo tiles, yarn cone, swatch book. Copy is settled and the lockup is wrapped in `WeaveReveal`. |
+| 1 | Hero collage + headline | p1/p2 | Torn-paper band across the viewport, seven pieces at varied sizes and depths along it, two cutouts floating on their own shadows, lockup centred. Photography is kept out of the centre column so the type never sits on an image. The collage runs from `xl` only: at 1024 the centre column leaves ~170px a side and the pieces are 200-300px wide, so a simpler two-strip treatment runs below that. Verified collision-free at 375, 1024, 1366, 1440 and 1920. |
 | 2 | About teaser | p2 | `WOVEN WITH PURPOSE. / MADE TO INSPIRE.` + 3 short paragraphs. Thread underlines the second line and terminates in the needle. |
 | 3 | Four pillars | p2 | Circle icons: Premium Quality · Natural Comfort · Crafted with Precision · Made for the Modern Man. Reuse the `IconPillar` component. |
 | 4 | Category strip | new | The five fabric categories as a horizontal strip → `/collections/:category`. Not in the deck; needed, since Collections is the commercial core. |
