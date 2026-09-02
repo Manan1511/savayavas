@@ -30,7 +30,7 @@ interface Piece {
 /** Left of the lockup. */
 const LEFT: Piece[] = [
   { name: 'hero.yarn-cone', className: 'left-[1%] top-[-6%] w-[7rem] rotate-[-8deg] xl:w-[9rem]', floats: true },
-  { name: 'hero.denim-drape', className: 'left-[6%] top-[26%] w-[13rem] xl:w-[16rem]' },
+  { name: 'hero.denim-drape', className: 'left-[1%] top-[26%] w-[13rem] xl:w-[16rem]' },
   { name: 'hero.shirts-rail', className: 'left-[-3%] bottom-[-8%] w-[15rem] xl:w-[19rem]' },
 ]
 
@@ -45,16 +45,18 @@ const RIGHT: Piece[] = [
 export function Hero() {
   return (
     <Section className="relative overflow-hidden bg-paper">
-      <div className="relative mx-auto flex min-h-[78vh] max-w-[1700px] items-center justify-center px-(--spacing-gutter) py-24 sm:min-h-[86vh]">
-        {/* The torn sheet the whole collage sits on. */}
-        <div
-          aria-hidden
-          className="absolute inset-x-[-4%] top-[8%] bottom-[8%] bg-ivory"
-          style={{ zIndex: 'var(--z-base)' }}
-        >
-          <TornEdge position="top" />
-          <TornEdge position="bottom" />
-        </div>
+      {/* Band and collage are full-bleed, siblings of the capped content
+          column rather than children of it. Inside a max-width container the
+          torn sheet simply stopped at 1700px, leaving a hard vertical edge and
+          bare paper either side on any wider display. */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-[8%] bottom-[8%] bg-ivory"
+        style={{ zIndex: 'var(--z-base)' }}
+      >
+        <TornEdge position="top" />
+        <TornEdge position="bottom" />
+      </div>
 
         {/* Photography. Decorative and hidden from assistive tech: the page's
             meaning is entirely in the lockup.
@@ -62,22 +64,25 @@ export function Hero() {
             Held back until xl, not lg: at 1024 the centre column leaves about
             170px a side, and the pieces are 200-300px wide, so five of seven
             of them landed on the type. Below xl the simpler treatment runs. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-[10%] bottom-[10%] hidden xl:block"
-          style={{ zIndex: 'var(--z-content)' }}
-        >
-          {[...LEFT, ...RIGHT].map((piece) => (
-            <div
-              key={piece.name}
-              className={`absolute ${piece.className} ${
-                piece.floats ? 'drop-shadow-[0_18px_28px_rgba(20,20,20,0.22)]' : ''
-              }`}
-            >
-              <Figure name={piece.name} priority />
-            </div>
-          ))}
-        </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-[10%] bottom-[10%] hidden xl:block"
+        style={{ zIndex: 'var(--z-content)' }}
+      >
+        {[...LEFT, ...RIGHT].map((piece) => (
+          <div
+            key={piece.name}
+            className={`absolute ${piece.className} ${
+              piece.floats ? 'drop-shadow-[0_18px_28px_rgba(20,20,20,0.22)]' : ''
+            }`}
+          >
+            <Figure name={piece.name} priority />
+          </div>
+        ))}
+      </div>
+
+      {/* Only the type is capped, and centred within the viewport. */}
+      <div className="relative mx-auto flex min-h-[78vh] max-w-[1700px] items-center justify-center px-(--spacing-gutter) py-24 sm:min-h-[86vh]">
 
         {/* The lockup owns the centre column, so nothing sits behind the type. */}
         <WeaveReveal className="relative w-full max-w-2xl text-center" warp={18} weft={11}>

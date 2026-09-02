@@ -61,7 +61,9 @@ export function TornEdge({
       aria-hidden
       viewBox="0 0 1000 40"
       preserveAspectRatio="none"
-      className={`pointer-events-none absolute inset-x-0 h-8 w-full sm:h-10 ${
+      // The tear scales with the viewport: a fixed 32px edge that reads as a
+      // torn sheet on a laptop reads as a hairline serration on a 27in display.
+      className={`pointer-events-none absolute inset-x-0 h-8 w-full sm:h-10 xl:h-14 2xl:h-[4.5rem] ${
         isTop ? 'top-0' : 'bottom-0 rotate-180'
       } ${className}`}
     >
