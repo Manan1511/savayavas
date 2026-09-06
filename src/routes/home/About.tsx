@@ -1,6 +1,7 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
+import { IconPillar, pillarIconProps } from '@/components/IconPillar'
 import { home } from '@/content/home.en'
 
 export function About() {
@@ -43,17 +44,7 @@ export function About() {
 }
 
 function Pillar({ index, title, body }: { index: number; title: string; body: string }) {
-  return (
-    <div className="group text-center">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-brass/45 transition-colors duration-500 group-hover:border-brass">
-        <PillarIcon index={index} />
-      </div>
-      <h3 className="mt-4 text-[0.6875rem] uppercase leading-snug tracking-(--tracking-eyebrow) text-ink">
-        {title}
-      </h3>
-      <p className="mt-2 text-xs leading-relaxed text-ink-soft">{body}</p>
-    </div>
-  )
+  return <IconPillar icon={<PillarIcon index={index} />} title={title} body={body} />
 }
 
 /**
@@ -62,17 +53,7 @@ function Pillar({ index, title, body }: { index: number; title: string; body: st
  * font or sprite would be heavier and blur at this size.
  */
 function PillarIcon({ index }: { index: number }) {
-  const common = {
-    width: 22,
-    height: 22,
-    viewBox: '0 0 24 24',
-    fill: 'none',
-    stroke: 'var(--color-brass)',
-    strokeWidth: 1,
-    strokeLinecap: 'round' as const,
-    strokeLinejoin: 'round' as const,
-    'aria-hidden': true as const,
-  }
+  const common = pillarIconProps
 
   switch (index) {
     case 0: // weave

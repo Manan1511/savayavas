@@ -49,22 +49,7 @@ export const routes: RouteRecord[] = [
       },
       {
         path: 'vas',
-        element: (
-          <PageStub
-            eyebrow="Our Quality"
-            title="VAS"
-            path="/vas"
-            description="Our menswear shirting line, and the first full expression of everything Savayavas stands for."
-            sections={[
-              'Hero: Crafted for the Modern Man',
-              'What VAS is, and the Vas root',
-              'Quality you can feel. Standards you can trust.',
-              'Five quality pillars',
-              'Quality in every detail: five test tiles',
-              'Standards and commitment stats band',
-            ]}
-          />
-        ),
+        lazy: () => import('@/routes/vas'),
       },
       {
         path: 'for-dealers',

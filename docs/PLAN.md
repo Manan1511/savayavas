@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story built. This document is the contract.
+Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story and /vas built. This document is the contract.
 
 ---
 
@@ -49,7 +49,7 @@ Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story built. Thi
 | 4 | Hindi copy + Devanagari display face | The IN toggle | Post-launch |
 | 5 | Fabric catalogue data (SKUs, colourways, images per category) | `/collections/:category` having real content | Phase 3 |
 | 6 | Catalogue PDF | `/collections` download CTA | Phase 3 |
-| 7 | Real testimonials + review count | Reviews section (deck's 4.9/5, 120+ is placeholder) | Before launch |
+| 7 | Real testimonials + review count + VAS quality stats | Reviews section and `/vas` stats band (both marked `placeholder: true`) | Before launch |
 | 8 | Confirm licensed brand fonts, if any exist | Type swap | Anytime |
 
 **Asset reality check.** The 6 PDF boards are single flattened JPEGs, ~1500px wide, ~290KB each. No layers, no live text, no vectors — AI-generated concept renders. Nothing is extractable. Every photo, icon, torn edge, and word is being rebuilt from scratch against the render as reference.
@@ -304,6 +304,12 @@ Outstanding on this route: real photography, and a final responsive pass once th
 Verified: no em dashes, Devanagari renders in the prerendered HTML regardless of locale, all 6 sections present in SSR output, no unexplained hidden content, no sideways scroll at 375 or 1265, tribe grid resolves to 2 columns on mobile and 7 on desktop. Lightbox verified via real pointer clicks (not `.click()`, which does not reliably move focus in Chromium): correct tile opens, arrow keys navigate, Escape closes, focus returns to the tile that opened it, body scroll unlocks on close.
 
 No video assets exist yet, so the Lightbox opens the same still, larger, with its caption, rather than a fake video player.
+
+`/vas` — ✅ built. Hero (script + headline lockup beside the fabric-stack image, plain `Reveal` rather than `WeaveReveal` — the weave stays Home's signature gesture, per §5), a one-paragraph reaffirmation of the Vas root with a link back to the full etymology on `/our-story`, the quality intro, five pillars (via the new shared `IconPillar`, also now used by Home's About section instead of a duplicated local component), five test-detail tiles reusing the `Lightbox` built for the Tribe wall, a stats band, and a closing CTA into `/for-dealers`.
+
+The stats band (20+ quality checks, 100% traceability, 1000+ clients, etc.) is marked `placeholder: true` in `content/vas.en.ts`, same convention as `site.reviews` — these are the deck's invented numbers and must be verified or removed before launch.
+
+Verified: no em dashes, all 7 sections present in prerendered HTML, no unexplained hidden content, no sideways scroll at 375px and at the pane's own width, pillar and stat grids resolve to the intended column counts, the reused Lightbox opens the correct tile with the correct caption.
 
 **Phase 4 — Polish**
 Lighthouse pass, image formats (AVIF + `srcset`), font subsetting, focus states, keyboard nav through the lightbox and carousel, 404, `sitemap.xml`, `robots.txt`, JSON-LD `Organization`, OG images per route.
