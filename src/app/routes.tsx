@@ -54,22 +54,7 @@ export const routes: RouteRecord[] = [
       },
       {
         path: 'contact',
-        element: (
-          <PageStub
-            eyebrow="Kind Words"
-            title="Contact"
-            path="/contact"
-            description="Trade and export inquiries, and where to find us in Surat."
-            sections={[
-              'Header',
-              'Reviews',
-              'Get in touch',
-              'Visit us: address and static map',
-              'Trade inquiry form',
-              'Export inquiry form',
-            ]}
-          />
-        ),
+        lazy: () => import('@/routes/contact'),
       },
       {
         path: '*',

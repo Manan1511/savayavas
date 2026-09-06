@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas, /collections and /for-dealers built. This document is the contract.
+Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas, /collections, /for-dealers and /contact built. Only /journal remains. This document is the contract.
 
 ---
 
@@ -290,6 +290,14 @@ Content as MDX in `content/journal/`, prerendered per slug. This is the route mo
 | 4 | Visit us + map | p6 — address, directions. **Static map image, not an embed** — a Google Maps iframe adds ~500KB and third-party cookies to your quietest page. |
 | 5 | Trade inquiry form | sitemap doc |
 | 6 | Export inquiry form | sitemap doc — separate fields, advance-payment-only terms acknowledged explicitly |
+
+**Status:** ✅ built. Same consolidation as `/for-dealers`: one `LeadForm` with a Trade/Export type select rather than two stacked forms. `LeadForm` was extended so the export payment-acknowledgment checkbox appears automatically the moment "Export Inquiry" is selected (`needsExportAck = showExportAck || selectedKind === 'export-inquiry'`), not only when a caller hardcodes the form to exports — `/for-dealers` never selects that option so it is unaffected.
+
+`?category=<slug>` arriving from a `/collections/:category` "Enquire About X" link is read via `useSearchParams`, matched against `site.categories`, and shown as "Regarding: 100% Cotton" above the form, submitted as the lead's `category` field.
+
+Map is a static `Figure`, not a live embed, exactly as specified — verified no `<iframe>` in the built HTML. "Get Directions" opens Google Maps via a plain search-query link, so way-finding still works without the ~500KB/third-party-cookie cost on the site's quietest page.
+
+Verified: no em dashes; no sideways scroll; switching the select to "Export Inquiry" reveals the checkbox and submission is blocked with an inline error until it is checked; once checked, the lead submits with `kind: 'export-inquiry'` and `acknowledgedExportTerms: true` (confirmed via console log); clicking a real "Enquire About 100% Cotton" link from `/collections/cotton` lands on `/contact?category=cotton` with the category shown and prefilled; all 5 sections present in prerendered HTML.
 
 ---
 

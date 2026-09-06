@@ -42,9 +42,15 @@ export function LeadForm({
   const [submitting, setSubmitting] = useState(false)
   const [result, setResult] = useState<LeadResult | null>(null)
 
+  // The acknowledgment is required either because the caller fixed this form
+  // to export inquiries (showExportAck), or because the visitor picked
+  // "Export Inquiry" from a type select that also offers other kinds — the
+  // requirement follows the selection, not just the form's static config.
+  const needsExportAck = showExportAck || selectedKind === 'export-inquiry'
+
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
   const nameValid = values.name.trim().length > 0
-  const ackValid = !showExportAck || exportAck
+  const ackValid = !needsExportAck || exportAck
   const canSubmit = nameValid && emailValid && ackValid
 
   const field = (key: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -64,7 +70,7 @@ export function LeadForm({
       phone: values.phone.trim() || undefined,
       message: values.message.trim() || undefined,
       category,
-      acknowledgedExportTerms: showExportAck ? exportAck : undefined,
+      acknowledgedExportTerms: needsExportAck ? exportAck : undefined,
       meta: extraField && values.extra ? { [extraField.id]: values.extra } : undefined,
     }
     setResult(await submitLead(lead))
@@ -210,7 +216,7 @@ export function LeadForm({
         </div>
       </div>
 
-      {showExportAck && (
+      {needsExportAck && (
         <label className="flex items-start gap-2.5 text-xs leading-relaxed text-ink-soft">
           <input
             type="checkbox"
@@ -221,7 +227,7 @@ export function LeadForm({
           I understand that export orders require full payment in advance, prior to production.
         </label>
       )}
-      {touched && showExportAck && !exportAck && (
+      {touched && needsExportAck && !exportAck && (
         <p role="alert" className="text-xs text-brass">
           Please confirm you understand the export payment terms.
         </p>
