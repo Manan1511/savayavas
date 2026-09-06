@@ -148,7 +148,7 @@ function RelatedCategories({ currentSlug }: { currentSlug: string }) {
     <Section tone="ivory" className="py-16 sm:py-20">
       <Container>
         <Reveal>
-          <Eyebrow>Other Collections</Eyebrow>
+          <Eyebrow as="h2">Other Collections</Eyebrow>
         </Reveal>
         <Reveal as="ul" stagger className="mt-6 grid gap-px border border-greige bg-greige sm:grid-cols-2 lg:grid-cols-4">
           {others.map((c) => (

@@ -19,15 +19,24 @@ export function StatsBand() {
 
           <dl className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-5">
             {items.map((stat) => (
-              <div key={stat.label}>
-                <dt className="sr-only">{stat.label}</dt>
-                <dd className="font-(family-name:--font-display) text-3xl text-paper sm:text-4xl">
+              // A <dl>'s children may only be <dt>/<dd> (or a <div> grouping
+              // them) — this previously mixed a real dt/dd pair with two
+              // decorative <p> tags in the same wrapper, an invalid content
+              // model, and duplicated stat.label as both a sr-only dt and a
+              // visible <p>. dt is now the visible label itself (a term can
+              // be visible), and the caption is a second <dd> rather than a
+              // stray <p> — dt/dd/dd is exactly what a definition list is
+              // for. `order-*` keeps the original big-number-first layout
+              // while dt still precedes its dd's in the DOM, since a <dl>'s
+              // groups are defined as a term followed by its definitions.
+              <div key={stat.label} className="flex flex-col">
+                <dt className="order-2 mt-2 text-[0.625rem] uppercase leading-snug tracking-(--tracking-eyebrow) text-brass-soft">
+                  {stat.label}
+                </dt>
+                <dd className="order-1 font-(family-name:--font-display) font-normal text-3xl text-paper sm:text-4xl">
                   {stat.value}
                 </dd>
-                <p className="mt-2 text-[0.625rem] uppercase leading-snug tracking-(--tracking-eyebrow) text-brass-soft">
-                  {stat.label}
-                </p>
-                <p className="mt-1 text-xs leading-snug text-paper/60">{stat.caption}</p>
+                <dd className="order-3 mt-1 text-xs leading-snug text-paper/60">{stat.caption}</dd>
               </div>
             ))}
           </dl>

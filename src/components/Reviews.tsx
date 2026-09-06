@@ -28,7 +28,7 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
             <p className="u-prose mt-5 text-sm leading-relaxed">{intro}</p>
 
             <div className="mt-10">
-              <p className="font-(family-name:--font-display) text-6xl leading-none text-ink">
+              <p className="font-(family-name:--font-display) font-normal text-6xl leading-none text-ink">
                 {rating}
                 <span className="text-2xl text-stone">/{ratingOutOf}</span>
               </p>
@@ -46,7 +46,7 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
                   // On small screens show one at a time; on desktop show all three.
                   className={`${i === index ? 'block' : 'hidden'} bg-paper p-7 sm:block`}
                 >
-                  <p className="font-(family-name:--font-display) text-4xl leading-none text-brass/50" aria-hidden>
+                  <p className="font-(family-name:--font-display) font-normal text-4xl leading-none text-brass/50" aria-hidden>
                     &ldquo;
                   </p>
                   <blockquote className="mt-2 text-sm italic leading-relaxed">{r.quote}</blockquote>

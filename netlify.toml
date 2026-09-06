@@ -7,13 +7,15 @@
   # Flip to "1" for production once real assets have replaced the placeholders.
   VITE_STRICT_ASSETS = "0"
 
-# Routes are prerendered to real HTML files, so this only catches paths that
-# have no prerendered page — it must NOT shadow them with the SPA shell.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
+# No catch-all redirect. Every real route is enumerated and prerendered to
+# its own static file (see src/app/routes.tsx), so Netlify serves each one
+# directly with no rewrite needed. A "/* -> /index.html status 200" rule was
+# here before, and it was a real problem: it caught genuinely nonexistent
+# paths too, silently serving the homepage with a 200 status instead of a
+# 404 (a "soft 404" that search engines penalise and that hides broken
+# links from anyone checking status codes). dist/404.html exists as a real
+# static file, so Netlify's own automatic 404 handling picks it up, with a
+# genuine 404 status, for anything unmatched. No redirect rule required.
 
 [[headers]]
   for = "/assets/*"

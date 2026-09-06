@@ -74,7 +74,7 @@ export function Component() {
         <Section tone="ivory" className="py-16 sm:py-20">
           <Container>
             <Reveal>
-              <Eyebrow>Related</Eyebrow>
+              <Eyebrow as="h2">Related</Eyebrow>
             </Reveal>
             <Reveal as="ul" stagger className="mt-6 grid gap-x-8 gap-y-10 sm:grid-cols-2">
               {related.map((p) => (

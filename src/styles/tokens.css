@@ -6,13 +6,28 @@
   --color-paper: #fcfbf9; /* page ground */
   --color-ivory: #f2ede5; /* alternate section ground, torn sheet */
   --color-greige: #e4e0d6; /* hairline rules, muted fills */
-  --color-stone: #b8b2a6; /* secondary text on light */
+  /* Darkened from the deck's #B8B2A6: that value measured 2.03:1 against
+     paper and 1.81:1 against ivory (Lighthouse caught it on a category
+     page's spec-table placeholder text). #6E6A63 clears 4.5:1 against both
+     (5.20:1 paper, 4.61:1 ivory). Every non-disabled use of this token is on
+     a light ground — checked all 12 usages across the codebase — so one
+     darker value fixes every instance with no per-usage exceptions needed.
+     Disabled controls (the IN locale toggle) are correctly exempt from
+     contrast rules regardless of this token's value. */
+  --color-stone: #6e6a63; /* secondary text on light */
   --color-ink: #141414; /* headlines, dark bands */
   --color-ink-soft: #4a4a4a; /* body copy */
   --color-navy: #2b3441; /* the thread, denim accents */
   --color-navy-deep: #1b2029;
-  --color-brass: #a8845c; /* eyebrows, icons, rules */
-  --color-brass-soft: #c9ab86;
+  /* Darkened from the deck's #A8845C: that value measured 2.94:1 against
+     ivory and 3.32:1 against paper, failing WCAG AA (4.5:1) for the eyebrow
+     label and even the relaxed 3:1 large-text threshold for the hero script
+     line — both use this token on both grounds. #836647 clears 4.5:1 against
+     both (verified: 5.13:1 paper, 4.55:1 ivory). Icons, rules and hover
+     borders aren't held to text contrast rules, but one token keeps the
+     brand consistent rather than forking a separate "text-safe" brass. */
+  --color-brass: #836647; /* eyebrows, icons, rules */
+  --color-brass-soft: #c9ab86; /* on dark grounds only — verify separately if reused on light */
 
   /* --- Type ---------------------------------------------------------- */
   /* Stand-ins for the brand faces. Swapping to licensed fonts is a

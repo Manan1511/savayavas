@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1, 2 and 3 complete. All 9 routes are built and prerendering. Phase 4 (polish) is next. This document is the contract.
+Status: Phase 1, 2 and 3 complete. All 9 routes are built and prerendering. Phase 4 (polish) mostly done — every page scores 100 on Lighthouse accessibility, best-practices and SEO. Remaining Phase 4 items (AVIF/srcset, true font subsetting) are genuinely blocked on real assets, not skipped. This document is the contract.
 
 ---
 
@@ -358,8 +358,26 @@ A real bug surfaced by testing across these three form-heavy routes: `site.conta
 
 **Phase 3 is complete. All 9 routes are built and prerendering.**
 
-**Phase 4 — Polish**
-Lighthouse pass, image formats (AVIF + `srcset`), font subsetting, focus states, keyboard nav through the lightbox and carousel, 404, `sitemap.xml`, `robots.txt`, JSON-LD `Organization`, OG images per route.
+**Phase 4 — Polish — ✅ mostly done**
+
+Real Lighthouse, not a guess: `npx lighthouse` against `vite preview` (the actual production build, not dev) with Chrome installed locally. Before this pass: Home scored 83/96/96/100 (performance/accessibility/best-practices/seo). After: every one of Home, `/for-dealers`, `/our-story`, `/contact`, `/collections`, `/collections/:category`, `/vas` and a journal post scores **100 on accessibility, best-practices and seo**. Performance sits in the mid-to-high 80s across the board, the honest ceiling for a placeholder-asset site (see below).
+
+Six real, confirmed bugs found by running the actual tool rather than assuming compliance, each verified fixed by re-running Lighthouse afterward:
+
+- **404 was a soft 404.** `netlify.toml` redirected every unmatched path to `/index.html` with status 200 — genuinely broken links returned the homepage with a 200, which search engines penalise and which hides dead links from anyone checking status codes. Added a real `/404` route (`NotFound.tsx`, `noindex`), prerendered to `dist/404.html`, and removed the redirect entirely: every real route is enumerated and prerendered to its own file, so Netlify serves each directly with no rewrite needed, and its own automatic 404.html detection now returns a genuine 404 status.
+- **The OG image referenced by every single page did not exist.** `/og/default.jpg` was a 404 on every social share. Generated a real branded 1200×630 placeholder (`scripts/generate-og.py`, not part of `npm run build` — a one-time/occasional regeneration step) matching the site's own eyebrow/wordmark/rule/tagline pattern.
+- **Charset declaration failed Lighthouse's audit despite a static `<meta charset>` sitting first in `index.html`.** Traced into `vite-react-ssg`'s source: it does `indexHTML.replace('<head>', '<head>' + metaTags)`, unconditionally inserting every Helmet-collected tag before any static template content, which pushed the real declaration past the 1024-byte budget once title/description/OG/Twitter tags were long enough. Fixed by also emitting charset via `Head` in `RootLayout`, so it lands inside that same inserted block instead of after it — confirmed the resulting byte offset (149) and, separately, that `npm run dev`'s server sends no charset in its `Content-Type` header either, so the static declaration stays for dev-mode correctness (an assumption I initially got wrong and verified before shipping).
+- **Two design tokens failed WCAG AA contrast, and both are used everywhere.** `--color-brass` (2.94:1 vs ivory, 3.32:1 vs paper) and `--color-stone` (2.03:1 vs paper, 1.81:1 vs ivory) both needed 4.5:1. Computed replacements against both grounds using the actual relative-luminance formula, not a guess: `#836647` and `#6E6A63`. Checked every usage of both tokens first to confirm neither appears on a dark ground (where darkening would have hurt rather than helped) before changing them globally rather than patching call sites one at a time.
+- **A systemic heading-order bug: `Eyebrow` (a plain `<p>`) sitting directly above a grid of `<h3>` cards, skipping `<h2>` entirely.** Found on `/for-dealers` (three sections), `/journal` and `/journal/:slug` (the featured/related post cards), and a category detail page's "Other Collections". Rather than patching each site differently, gave `Eyebrow` an `as="h2"` option — same look, since its CSS fully overrides font size/weight/tracking regardless of tag — and applied it wherever a section's only heading-shaped text was that label. Audited every remaining `<h3>` in the codebase by hand afterward to confirm no other instance existed.
+- **`StatsBand`'s `<dl>` mixed valid `dt`/`dd` with two stray `<p>` tags in the same wrapper**, an invalid definition-list content model, and duplicated the stat label as both a sr-only `dt` and a visible `<p>`. Rebuilt as `dt` (now visibly the label itself) followed by two `dd`s (value, caption), using `order-*` utilities to keep the exact original big-number-first visual layout while the DOM order is now spec-correct.
+
+Also done: **font weight-range trimming**, measured, not assumed — fetched both the old and new Google Fonts CSS2 responses and summed every referenced file's actual byte size: 527,604 → 307,384 bytes (42%, 220KB) just from requesting only the weights/styles the site actually uses (Playfair 400 only; Jost 300/400 regular + 300 italic, since three places genuinely render italic Jost). Caught a self-introduced risk before shipping it: six non-heading elements (`Nav`/`Footer` logo links, `Reviews`' rating figure and quote mark, `Onboarding`'s step numbers, `StatsBand`'s values) use the display font without an explicit weight and would have silently requested the now-unavailable 300 — made explicit with `font-normal` rather than relying on the browser's silent substitution.
+
+`sitemap.xml` and `robots.txt`: generated at build time (`scripts/sitemap.mjs`, chained after `vite-react-ssg build`) from the same static route list plus the actual category and journal slugs (parsed from their content modules' source text, the same constraint `scripts/assets.mjs` already works under — no TS runtime in a plain Node build script). Verified: valid XML, 16 URLs matching exactly the 16 real content pages (404 correctly excluded), `robots.txt` points at it.
+
+Focus states and keyboard nav: verified with genuine input, not synthetic events. A real Tab keypress (via the `computer` tool, not `.focus()`, which does not trigger `:focus-visible`) confirmed the brass focus ring actually renders. A real click plus Escape confirmed the Tribe wall / VAS detail-tile Lightbox still opens, focuses its close button, and closes on Escape after this session's other changes.
+
+**Deferred, genuinely blocked, not skipped:** AVIF/`srcset` — every image is still a placeholder SVG; format conversion has no meaning until real photography lands (item 1 in §2). True font *subsetting* (self-hosted, glyph-level, per the original Phase 1 plan) — the weight-range trim above is a real, measured, verified improvement, but it is Google Fonts serving smaller static files, not the self-hosted subsetting this section originally specified; that remains a further step if the extra ~150-250KB matters more once real content is in place.
 
 **Phase 5 — Deferred, on your signal**
 Backend + CMS. Forms transmit. Catalogue becomes editable. Hindi.

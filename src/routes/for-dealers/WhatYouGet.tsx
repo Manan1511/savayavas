@@ -11,7 +11,7 @@ export function WhatYouGet() {
     <Section tone="ivory" className="py-16 sm:py-20">
       <Container>
         <Reveal>
-          <Eyebrow>{eyebrow}</Eyebrow>
+          <Eyebrow as="h2">{eyebrow}</Eyebrow>
         </Reveal>
 
         <Reveal stagger className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4">

@@ -6,7 +6,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run assets:check && vite-react-ssg build",
+    "build": "npm run assets:check && vite-react-ssg build && node scripts/sitemap.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "assets:generate": "node scripts/assets.mjs generate",

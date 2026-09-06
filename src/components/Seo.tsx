@@ -11,6 +11,12 @@ export interface SeoProps {
   /** Absolute or root-relative image for link previews. */
   image?: string
   type?: 'website' | 'article'
+  /**
+   * The 404 page's only real use: no canonical, no OG/Twitter tags (there is
+   * nothing to preview or crawl), just a title, a description, and a robots
+   * tag telling search engines to leave it out of the index.
+   */
+  noindex?: boolean
 }
 
 /**
@@ -18,10 +24,27 @@ export interface SeoProps {
  * the served HTML — which is the whole reason for prerendering: link previews
  * in WhatsApp and LinkedIn are how this brand actually gets shared.
  */
-export function Seo({ title, description, path, image = '/og/default.jpg', type = 'website' }: SeoProps) {
+export function Seo({
+  title,
+  description,
+  path,
+  image = '/og/default.jpg',
+  type = 'website',
+  noindex = false,
+}: SeoProps) {
   const url = `${SITE_URL}${path}`
   const fullTitle = path === '/' ? `${site.brand.name} · ${site.brand.tagline}` : `${title} · ${site.brand.name}`
   const imageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`
+
+  if (noindex) {
+    return (
+      <Head>
+        <title>{fullTitle}</title>
+        <meta name="description" content={description} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+    )
+  }
 
   return (
     <Head>

@@ -35,7 +35,7 @@ export function Nav() {
       <div className="mx-auto flex max-w-(--container-content) items-center justify-between px-(--spacing-gutter) py-5">
         <Link
           to="/"
-          className="whitespace-nowrap font-(family-name:--font-display) text-base tracking-[0.05em] text-ink transition-opacity duration-300 hover:opacity-70 sm:text-xl sm:tracking-[0.06em]"
+          className="whitespace-nowrap font-(family-name:--font-display) font-normal text-base tracking-[0.05em] text-ink transition-opacity duration-300 hover:opacity-70 sm:text-xl sm:tracking-[0.06em]"
           aria-label={`${site.brand.name}, home`}
         >
           SAVAYAVAS &amp; CO

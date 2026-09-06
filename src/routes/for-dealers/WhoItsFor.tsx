@@ -10,7 +10,7 @@ export function WhoItsFor() {
     <Section className="py-16 sm:py-20">
       <Container>
         <Reveal>
-          <Eyebrow>{eyebrow}</Eyebrow>
+          <Eyebrow as="h2">{eyebrow}</Eyebrow>
         </Reveal>
 
         <Reveal as="ul" stagger className="mt-6 grid gap-px border border-greige bg-greige sm:grid-cols-2 lg:grid-cols-4">

@@ -1,6 +1,5 @@
 import type { RouteRecord } from 'vite-react-ssg'
 import RootLayout from '@/app/RootLayout'
-import { PageStub } from '@/components/PageStub'
 import { site } from '@/content/site.en'
 import { journalPosts } from '@/content/journal.en'
 
@@ -56,16 +55,19 @@ export const routes: RouteRecord[] = [
         lazy: () => import('@/routes/contact'),
       },
       {
+        // Prerendered to a real dist/404.html (a plain static path, not a
+        // dynamic one, so it needs no getStaticPaths). Netlify serves this
+        // file automatically, with a genuine 404 status, for any path with no
+        // matching static file — see netlify.toml.
+        path: '404',
+        lazy: () => import('@/routes/NotFound'),
+      },
+      {
+        // Client-side fallback for the rare case that in-app navigation (not
+        // a fresh page load) reaches an unmatched path. Static hosting never
+        // exercises this branch; Netlify's own 404.html lookup handles that.
         path: '*',
-        element: (
-          <PageStub
-            eyebrow="404"
-            title="Not Found"
-            path="/404"
-            description="That page does not exist. Try the collections, or get in touch."
-            sections={[]}
-          />
-        ),
+        lazy: () => import('@/routes/NotFound'),
       },
     ],
   },

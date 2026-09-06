@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-ink text-paper">
       <div className="mx-auto flex max-w-(--container-content) flex-col items-center gap-6 px-(--spacing-gutter) py-8 sm:flex-row sm:justify-between">
-        <Link to="/" className="font-(family-name:--font-display) text-lg tracking-[0.06em]">
+        <Link to="/" className="font-(family-name:--font-display) font-normal text-lg tracking-[0.06em]">
           SAVAYAVAS &amp; CO
         </Link>
 
