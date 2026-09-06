@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1 complete. Phase 2 (Home) built and running; awaiting real assets. This document is the contract.
+Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story built. This document is the contract.
 
 ---
 
@@ -68,8 +68,8 @@ Status: Phase 1 complete. Phase 2 (Home) built and running; awaiting real assets
 src/
   app/            router, layouts, providers (Lenis, i18n, region)
   routes/         one folder per route, colocated sections
-  components/     shared UI primitives
-  motion/         WeaveReveal (see §5)
+  components/     shared UI primitives (Lightbox, TornEdge, Figure, ...)
+  motion/         WeaveReveal, Reveal (see §5)
   content/        typed content modules — en.ts per route + shared
   assets/         registry.ts + placeholder files
   styles/         tokens.css, fonts.css, globals.css
@@ -297,7 +297,13 @@ All seven sections, plus the `WeaveReveal` intro. This route is the pattern libr
 Outstanding on this route: real photography, and a final responsive pass once those land. Two animation approaches were built and removed along the way (see §5) — that exploration is finished, and the weave is the answer.
 
 **Phase 3 — Remaining routes**
-`/our-story` → `/vas` → `/collections` → `/for-dealers` → `/contact` → `/journal`. In that order: they descend by how much new component work each needs. Thread paths drawn per route against the built layout.
+`/our-story` → `/vas` → `/collections` → `/for-dealers` → `/contact` → `/journal`. In that order: they descend by how much new component work each needs.
+
+`/our-story` — ✅ built. Header, Founders (with photo), the Devanagari name moment, VAS origin hinge, a full-bleed mill band, and the 14-tile Tribe wall with a keyboard-navigable Lightbox. New shared components from this route: `TornEdge` reused, plus `Lightbox` (generic, not tied to Tribe) — `/vas` and `/collections` can reuse it for any enlarged-view need.
+
+Verified: no em dashes, Devanagari renders in the prerendered HTML regardless of locale, all 6 sections present in SSR output, no unexplained hidden content, no sideways scroll at 375 or 1265, tribe grid resolves to 2 columns on mobile and 7 on desktop. Lightbox verified via real pointer clicks (not `.click()`, which does not reliably move focus in Chromium): correct tile opens, arrow keys navigate, Escape closes, focus returns to the tile that opened it, body scroll unlocks on close.
+
+No video assets exist yet, so the Lightbox opens the same still, larger, with its caption, rather than a fake video player.
 
 **Phase 4 — Polish**
 Lighthouse pass, image formats (AVIF + `srcset`), font subsetting, focus states, keyboard nav through the lightbox and carousel, 404, `sitemap.xml`, `robots.txt`, JSON-LD `Organization`, OG images per route.

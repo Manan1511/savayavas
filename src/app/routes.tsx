@@ -20,22 +20,7 @@ export const routes: RouteRecord[] = [
       },
       {
         path: 'our-story',
-        element: (
-          <PageStub
-            eyebrow="Our World. Our People."
-            title="Our Story"
-            path="/our-story"
-            description="Three brothers, one mill, three decades of thread, and the second generation carrying it forward."
-            sections={[
-              'Header',
-              'Three brothers: Arvind, Vinod and Paresh Parmar',
-              'The name: सावयव + वस्, meaning Various Types of Fabrics',
-              'The second generation: Priyank and Sherin Parmar',
-              'The VAS origin',
-              'Tribe wall: poster grid with lightbox',
-            ]}
-          />
-        ),
+        lazy: () => import('@/routes/our-story'),
       },
       {
         path: 'collections',
