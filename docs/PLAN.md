@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas, /collections, /for-dealers and /contact built. Only /journal remains. This document is the contract.
+Status: Phase 1, 2 and 3 complete. All 9 routes are built and prerendering. Phase 4 (polish) is next. This document is the contract.
 
 ---
 
@@ -277,6 +277,18 @@ Post: title, meta, body, related posts, share.
 
 Content as MDX in `content/journal/`, prerendered per slug. This is the route most obviously wanting a CMS later — keep the frontmatter schema close to what a Sanity document would look like.
 
+**Status:** ✅ built, deviating from MDX. No MDX toolchain exists and no real posts exist yet, so adding an MDX pipeline for placeholder content would be complexity with no payoff. `content/journal.en.ts` holds typed `JournalPost` objects instead (slug, title, date, category, excerpt, cover, body paragraphs), the same convention every other route follows. The shape maps directly onto frontmatter + body, so migrating to real MDX or a CMS document later is a data-layer change, not a component rewrite.
+
+Four seed posts (GSM explained, cotton vs linen, consistency at scale, reading a composition label): genuine generic textile-trade explainers, not fabricated Savayavas claims, written to prove the route end to end. They should be reviewed or replaced with real editorial content before launch. Cover images reuse existing registry assets by topic rather than adding new placeholders for content nobody has written in real life yet.
+
+Index: header, a larger featured-post card, a category filter (client-side, no routing — four posts don't need it) that excludes the featured post from the filtered grid, and an Instagram section. That section is a plain follow link, deliberately not a grid of tiles implying they are real Instagram posts — no Instagram API integration exists, and faking a feed would be a specific, easily-noticed dishonesty.
+
+Post: breadcrumb back to the index, category and date, cover image, body, a copy-link share button, and up to two related posts (same category first, then backfilled from others).
+
+**A real bug, caught by testing rather than assumed away:** the share button's clipboard-write failure was silently swallowed — a visitor whose browser blocks clipboard access (permissions, an unfocused document, an older browser) would click "Share This Post" and see nothing happen, with no way to know it failed. Fixed to show the raw URL as a fallback instead of doing nothing. Confirmed by triggering the exact failure this pane's automation produces (`Document is not focused`) and verifying the fallback text renders.
+
+Verified: no em dashes; no sideways scroll; the category filter actually filters (`Guides` correctly shows only `cotton-vs-linen`, since `gsm-explained` is the same category but is the featured post and excluded); a post page's related section shows same-category posts first; `og:type` is `article` on post pages; all 16 pages (was 12) build and prerender.
+
 ---
 
 ### `/contact` — Inquiry
@@ -335,6 +347,16 @@ Two placeholder policies worth flagging together, since they're the same judgeme
 Colourway swatches are flat colour blocks from the brand palette with text labels, not photographs standing in for real dye lots — same reasoning as the specification table, one level down.
 
 Verified: no em dashes, no sideways scroll on either page, all six swatches render with correct colours and labels, the inquiry link carries the category (`/contact?category=linen`), spec rows show the pending marker rather than fabricated data, all sections present in the prerendered HTML for both the index and a sampled category page.
+
+`/for-dealers` — ✅ built. Adds `LeadForm`, the first form on the site and the pattern every later one follows: inline validation, and a submission that never claims someone will be in touch while `LEAD_TRANSPORT_CONFIGURED` is false. The plan asked for two forms (dealer onboarding, pricing inquiry); built as one `LeadForm` with an inquiry-type select instead, since two near-identical forms stacked on a page is redundant UX for the same visitor.
+
+`/contact` — ✅ built. Same consolidation for Trade/Export inquiry, with `LeadForm` extended so the export payment-acknowledgment checkbox appears automatically once "Export Inquiry" is selected, not only when a form is hardcoded to exports. A static map (no live embed), and `?category=<slug>` from a Collections page arrives here and prefills the form — verified end to end by clicking a real "Enquire About 100% Cotton" link.
+
+`/journal` and `/journal/:slug` — ✅ built, deviating from the plan's MDX suggestion (see §6) since no MDX toolchain exists and no real posts do either. Typed `JournalPost` objects instead, same convention as everywhere else.
+
+A real bug surfaced by testing across these three form-heavy routes: `site.contact`'s phone and email are deck-placeholder values. They were a passive footer mention before `LeadForm` existed; now they are the *active* fallback every visitor is told to call whenever a submission cannot send, i.e. every submission until a backend exists. Flagged inline and in §2 as item 9.
+
+**Phase 3 is complete. All 9 routes are built and prerendering.**
 
 **Phase 4 — Polish**
 Lighthouse pass, image formats (AVIF + `srcset`), font subsetting, focus states, keyboard nav through the lightbox and carousel, 404, `sitemap.xml`, `robots.txt`, JSON-LD `Organization`, OG images per route.

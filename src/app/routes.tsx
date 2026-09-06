@@ -2,6 +2,7 @@ import type { RouteRecord } from 'vite-react-ssg'
 import RootLayout from '@/app/RootLayout'
 import { PageStub } from '@/components/PageStub'
 import { site } from '@/content/site.en'
+import { journalPosts } from '@/content/journal.en'
 
 /**
  * The nine routes from docs/PLAN.md §6. Every one is prerendered at build.
@@ -42,15 +43,13 @@ export const routes: RouteRecord[] = [
       },
       {
         path: 'journal',
-        element: (
-          <PageStub
-            eyebrow="Content Hub"
-            title="Journal"
-            path="/journal"
-            description="Brand stories, reel series and notes from the mill."
-            sections={['Header', 'Featured post', 'Post grid', 'Category filter', 'Instagram strip']}
-          />
-        ),
+        lazy: () => import('@/routes/journal'),
+      },
+      {
+        path: 'journal/:slug',
+        lazy: () => import('@/routes/journal/post'),
+        // Prerender one static page per journal post.
+        getStaticPaths: () => journalPosts.map((p) => `/journal/${p.slug}`),
       },
       {
         path: 'contact',
