@@ -38,24 +38,7 @@ export const routes: RouteRecord[] = [
       },
       {
         path: 'for-dealers',
-        element: (
-          <PageStub
-            eyebrow="Trade"
-            title="For Dealers"
-            path="/for-dealers"
-            description="Dealer program, pricing structure and onboarding for traders, manufacturers and menswear brands."
-            sections={[
-              'Header',
-              'Who the program is for',
-              'What dealers get',
-              'Three-step onboarding',
-              'Pricing structure inquiry',
-              'Export terms: advance payment only',
-              'Reviews',
-              'FAQ and CTA',
-            ]}
-          />
-        ),
+        lazy: () => import('@/routes/for-dealers'),
       },
       {
         path: 'journal',

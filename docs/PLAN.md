@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas and /collections built. This document is the contract.
+Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas, /collections and /for-dealers built. This document is the contract.
 
 ---
 
@@ -50,6 +50,7 @@ Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas and 
 | 5 | Fabric catalogue data (real GSM/weave/composition specs, real colourway photography, SKUs) | `/collections/:category`'s spec table and swatches are currently honest placeholders | Phase 3 (built), data still needed |
 | 6 | Catalogue PDF | `/collections` download CTA | Phase 3 |
 | 7 | Real testimonials + review count + VAS quality stats | Reviews section and `/vas` stats band (both marked `placeholder: true`) | Before launch |
+| 9 | Verified phone/email | `site.contact` is deck-invented and now the ACTIVE fallback on every form submission (LeadForm), not just a passive footer mention | Before launch |
 | 8 | Confirm licensed brand fonts, if any exist | Type swap | Anytime |
 
 **Asset reality check.** The 6 PDF boards are single flattened JPEGs, ~1500px wide, ~290KB each. No layers, no live text, no vectors — AI-generated concept renders. Nothing is extractable. Every photo, icon, torn edge, and word is being rebuilt from scratch against the render as reference.
@@ -68,7 +69,7 @@ Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas and 
 src/
   app/            router, layouts, providers (Lenis, i18n, region)
   routes/         one folder per route, colocated sections
-  components/     shared UI primitives (Lightbox, TornEdge, Figure, ...)
+  components/     shared UI primitives (Lightbox, TornEdge, Figure, LeadForm, SplitBand, IconPillar, ...)
   motion/         WeaveReveal, Reveal (see §5)
   content/        typed content modules — en.ts per route + shared
   assets/         registry.ts + placeholder files
@@ -257,6 +258,14 @@ Sections: hero (category name + description) · specification table (composition
 Sections: header · who the program is for · what dealers get · 3-step onboarding · pricing-structure inquiry (form) · export terms (advance-payment-only, stated plainly) · reviews · FAQ · CTA.
 
 **Forms:** dealer onboarding + pricing inquiry. Both call `submitLead()`, which currently validates, logs, and shows the success state without transmitting. **The success message must not claim someone will be in touch until a backend exists** — render a "call/WhatsApp us" fallback instead.
+
+**Status:** ✅ built. One consolidated `LeadForm` rather than two near-identical forms stacked on the page — an inquiry-type select chooses between `dealer-onboarding` and `trade-inquiry`, and that choice is what gets sent. Also built: who-it's-for (4 audiences), what-dealers-get (4 `IconPillar`s), a 3-step onboarding list, the export-terms callout (stated as plain fact, since this policy was supplied directly rather than invented by the deck), the shared `Reviews` component, and an FAQ built on native `<details>`/`<summary>` for free keyboard support and no JS state.
+
+FAQ answers make no invented claims: MOQ and lead-time questions are answered honestly as "tell us and we'll confirm" rather than a plausible fabricated number, matching the specification-table policy on `/collections/:category`.
+
+Verified: form validation blocks submission with inline errors when name/email are missing or the email is malformed; a valid submission produces the honest "not connected" fallback with working `tel:`/`mailto:` links and never claims anyone "will be in touch"; the inquiry-type select actually changes the submitted lead's `kind` (confirmed via the dev console log, `dealer-onboarding` vs `trade-inquiry`); no em dashes; no sideways scroll; all 8 sections and all 5 FAQ items present in prerendered HTML.
+
+**New finding, not new code:** `site.contact`'s phone and email are deck-invented placeholders. They were a passive footer mention before; `LeadForm`'s fallback now surfaces them as the *active* thing every visitor is told to call or email whenever a submission can't send, i.e. every submission until a backend exists. Added to "Blocked on you" as item 9 — a wrong number here means a real, motivated lead calling a dead line.
 
 ---
 

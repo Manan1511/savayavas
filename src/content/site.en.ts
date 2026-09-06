@@ -37,6 +37,13 @@ export const site = {
     ],
   },
 
+  /**
+   * ⚠️ PLACEHOLDER, transcribed from the concept boards. Passively listed in
+   * the footer this was low-stakes; LeadForm now surfaces this phone and
+   * email as the ACTIVE fallback whenever a submission cannot be sent (which
+   * is every submission, until a backend exists), so an unverified number
+   * here means real leads calling a wrong number. Verify before launch.
+   */
   contact: {
     phone: '+91 98765 43210',
     email: 'info@savayavas.co',
