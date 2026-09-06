@@ -48,6 +48,36 @@
     text-wrap: balance;
   }
 
+  /* Playfair Display has no Devanagari glyphs, so a Hindi heading would
+     silently fall back to a generic system serif — inconsistent with every
+     other typeface on the page, which all resolve correctly. `:lang(hi)`
+     reads the real `lang` attribute RootLayout sets per locale, so this
+     activates on genuinely Hindi pages, not by guesswork. Wide Latin
+     small-caps tracking also doesn't apply to Devanagari, which has no
+     concept of "uppercase" and whose conjuncts need normal spacing to stay
+     legible, so both get corrected together. */
+  :lang(hi) h1,
+  :lang(hi) h2,
+  :lang(hi) h3 {
+    font-family: var(--font-deva);
+    letter-spacing: normal;
+  }
+
+  :lang(hi) .u-eyebrow {
+    font-family: var(--font-deva);
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  /* Allura (Latin cursive) has no Devanagari either, and Devanagari has no
+     italic tradition to begin with — the three script-line headline
+     moments (Home and VAS hero, Our Story's VAS-origin heading) fall back
+     to the display serif in Hindi instead of a broken cursive attempt. */
+  :lang(hi) .u-script {
+    font-family: var(--font-deva);
+    font-style: normal;
+  }
+
   p {
     text-wrap: pretty;
   }
@@ -77,6 +107,12 @@
 
   .u-prose {
     max-width: var(--container-prose);
+  }
+
+  /* Named so the :lang(hi) override above can target it directly, rather
+     than fighting Tailwind's escaped arbitrary-value class name. */
+  .u-script {
+    font-family: var(--font-script);
   }
 }
 

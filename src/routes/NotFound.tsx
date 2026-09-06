@@ -2,7 +2,12 @@ import { Link } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Seo } from '@/components/Seo'
-import { site } from '@/content/site.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { useLocale, localizePath } from '@/lib/i18n'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
 
 /**
  * A real page, not PageStub. Prerendered to a real /404.html so Netlify can
@@ -12,22 +17,24 @@ import { site } from '@/content/site.en'
  * not a route we forgot to build.
  */
 export function Component() {
+  const site = useLocaleContent(siteEn, siteHi)
+  const ui = useLocaleContent(uiEn, uiHi)
+  const locale = useLocale()
+
   return (
     <>
-      <Seo title="Page Not Found" path="/404" description="That page does not exist." noindex />
+      <Seo title={ui.pageTitles.pageNotFound} path="/404" description={ui.notFound.seoDescription} noindex />
 
       <Section className="flex min-h-[70vh] items-center py-32">
         <Container className="max-w-xl text-center">
           <Eyebrow>404</Eyebrow>
-          <h1 className="mt-4 text-4xl uppercase leading-tight sm:text-5xl">Page Not Found</h1>
-          <p className="u-prose mx-auto mt-5 text-sm leading-relaxed">
-            That page does not exist, or has moved. Try one of these instead:
-          </p>
+          <h1 className="mt-4 text-4xl uppercase leading-tight sm:text-5xl">{ui.notFound.heading}</h1>
+          <p className="u-prose mx-auto mt-5 text-sm leading-relaxed">{ui.notFound.body}</p>
 
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass">
             {site.nav.items.map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="hover:text-ink">
+                <Link to={localizePath(item.to, locale)} className="hover:text-ink">
                   {item.label}
                 </Link>
               </li>
@@ -35,10 +42,10 @@ export function Component() {
           </ul>
 
           <Link
-            to="/"
+            to={localizePath('/', locale)}
             className="mt-10 inline-block border-b border-brass pb-1 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass transition-colors duration-300 hover:border-ink hover:text-ink"
           >
-            Back to Home &rarr;
+            {ui.common.backToHome} &rarr;
           </Link>
         </Container>
       </Section>

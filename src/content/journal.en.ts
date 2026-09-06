@@ -88,14 +88,31 @@ export const journalPosts: JournalPost[] = [
   },
 ]
 
-export function getPostBySlug(slug: string): JournalPost | undefined {
-  return journalPosts.find((p) => p.slug === slug)
+export type JournalCategory = (typeof journalCategories)[number]
+
+/**
+ * Locale-agnostic and generic over the exact post shape, not just
+ * `JournalPost`: `useLocaleContent`'s `LocaleShape` widens `cover` from
+ * `AssetKey` to `string` along with the real copy fields (see the equivalent
+ * comment in our-story/TribeWall.tsx), so a Hindi-resolved posts array is
+ * `LocaleShape<JournalPost>[]`, not `JournalPost[]`. Being generic lets both
+ * shapes flow through untouched, taking the already-resolved (English or
+ * Hindi) posts array rather than reaching for `journalPosts` directly, so a
+ * Hindi route page gets Hindi-language related posts instead of silently
+ * falling back to English data.
+ */
+export function getPostBySlug<T extends { slug: string }>(posts: readonly T[], slug: string): T | undefined {
+  return posts.find((p) => p.slug === slug)
 }
 
-export function getRelatedPosts(slug: string, limit = 2): JournalPost[] {
-  const current = getPostBySlug(slug)
+export function getRelatedPosts<T extends { slug: string; category: string }>(
+  posts: readonly T[],
+  slug: string,
+  limit = 2,
+): T[] {
+  const current = getPostBySlug(posts, slug)
   if (!current) return []
-  const sameCategory = journalPosts.filter((p) => p.slug !== slug && p.category === current.category)
-  const rest = journalPosts.filter((p) => p.slug !== slug && p.category !== current.category)
+  const sameCategory = posts.filter((p) => p.slug !== slug && p.category === current.category)
+  const rest = posts.filter((p) => p.slug !== slug && p.category !== current.category)
   return [...sameCategory, ...rest].slice(0, limit)
 }

@@ -2,9 +2,12 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { ourStory } from '@/content/ourStory.en'
+import { ourStory as ourStoryEn } from '@/content/ourStory.en'
+import { ourStory as ourStoryHi } from '@/content/ourStory.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function Founders() {
+  const ourStory = useLocaleContent(ourStoryEn, ourStoryHi)
   const { eyebrow, headline, body, names } = ourStory.founders
 
   return (

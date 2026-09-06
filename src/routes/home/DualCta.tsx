@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { home } from '@/content/home.en'
+import { home as homeEn } from '@/content/home.en'
+import { home as homeHi } from '@/content/home.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { useLocale, localizePath } from '@/lib/i18n'
 
 /** The two paths the sitemap asks the homepage to split traffic between. */
 export function DualCta() {
+  const home = useLocaleContent(homeEn, homeHi)
+  const locale = useLocale()
   const { dealers, story } = home.dualCta
 
   return (
@@ -14,7 +19,7 @@ export function DualCta() {
           {[dealers, story].map((block) => (
             <Link
               key={block.cta.to}
-              to={block.cta.to}
+              to={localizePath(block.cta.to, locale)}
               className="group flex flex-col justify-between bg-paper p-9 transition-colors duration-400 hover:bg-ivory sm:p-12"
             >
               <div>

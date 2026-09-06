@@ -1,7 +1,9 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { ourStory } from '@/content/ourStory.en'
+import { ourStory as ourStoryEn } from '@/content/ourStory.en'
+import { ourStory as ourStoryHi } from '@/content/ourStory.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 /**
  * A quiet header, deliberately: this page's strength is the copy that
@@ -9,6 +11,7 @@ import { ourStory } from '@/content/ourStory.en'
  * a story to be believed.
  */
 export function Hero() {
+  const ourStory = useLocaleContent(ourStoryEn, ourStoryHi)
   return (
     <Section tone="ivory" className="pb-16 pt-32 sm:pb-20 sm:pt-40">
       <Container>

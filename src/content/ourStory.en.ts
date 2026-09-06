@@ -80,3 +80,5 @@ export const ourStory = {
     description: 'Three brothers, one mill, three decades of thread. The story of Shubh Shantinath Silk Mills and the family behind Savayavas & Co.',
   },
 } as const
+
+export type OurStory = typeof ourStory

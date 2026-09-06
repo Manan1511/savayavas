@@ -68,3 +68,5 @@ export const home = {
       'Savayavas & Co. Premium shirting fabrics with consistent quality at scale. Cotton, linen and engineered blends for traders, manufacturers and menswear brands. Manufactured under Shubh Shantinath Silk Mills, Surat.',
   },
 } as const
+
+export type Home = typeof home

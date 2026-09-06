@@ -4,7 +4,12 @@ import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Lightbox } from '@/components/Lightbox'
 import { Reveal } from '@/motion'
-import { ourStory } from '@/content/ourStory.en'
+import { ourStory as ourStoryEn } from '@/content/ourStory.en'
+import { ourStory as ourStoryHi } from '@/content/ourStory.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
+import type { AssetKey } from '@/assets/registry'
 
 /**
  * A grid of posters, not the deck's 14 autoplaying videos.
@@ -16,7 +21,17 @@ import { ourStory } from '@/content/ourStory.en'
  * on click.
  */
 export function TribeWall() {
-  const { eyebrow, headline, intro, items } = ourStory.tribe
+  const ourStory = useLocaleContent(ourStoryEn, ourStoryHi)
+  const ui = useLocaleContent(uiEn, uiHi)
+  const { eyebrow, headline, intro } = ourStory.tribe
+  /**
+   * `asset` is an `AssetKey` identifier, not translated copy, but
+   * `useLocaleContent`'s `LocaleShape` widens every string leaf (so a
+   * translated caption isn't forced to match the English literal), which
+   * also widens `asset` to plain `string`. Cast back: both locale files
+   * carry the exact same asset ids by construction (see ourStory.hi.ts).
+   */
+  const items = ourStory.tribe.items as readonly { asset: AssetKey; caption: string }[]
   const [openAt, setOpenAt] = useState<number | null>(null)
 
   return (
@@ -39,7 +54,7 @@ export function TribeWall() {
                 type="button"
                 onClick={() => setOpenAt(i)}
                 className="group relative block w-full overflow-hidden text-left"
-                aria-label={`View: ${item.caption}`}
+                aria-label={`${ui.common.view}: ${item.caption}`}
               >
                 <Figure name={item.asset} className="w-full transition-transform duration-500 group-hover:scale-105" />
                 <span

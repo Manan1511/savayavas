@@ -1,17 +1,25 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { site } from '@/content/site.en'
-import { contactPage } from '@/content/contact.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { contactPage as contactPageEn } from '@/content/contact.en'
+import { contactPage as contactPageHi } from '@/content/contact.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
 
 export function GetInTouch() {
+  const site = useLocaleContent(siteEn, siteHi)
+  const contactPage = useLocaleContent(contactPageEn, contactPageHi)
+  const ui = useLocaleContent(uiEn, uiHi)
   const { phone, email, instagram, hours } = site.contact
 
   const rows = [
-    { label: 'Phone', value: phone, href: `tel:${phone.replace(/\s+/g, '')}` },
-    { label: 'Email', value: email, href: `mailto:${email}` },
-    { label: 'Instagram', value: instagram, href: `https://instagram.com/${instagram.replace('@', '')}` },
-    { label: 'Hours', value: hours },
+    { label: ui.contactPage.phoneLabel, value: phone, href: `tel:${phone.replace(/\s+/g, '')}` },
+    { label: ui.contactPage.emailLabel, value: email, href: `mailto:${email}` },
+    { label: ui.contactPage.instagramLabel, value: instagram, href: `https://instagram.com/${instagram.replace('@', '')}` },
+    { label: ui.contactPage.hoursLabel, value: hours },
   ]
 
   return (

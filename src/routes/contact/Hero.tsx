@@ -1,9 +1,12 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { contactPage } from '@/content/contact.en'
+import { contactPage as contactPageEn } from '@/content/contact.en'
+import { contactPage as contactPageHi } from '@/content/contact.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function Hero() {
+  const contactPage = useLocaleContent(contactPageEn, contactPageHi)
   const { eyebrow, headline, body } = contactPage.hero
 
   return (

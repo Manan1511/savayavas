@@ -3,7 +3,9 @@ import { Figure } from '@/components/Figure'
 import { Section } from '@/components/Section'
 import { TornEdge } from '@/components/TornEdge'
 import { WeaveReveal } from '@/motion'
-import { home } from '@/content/home.en'
+import { home as homeEn } from '@/content/home.en'
+import { home as homeHi } from '@/content/home.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 import type { AssetKey } from '@/assets/registry'
 
 /**
@@ -43,6 +45,7 @@ const RIGHT: Piece[] = [
 ]
 
 export function Hero() {
+  const home = useLocaleContent(homeEn, homeHi)
   return (
     <Section className="relative overflow-hidden bg-paper">
       {/* Band and collage are full-bleed, siblings of the capped content
@@ -90,7 +93,7 @@ export function Hero() {
             <Eyebrow>{home.hero.eyebrow}</Eyebrow>
 
             <h1 className="mt-6">
-              <span className="block font-(family-name:--font-script) text-4xl leading-[1.15] tracking-normal text-brass sm:text-5xl lg:text-6xl">
+              <span className="block u-script text-4xl leading-[1.15] tracking-normal text-brass sm:text-5xl lg:text-6xl">
                 {home.hero.script}
               </span>
               <span className="mt-1 block text-[2.75rem] uppercase leading-[0.92] sm:text-6xl lg:text-7xl xl:text-8xl">

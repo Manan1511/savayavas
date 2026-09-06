@@ -2,9 +2,12 @@ import { Section, Container } from '@/components/Section'
 import { Eyebrow } from '@/components/Eyebrow'
 import { IconPillar, pillarIconProps } from '@/components/IconPillar'
 import { Reveal } from '@/motion'
-import { forDealers } from '@/content/forDealers.en'
+import { forDealers as forDealersEn } from '@/content/forDealers.en'
+import { forDealers as forDealersHi } from '@/content/forDealers.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function WhatYouGet() {
+  const forDealers = useLocaleContent(forDealersEn, forDealersHi)
   const { eyebrow, items } = forDealers.whatYouGet
 
   return (

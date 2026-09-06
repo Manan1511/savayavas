@@ -2,9 +2,12 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
 import { IconPillar, pillarIconProps } from '@/components/IconPillar'
-import { home } from '@/content/home.en'
+import { home as homeEn } from '@/content/home.en'
+import { home as homeHi } from '@/content/home.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function About() {
+  const home = useLocaleContent(homeEn, homeHi)
   return (
     <Section tone="ivory" className="py-20 sm:py-28">
       <Container>

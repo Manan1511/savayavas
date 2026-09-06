@@ -2,7 +2,12 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { LeadForm } from '@/components/LeadForm'
 import { Reveal } from '@/motion'
-import { forDealers } from '@/content/forDealers.en'
+import { forDealers as forDealersEn } from '@/content/forDealers.en'
+import { forDealers as forDealersHi } from '@/content/forDealers.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
+import type { LeadKind } from '@/lib/submitLead'
 
 /**
  * One form, not two.
@@ -14,6 +19,8 @@ import { forDealers } from '@/content/forDealers.en'
  * selected type is what gets sent.
  */
 export function InquiryForm() {
+  const forDealers = useLocaleContent(forDealersEn, forDealersHi)
+  const ui = useLocaleContent(uiEn, uiHi)
   const { eyebrow, headline, body, typeOptions } = forDealers.form
 
   return (
@@ -27,9 +34,12 @@ export function InquiryForm() {
 
         <Reveal delay={0.1} className="mt-10">
           <LeadForm
-            kind={typeOptions[0].value}
-            typeOptions={[...typeOptions]}
-            submitLabel="Send Enquiry"
+            // `value` is a `LeadKind` identifier untranslated across locales
+            // (see forDealers.hi.ts), widened to `string` by useLocaleContent
+            // along with the real copy fields; cast back here.
+            kind={typeOptions[0]!.value as LeadKind}
+            typeOptions={typeOptions.map((o) => ({ value: o.value as LeadKind, label: o.label }))}
+            submitLabel={ui.common.sendEnquiry}
           />
         </Reveal>
       </Container>

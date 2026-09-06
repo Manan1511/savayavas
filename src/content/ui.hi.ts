@@ -1,0 +1,109 @@
+/**
+ * Hindi sibling of ui.en.ts. See site.hi.ts for the translation conventions
+ * (identifiers untouched, machine-assisted, needs a native fluency review
+ * before launch).
+ *
+ * `{category}`, `{handle}` and `{count}` are placeholder tokens substituted
+ * by the calling component, kept literal here just like in the English file.
+ */
+
+import type { Ui } from './ui.en'
+import type { LocaleShape } from '@/lib/localeShape'
+
+export const ui = {
+  pageTitles: {
+    home: 'होम',
+    ourStory: 'हमारी कहानी',
+    vas: 'VAS',
+    collections: 'कलेक्शन',
+    forDealers: 'डीलर्स के लिए',
+    contact: 'संपर्क करें',
+    journal: 'जर्नल',
+    pageNotFound: 'पेज नहीं मिला',
+  },
+
+  common: {
+    notFoundEyebrow: 'नहीं मिला',
+    explore: 'देखें',
+    view: 'देखें',
+    getStarted: 'शुरू करें',
+    sendEnquiry: 'पूछताछ भेजें',
+    backToHome: 'होम पर वापस जाएं',
+  },
+
+  notFound: {
+    seoDescription: 'यह पेज मौजूद नहीं है।',
+    heading: 'पेज नहीं मिला',
+    body: 'यह पेज मौजूद नहीं है, या हटा दिया गया है। इसके बजाय इनमें से कोई एक आज़माएं:',
+  },
+
+  collectionsPage: {
+    viewSpecification: 'स्पेसिफिकेशन देखें',
+    comingSoonCatalogue: 'जल्द आ रहा है। तब तक, संपर्क करें और हम इसे सीधे भेज देंगे।',
+  },
+
+  category: {
+    unknownCollection: 'अज्ञात कलेक्शन',
+    backToCollections: 'कलेक्शन पर वापस जाएं',
+    allCollections: 'सभी कलेक्शन',
+    collection: 'कलेक्शन',
+    specification: 'स्पेसिफिकेशन',
+    specConfirmingNote: 'पूरा स्पेसिफिकेशन डेटा पुष्ट किया जा रहा है और जल्द ही यहां प्रकाशित किया जाएगा।',
+    colourways: 'रंग विकल्प',
+    colourwaysNote: 'दर्शाने के लिए पैलेट। असली फैब्रिक के रंग डाई लॉट के अनुसार अलग हो सकते हैं और इस पेज के लिए फोटो लिए जाएंगे।',
+    whoThisIsFor: 'यह किसके लिए है',
+    otherCollections: 'अन्य कलेक्शन',
+    sourcingQuestion: '{category} सोर्स कर रहे हैं?',
+    requestQuote: 'कोटेशन के लिए अनुरोध करें',
+    requestQuoteBody: 'हमें अपनी मात्रा और स्पेसिफिकेशन बताएं, और हमारी टीम आपसे संपर्क करेगी।',
+    enquireAbout: '{category} के बारे में पूछताछ करें',
+  },
+
+  contactPage: {
+    phoneLabel: 'फोन',
+    emailLabel: 'ईमेल',
+    instagramLabel: 'इंस्टाग्राम',
+    hoursLabel: 'समय',
+    getDirectionsAria: 'दिशा-निर्देश पाएं',
+  },
+
+  journal: {
+    seoDescription: 'फैब्रिक, शिल्पकारी और सोर्सिंग पर नोट्स, मिल फ्लोर से लेकर कटिंग टेबल तक। Savayavas & Co. जर्नल।',
+    contentHub: 'कंटेंट हब',
+    intro: 'फैब्रिक, शिल्पकारी और सोर्सिंग पर नोट्स, मिल फ्लोर से लेकर कटिंग टेबल तक।',
+    filterAll: 'सभी',
+    noPostsInCategory: 'इस श्रेणी में अभी कोई पोस्ट नहीं है।',
+    unknownPost: 'अज्ञात पोस्ट',
+    backToJournal: 'जर्नल',
+    related: 'संबंधित',
+    shareThisPost: 'यह पोस्ट शेयर करें',
+    linkCopied: 'लिंक कॉपी हो गया',
+    copyBlockedNote: 'अपने आप कॉपी नहीं हो सका। यहां लिंक है:',
+    onInstagram: 'इंस्टाग्राम पर',
+    instagramCtaHeadline: 'मिल फ्लोर से और भी, पोस्ट के बीच में।',
+    followHandle: '{handle} को फॉलो करें',
+  },
+
+  leadForm: {
+    enquiringAboutLabel: 'मैं पूछताछ कर रहा हूं',
+    regarding: 'विषय:',
+    nameLabel: 'नाम',
+    companyLabel: 'कंपनी',
+    emailLabel: 'ईमेल',
+    phoneLabel: 'फोन',
+    messageLabel: 'संदेश',
+    nameError: 'कृपया अपना नाम बताएं।',
+    emailError: 'एक मान्य ईमेल पता दर्ज करें।',
+    exportAckLabel: 'मैं समझता हूं कि निर्यात ऑर्डर के लिए उत्पादन शुरू होने से पहले पूरा भुगतान अग्रिम रूप से आवश्यक है।',
+    exportAckError: 'कृपया पुष्टि करें कि आप निर्यात भुगतान शर्तों को समझते हैं।',
+    sending: 'भेजा जा रहा है...',
+    deliveredMessage: 'धन्यवाद। आपकी पूछताछ भेज दी गई है, और हमारी टीम जल्द ही संपर्क करेगी।',
+    notConfiguredMessage: 'हमारा ऑनलाइन फॉर्म अभी जुड़ा नहीं है, इसलिए यह संदेश अपने आप नहीं भेजा जा सका। कृपया सीधे हमसे संपर्क करें:',
+  },
+
+  reviews: {
+    basedOnReviews: '{count} समीक्षाओं के आधार पर',
+    previousReview: 'पिछली समीक्षा',
+    nextReview: 'अगली समीक्षा',
+  },
+} as const satisfies LocaleShape<Ui>

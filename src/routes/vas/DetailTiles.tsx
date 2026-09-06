@@ -4,7 +4,12 @@ import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Lightbox } from '@/components/Lightbox'
 import { Reveal } from '@/motion'
-import { vas } from '@/content/vas.en'
+import { vas as vasEn } from '@/content/vas.en'
+import { vas as vasHi } from '@/content/vas.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
+import type { AssetKey } from '@/assets/registry'
 
 /**
  * Five test tiles, reusing the Lightbox built for the Our Story Tribe wall
@@ -12,7 +17,13 @@ import { vas } from '@/content/vas.en'
  * the test title doubles as the caption here.
  */
 export function DetailTiles() {
-  const { eyebrow, headline, intro, tiles } = vas.detail
+  const vas = useLocaleContent(vasEn, vasHi)
+  const ui = useLocaleContent(uiEn, uiHi)
+  const { eyebrow, headline, intro } = vas.detail
+  /** See the equivalent comment in our-story/TribeWall.tsx: `asset` is an
+      untranslated `AssetKey` identifier that `LocaleShape` widens to `string`
+      along with the real copy fields, so it is cast back here. */
+  const tiles = vas.detail.tiles as readonly { asset: AssetKey; title: string; body: string }[]
   const [openAt, setOpenAt] = useState<number | null>(null)
   const items = tiles.map((t) => ({ asset: t.asset, caption: t.title }))
 
@@ -33,7 +44,7 @@ export function DetailTiles() {
                   type="button"
                   onClick={() => setOpenAt(i)}
                   className="group block w-full text-left"
-                  aria-label={`View detail: ${tile.title}`}
+                  aria-label={`${ui.common.view}: ${tile.title}`}
                 >
                   <Figure
                     name={tile.asset}

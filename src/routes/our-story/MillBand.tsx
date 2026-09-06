@@ -1,13 +1,16 @@
 import { Figure } from '@/components/Figure'
 import { Eyebrow } from '@/components/Eyebrow'
 import { Reveal } from '@/motion'
-import { ourStory } from '@/content/ourStory.en'
+import { ourStory as ourStoryEn } from '@/content/ourStory.en'
+import { ourStory as ourStoryHi } from '@/content/ourStory.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 /**
  * A single full-bleed image between the family story and the tribe wall. No
  * card, no copy block: this is a breath, not another section to read.
  */
 export function MillBand() {
+  const ourStory = useLocaleContent(ourStoryEn, ourStoryHi)
   return (
     <section className="relative bg-ink">
       <Reveal>

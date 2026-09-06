@@ -1,13 +1,16 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { forDealers } from '@/content/forDealers.en'
+import { forDealers as forDealersEn } from '@/content/forDealers.en'
+import { forDealers as forDealersHi } from '@/content/forDealers.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 /**
  * Native <details>/<summary>: full keyboard support, screen-reader semantics
  * and open/close state for free, no JS state to manage.
  */
 export function Faq() {
+  const forDealers = useLocaleContent(forDealersEn, forDealersHi)
   const { eyebrow, items } = forDealers.faq
 
   return (

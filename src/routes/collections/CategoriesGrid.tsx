@@ -2,8 +2,14 @@ import { Link } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { site } from '@/content/site.en'
-import { collectionsPage } from '@/content/collections.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { collectionsPage as collectionsPageEn } from '@/content/collections.en'
+import { collectionsPage as collectionsPageHi } from '@/content/collections.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
+import { useLocale, localizePath } from '@/lib/i18n'
 
 /**
  * Larger than Home's category strip: this is the dedicated catalogue page,
@@ -11,6 +17,10 @@ import { collectionsPage } from '@/content/collections.en'
  * clamped preview.
  */
 export function CategoriesGrid() {
+  const site = useLocaleContent(siteEn, siteHi)
+  const collectionsPage = useLocaleContent(collectionsPageEn, collectionsPageHi)
+  const ui = useLocaleContent(uiEn, uiHi)
+  const locale = useLocale()
   const { eyebrow, headline } = collectionsPage.categoriesIntro
 
   return (
@@ -25,13 +35,13 @@ export function CategoriesGrid() {
           {site.categories.map((c) => (
             <li key={c.slug} className="bg-paper">
               <Link
-                to={`/collections/${c.slug}`}
+                to={localizePath(`/collections/${c.slug}`, locale)}
                 className="group flex h-full flex-col p-8 transition-colors duration-400 hover:bg-ivory sm:p-10"
               >
                 <h3 className="text-2xl leading-snug text-ink">{c.name}</h3>
                 <p className="mt-4 text-sm leading-relaxed">{c.description}</p>
                 <span className="mt-6 inline-flex items-center gap-1.5 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass">
-                  View specification
+                  {ui.collectionsPage.viewSpecification}
                   <span aria-hidden className="transition-transform duration-400 ease-out group-hover:translate-x-1">
                     &rarr;
                   </span>

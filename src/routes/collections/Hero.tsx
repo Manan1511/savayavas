@@ -2,9 +2,12 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { collectionsPage } from '@/content/collections.en'
+import { collectionsPage as collectionsPageEn } from '@/content/collections.en'
+import { collectionsPage as collectionsPageHi } from '@/content/collections.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function Hero() {
+  const collectionsPage = useLocaleContent(collectionsPageEn, collectionsPageHi)
   const { eyebrow, headline, body } = collectionsPage.hero
 
   return (

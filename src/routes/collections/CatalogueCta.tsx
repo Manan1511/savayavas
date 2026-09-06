@@ -1,7 +1,11 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { collectionsPage } from '@/content/collections.en'
+import { collectionsPage as collectionsPageEn } from '@/content/collections.en'
+import { collectionsPage as collectionsPageHi } from '@/content/collections.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
 
 /**
  * No catalogue PDF exists yet (docs/PLAN.md §2, item 6). The button renders
@@ -9,6 +13,8 @@ import { collectionsPage } from '@/content/collections.en'
  * silent no-op — the same honesty rule as the forms' submitLead() stub.
  */
 export function CatalogueCta() {
+  const collectionsPage = useLocaleContent(collectionsPageEn, collectionsPageHi)
+  const ui = useLocaleContent(uiEn, uiHi)
   const { eyebrow, headline, body, ctaLabel, available } = collectionsPage.catalogue
 
   return (
@@ -34,7 +40,7 @@ export function CatalogueCta() {
               >
                 {ctaLabel}
               </span>
-              <p className="mt-2 text-xs text-stone">Coming soon. In the meantime, get in touch and we will send it directly.</p>
+              <p className="mt-2 text-xs text-stone">{ui.collectionsPage.comingSoonCatalogue}</p>
             </div>
           )}
         </Reveal>

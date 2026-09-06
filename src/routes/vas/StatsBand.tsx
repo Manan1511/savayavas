@@ -1,8 +1,11 @@
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { vas } from '@/content/vas.en'
+import { vas as vasEn } from '@/content/vas.en'
+import { vas as vasHi } from '@/content/vas.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function StatsBand() {
+  const vas = useLocaleContent(vasEn, vasHi)
   const { headline, items } = vas.stats
 
   return (

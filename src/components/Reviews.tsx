@@ -2,7 +2,11 @@ import { useState } from 'react'
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { site } from '@/content/site.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
 
 /**
  * Shared by Home and /for-dealers — social proof does more work next to a CTA
@@ -13,6 +17,8 @@ import { site } from '@/content/site.en'
  * whose content is unreachable without a mouse is broken, not minimal.
  */
 export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
+  const site = useLocaleContent(siteEn, siteHi)
+  const ui = useLocaleContent(uiEn, uiHi)
   const { items, rating, ratingOutOf, count, eyebrow, headline, intro } = site.reviews
   const [index, setIndex] = useState(0)
 
@@ -33,7 +39,7 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
                 <span className="text-2xl text-stone">/{ratingOutOf}</span>
               </p>
               <p className="mt-3 text-[0.625rem] uppercase tracking-(--tracking-eyebrow) text-ink-soft">
-                Based on {count} reviews
+                {ui.reviews.basedOnReviews.replace('{count}', count)}
               </p>
             </div>
           </div>
@@ -59,13 +65,13 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
             </ul>
 
             <div className="mt-6 flex items-center gap-3 sm:hidden">
-              <CarouselButton label="Previous review" onClick={() => go(-1)}>
+              <CarouselButton label={ui.reviews.previousReview} onClick={() => go(-1)}>
                 &larr;
               </CarouselButton>
               <span className="text-xs tabular-nums text-stone">
                 {index + 1} / {items.length}
               </span>
-              <CarouselButton label="Next review" onClick={() => go(1)}>
+              <CarouselButton label={ui.reviews.nextReview} onClick={() => go(1)}>
                 &rarr;
               </CarouselButton>
             </div>

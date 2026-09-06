@@ -49,3 +49,5 @@ export const collectionsPage = {
     description: 'Cotton, linen and performance-engineered blends, built on one principle: consistency at scale. Explore the Savayavas & Co. fabric collections.',
   },
 } as const
+
+export type CollectionsPage = typeof collectionsPage

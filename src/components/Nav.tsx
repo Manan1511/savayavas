@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { site } from '@/content/site.en'
-import { LOCALES, LOCALE_LABELS, ENABLED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { LOCALES, LOCALE_LABELS, useLocale, localizePath, delocalizePath } from '@/lib/i18n'
 
 export function Nav() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const locale = useLocale()
+  const site = useLocaleContent(siteEn, siteHi)
 
   // Navigating away should always close the menu, including via browser back.
   useEffect(() => setOpen(false), [pathname])
@@ -34,7 +38,7 @@ export function Nav() {
     >
       <div className="mx-auto flex max-w-(--container-content) items-center justify-between px-(--spacing-gutter) py-5">
         <Link
-          to="/"
+          to={localizePath('/', locale)}
           className="whitespace-nowrap font-(family-name:--font-display) font-normal text-base tracking-[0.05em] text-ink transition-opacity duration-300 hover:opacity-70 sm:text-xl sm:tracking-[0.06em]"
           aria-label={`${site.brand.name}, home`}
         >
@@ -46,7 +50,7 @@ export function Nav() {
             {site.nav.items.map((item) => (
               <li key={item.to}>
                 <NavLink
-                  to={item.to}
+                  to={localizePath(item.to, locale)}
                   className={({ isActive }) =>
                     [
                       // The brass rule grows from the left on hover, rather than
@@ -95,7 +99,7 @@ export function Nav() {
             {site.nav.items.map((item, i) => (
               <li key={item.to}>
                 <NavLink
-                  to={item.to}
+                  to={localizePath(item.to, locale)}
                   className="block py-3 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-ink transition-all duration-400 ease-out"
                   style={{
                     // Items settle in sequence once the panel is open.
@@ -149,31 +153,39 @@ function MenuToggle({ open, onClick }: { open: boolean; onClick: () => void }) {
 }
 
 /**
- * The EN / IN toggle from the design. Hindi is scaffolded but not written yet,
- * so IN renders disabled with an explanation rather than silently doing
- * nothing: a dead-looking control is worse than an honestly disabled one.
+ * The EN / IN toggle, now real. Each option is a genuine `<Link>` to the
+ * current page in the other locale (not a button + programmatic navigate),
+ * so middle-click / "open in new tab" / right-click all work as a visitor
+ * expects from a link.
+ *
+ * `delocalizePath` strips whatever prefix the current URL has, and
+ * `localizePath` re-adds the target's — this works for any page, including
+ * a dynamic one like `/collections/linen`, without either locale's route
+ * tree needing to know about the other.
  */
 function LocaleToggle() {
+  const { pathname } = useLocation()
+  const currentLocale = useLocale()
+  const canonical = delocalizePath(pathname)
+
   return (
     <div className="flex items-center gap-1.5 text-[0.6875rem] tracking-(--tracking-eyebrow)">
       {LOCALES.map((locale, i) => {
-        const enabled = ENABLED_LOCALES.includes(locale)
+        const isCurrent = locale === currentLocale
         return (
           <span key={locale} className="flex items-center gap-1.5">
             {i > 0 && <span className="text-stone">/</span>}
-            <button
-              type="button"
-              disabled={!enabled}
-              aria-current={locale === DEFAULT_LOCALE ? 'true' : undefined}
-              title={enabled ? undefined : 'Hindi is coming soon'}
+            <Link
+              to={localizePath(canonical, locale)}
+              aria-current={isCurrent ? 'true' : undefined}
               className={
-                enabled
-                  ? 'text-ink transition-colors duration-300 hover:text-brass'
-                  : 'cursor-not-allowed text-stone/60'
+                isCurrent
+                  ? 'text-brass'
+                  : 'text-ink transition-colors duration-300 hover:text-brass'
               }
             >
               {LOCALE_LABELS[locale]}
-            </button>
+            </Link>
           </span>
         )
       })}

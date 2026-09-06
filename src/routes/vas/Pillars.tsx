@@ -1,9 +1,12 @@
 import { Section, Container } from '@/components/Section'
 import { IconPillar, pillarIconProps } from '@/components/IconPillar'
 import { Reveal } from '@/motion'
-import { vas } from '@/content/vas.en'
+import { vas as vasEn } from '@/content/vas.en'
+import { vas as vasHi } from '@/content/vas.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function Pillars() {
+  const vas = useLocaleContent(vasEn, vasHi)
   return (
     <Section className="pb-20 pt-12 sm:pb-28">
       <Container>

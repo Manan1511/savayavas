@@ -1,13 +1,16 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { forDealers } from '@/content/forDealers.en'
+import { forDealers as forDealersEn } from '@/content/forDealers.en'
+import { forDealers as forDealersHi } from '@/content/forDealers.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 /**
  * Stated as plain fact, not hedged like the rest of the page's numbers: this
  * policy was supplied directly rather than invented by the concept boards.
  */
 export function ExportTerms() {
+  const forDealers = useLocaleContent(forDealersEn, forDealersHi)
   const { eyebrow, headline, body } = forDealers.exportTerms
 
   return (

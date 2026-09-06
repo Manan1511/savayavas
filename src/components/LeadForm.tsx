@@ -1,6 +1,10 @@
 import { useId, useState } from 'react'
 import { submitLead, type Lead, type LeadKind, type LeadResult } from '@/lib/submitLead'
-import { site } from '@/content/site.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
 
 export interface LeadFormTypeOption {
   value: LeadKind
@@ -23,7 +27,7 @@ export function LeadForm({
   categoryLabel,
   showExportAck = false,
   extraField,
-  submitLabel = 'Send Enquiry',
+  submitLabel,
 }: {
   kind: LeadKind
   /** Renders a select of inquiry types; the chosen value becomes the lead kind. */
@@ -34,6 +38,7 @@ export function LeadForm({
   extraField?: { id: string; label: string; placeholder?: string }
   submitLabel?: string
 }) {
+  const ui = useLocaleContent(uiEn, uiHi)
   const formId = useId()
   const [selectedKind, setSelectedKind] = useState<LeadKind>(typeOptions?.[0]?.value ?? kind)
   const [values, setValues] = useState({ name: '', company: '', email: '', phone: '', message: '', extra: '' })
@@ -90,7 +95,7 @@ export function LeadForm({
       {typeOptions && typeOptions.length > 1 && (
         <div>
           <label className={labelCls} htmlFor={`${formId}-type`}>
-            I am enquiring about
+            {ui.leadForm.enquiringAboutLabel}
           </label>
           <select
             id={`${formId}-type`}
@@ -109,14 +114,14 @@ export function LeadForm({
 
       {categoryLabel && (
         <p className="text-xs text-stone">
-          Regarding: <span className="text-ink">{categoryLabel}</span>
+          {ui.leadForm.regarding} <span className="text-ink">{categoryLabel}</span>
         </p>
       )}
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={labelCls} htmlFor={`${formId}-name`}>
-            Name <span aria-hidden className="text-brass">*</span>
+            {ui.leadForm.nameLabel} <span aria-hidden className="text-brass">*</span>
           </label>
           <input
             id={`${formId}-name`}
@@ -131,14 +136,14 @@ export function LeadForm({
           />
           {touched && !nameValid && (
             <p id={`${formId}-name-err`} role="alert" className="mt-1 text-xs text-brass">
-              Please tell us your name.
+              {ui.leadForm.nameError}
             </p>
           )}
         </div>
 
         <div>
           <label className={labelCls} htmlFor={`${formId}-company`}>
-            Company
+            {ui.leadForm.companyLabel}
           </label>
           <input
             id={`${formId}-company`}
@@ -152,7 +157,7 @@ export function LeadForm({
 
         <div>
           <label className={labelCls} htmlFor={`${formId}-email`}>
-            Email <span aria-hidden className="text-brass">*</span>
+            {ui.leadForm.emailLabel} <span aria-hidden className="text-brass">*</span>
           </label>
           <input
             id={`${formId}-email`}
@@ -167,14 +172,14 @@ export function LeadForm({
           />
           {touched && !emailValid && (
             <p id={`${formId}-email-err`} role="alert" className="mt-1 text-xs text-brass">
-              Enter a valid email address.
+              {ui.leadForm.emailError}
             </p>
           )}
         </div>
 
         <div>
           <label className={labelCls} htmlFor={`${formId}-phone`}>
-            Phone
+            {ui.leadForm.phoneLabel}
           </label>
           <input
             id={`${formId}-phone`}
@@ -204,7 +209,7 @@ export function LeadForm({
 
         <div className="sm:col-span-2">
           <label className={labelCls} htmlFor={`${formId}-message`}>
-            Message
+            {ui.leadForm.messageLabel}
           </label>
           <textarea
             id={`${formId}-message`}
@@ -224,12 +229,12 @@ export function LeadForm({
             onChange={(e) => setExportAck(e.target.checked)}
             className="mt-0.5 h-3.5 w-3.5 accent-brass"
           />
-          I understand that export orders require full payment in advance, prior to production.
+          {ui.leadForm.exportAckLabel}
         </label>
       )}
       {touched && needsExportAck && !exportAck && (
         <p role="alert" className="text-xs text-brass">
-          Please confirm you understand the export payment terms.
+          {ui.leadForm.exportAckError}
         </p>
       )}
 
@@ -238,7 +243,7 @@ export function LeadForm({
         disabled={submitting}
         className="inline-block bg-ink px-7 py-3 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-paper transition-colors duration-300 hover:bg-brass disabled:opacity-60"
       >
-        {submitting ? 'Sending...' : submitLabel}
+        {submitting ? ui.leadForm.sending : (submitLabel ?? ui.common.sendEnquiry)}
       </button>
     </form>
   )
@@ -250,20 +255,18 @@ export function LeadForm({
  * now so turning the transport on later requires no UI work.
  */
 function LeadFormResult({ result }: { result: LeadResult }) {
+  const site = useLocaleContent(siteEn, siteHi)
+  const ui = useLocaleContent(uiEn, uiHi)
+
   if (result.status === 'delivered') {
     return (
-      <p className="text-sm leading-relaxed text-ink">
-        Thank you. Your enquiry has been sent, and our team will be in touch shortly.
-      </p>
+      <p className="text-sm leading-relaxed text-ink">{ui.leadForm.deliveredMessage}</p>
     )
   }
 
   return (
     <div className="border border-greige bg-ivory p-6">
-      <p className="text-sm leading-relaxed text-ink">
-        Our online form is not connected yet, so this message could not be sent automatically. Please reach us
-        directly instead:
-      </p>
+      <p className="text-sm leading-relaxed text-ink">{ui.leadForm.notConfiguredMessage}</p>
       <ul className="mt-4 space-y-1.5 text-sm">
         <li>
           <a href={`tel:${site.contact.phone.replace(/\s+/g, '')}`} className="text-brass hover:text-ink">

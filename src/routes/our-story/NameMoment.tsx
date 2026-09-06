@@ -1,7 +1,9 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { ourStory } from '@/content/ourStory.en'
+import { ourStory as ourStoryEn } from '@/content/ourStory.en'
+import { ourStory as ourStoryHi } from '@/content/ourStory.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 /**
  * The single best piece of copy on the site, given the room to be one.
@@ -15,6 +17,7 @@ import { ourStory } from '@/content/ourStory.en'
  * standing in for the other.
  */
 export function NameMoment() {
+  const ourStory = useLocaleContent(ourStoryEn, ourStoryHi)
   const { eyebrow, headline, savayav, vas, body } = ourStory.name
 
   return (

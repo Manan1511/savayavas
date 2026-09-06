@@ -1,12 +1,21 @@
 import { Head } from 'vite-react-ssg'
-import { site } from '@/content/site.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { useLocale, localizePath } from '@/lib/i18n'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 const SITE_URL = 'https://savayavas.co'
 
 export interface SeoProps {
   title: string
   description: string
-  /** Route path, e.g. "/our-story". Used for canonical + OG url. */
+  /**
+   * The CANONICAL (English-shaped) path, e.g. "/our-story" — always this
+   * shape, even when the page is currently rendering in Hindi. Seo derives
+   * the actual current-locale URL and the hreflang alternates from this one
+   * value via `localizePath`, so call sites never need to know or care which
+   * locale they're being rendered under.
+   */
   path: string
   /** Absolute or root-relative image for link previews. */
   image?: string
@@ -32,7 +41,10 @@ export function Seo({
   type = 'website',
   noindex = false,
 }: SeoProps) {
-  const url = `${SITE_URL}${path}`
+  const locale = useLocale()
+  const site = useLocaleContent(siteEn, siteHi)
+  const localizedPath = localizePath(path, locale)
+  const url = `${SITE_URL}${localizedPath}`
   const fullTitle = path === '/' ? `${site.brand.name} · ${site.brand.tagline}` : `${title} · ${site.brand.name}`
   const imageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`
 
@@ -52,12 +64,21 @@ export function Seo({
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
 
+      {/* Each language points at both versions of itself plus a default,
+          so a search engine serves a Hindi searcher the Hindi URL and an
+          English searcher the English one, rather than treating them as
+          duplicate content or two unrelated pages. */}
+      <link rel="alternate" hrefLang="en" href={`${SITE_URL}${path}`} />
+      <link rel="alternate" hrefLang="hi" href={`${SITE_URL}${localizePath(path, 'hi')}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}${path}`} />
+
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={site.brand.name} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={imageUrl} />
+      <meta property="og:locale" content={locale === 'hi' ? 'hi_IN' : 'en_IN'} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
@@ -69,6 +90,7 @@ export function Seo({
 
 /** Organization schema. Rendered once, from the root layout. */
 export function OrganizationSchema() {
+  const site = useLocaleContent(siteEn, siteHi)
   const json = {
     '@context': 'https://schema.org',
     '@type': 'Organization',

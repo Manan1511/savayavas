@@ -36,3 +36,5 @@ export const contactPage = {
     description: 'Get in touch with Savayavas & Co. for trade and export enquiries. Visit our showroom in Surat, Gujarat, or reach us by phone or email.',
   },
 } as const
+
+export type ContactPage = typeof contactPage

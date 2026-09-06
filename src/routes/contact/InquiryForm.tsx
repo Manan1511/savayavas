@@ -3,8 +3,14 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { LeadForm } from '@/components/LeadForm'
 import { Reveal } from '@/motion'
-import { site } from '@/content/site.en'
-import { contactPage } from '@/content/contact.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { contactPage as contactPageEn } from '@/content/contact.en'
+import { contactPage as contactPageHi } from '@/content/contact.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
+import type { LeadKind } from '@/lib/submitLead'
 
 /**
  * One form covers both Trade and Export Inquiry, per the same reasoning as
@@ -17,6 +23,9 @@ import { contactPage } from '@/content/contact.en'
  * and submits it as the lead's `category` field.
  */
 export function InquiryForm() {
+  const site = useLocaleContent(siteEn, siteHi)
+  const contactPage = useLocaleContent(contactPageEn, contactPageHi)
+  const ui = useLocaleContent(uiEn, uiHi)
   const { eyebrow, headline, body, typeOptions } = contactPage.form
   const [searchParams] = useSearchParams()
   const categorySlug = searchParams.get('category') ?? undefined
@@ -33,11 +42,11 @@ export function InquiryForm() {
 
         <Reveal delay={0.1} className="mt-10">
           <LeadForm
-            kind={typeOptions[0].value}
-            typeOptions={[...typeOptions]}
+            kind={typeOptions[0]!.value as LeadKind}
+            typeOptions={typeOptions.map((o) => ({ value: o.value as LeadKind, label: o.label }))}
             category={category?.slug}
             categoryLabel={category?.name}
-            submitLabel="Send Enquiry"
+            submitLabel={ui.common.sendEnquiry}
           />
         </Reveal>
       </Container>

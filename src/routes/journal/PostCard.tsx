@@ -1,8 +1,25 @@
 import { Link } from 'react-router-dom'
 import { Figure } from '@/components/Figure'
-import type { JournalPost } from '@/content/journal.en'
+import { useLocale, localizePath } from '@/lib/i18n'
+import type { AssetKey } from '@/assets/registry'
 
-export function PostCard({ post, featured = false }: { post: JournalPost; featured?: boolean }) {
+/**
+ * Not the strict `JournalPost` type: a Hindi-resolved post from
+ * useLocaleContent is `LocaleShape<JournalPost>`, which widens `cover` from
+ * `AssetKey` to `string` (see the equivalent comment in
+ * our-story/TribeWall.tsx). This shape accepts either.
+ */
+interface DisplayPost {
+  slug: string
+  title: string
+  date: string
+  category: string
+  excerpt: string
+  cover: string
+  body: string[]
+}
+
+export function PostCard({ post, featured = false }: { post: DisplayPost; featured?: boolean }) {
   // Featured renders as h2, grid/related cards as h3. On the journal index the
   // featured post follows the page's own h1 directly (h1 -> h2 -> h3 grid
   // cards); on a post detail page "Related" is itself promoted to h2 (see
@@ -11,11 +28,15 @@ export function PostCard({ post, featured = false }: { post: JournalPost; featur
   // accessibility check (confirmed via Lighthouse on /for-dealers, then found
   // by the same manual audit here before Lighthouse was even run on this page).
   const Title = featured ? 'h2' : 'h3'
+  const locale = useLocale()
 
   return (
-    <Link to={`/journal/${post.slug}`} className="group block">
+    <Link to={localizePath(`/journal/${post.slug}`, locale)} className="group block">
       <Figure
-        name={post.cover}
+        // `cover` is an `AssetKey` identifier, widened to `string` by
+        // useLocaleContent's LocaleShape along with the real copy fields
+        // (see the equivalent comment in our-story/TribeWall.tsx).
+        name={post.cover as AssetKey}
         className="w-full"
         imgClassName="transition-transform duration-500 group-hover:scale-105"
       />
@@ -33,6 +54,11 @@ export function PostCard({ post, featured = false }: { post: JournalPost; featur
 }
 
 export function PostDate({ date }: { date: string }) {
-  const formatted = new Date(date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+  const locale = useLocale()
+  const formatted = new Date(date).toLocaleDateString(locale === 'hi' ? 'hi-IN' : 'en-IN', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
   return <time dateTime={date}>{formatted}</time>
 }

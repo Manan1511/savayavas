@@ -1,7 +1,11 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { forDealers } from '@/content/forDealers.en'
+import { forDealers as forDealersEn } from '@/content/forDealers.en'
+import { forDealers as forDealersHi } from '@/content/forDealers.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
 
 /**
  * A quiet header, like Our Story: this is the highest-intent page on the
@@ -9,6 +13,8 @@ import { forDealers } from '@/content/forDealers.en'
  * sell the brand from scratch.
  */
 export function Hero() {
+  const forDealers = useLocaleContent(forDealersEn, forDealersHi)
+  const ui = useLocaleContent(uiEn, uiHi)
   const { eyebrow, headline, body } = forDealers.hero
 
   return (
@@ -22,7 +28,7 @@ export function Hero() {
             href="#enquire"
             className="mt-7 inline-block border-b border-brass pb-1 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass transition-colors duration-300 hover:border-ink hover:text-ink"
           >
-            Get Started &rarr;
+            {ui.common.getStarted} &rarr;
           </a>
         </Reveal>
       </Container>

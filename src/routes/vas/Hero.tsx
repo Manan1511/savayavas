@@ -3,7 +3,9 @@ import { Figure } from '@/components/Figure'
 import { Section } from '@/components/Section'
 import { TornEdge } from '@/components/TornEdge'
 import { Reveal } from '@/motion'
-import { vas } from '@/content/vas.en'
+import { vas as vasEn } from '@/content/vas.en'
+import { vas as vasHi } from '@/content/vas.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 /**
  * Deliberately not the WeaveReveal treatment. The weave is Home's signature
@@ -16,6 +18,7 @@ import { vas } from '@/content/vas.en'
  * large image beside the lockup instead of scattering several around it.
  */
 export function Hero() {
+  const vas = useLocaleContent(vasEn, vasHi)
   return (
     <Section className="relative overflow-hidden bg-paper">
       <div
@@ -30,7 +33,7 @@ export function Hero() {
         <Reveal>
           <Eyebrow>{vas.hero.eyebrow}</Eyebrow>
           <h1 className="mt-5">
-            <span className="block font-(family-name:--font-script) text-4xl leading-[1.15] text-brass sm:text-5xl lg:text-6xl">
+            <span className="block u-script text-4xl leading-[1.15] text-brass sm:text-5xl lg:text-6xl">
               {vas.hero.script}
             </span>
             <span className="mt-1 block text-5xl uppercase leading-[0.95] sm:text-6xl lg:text-7xl">

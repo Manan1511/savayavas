@@ -5,27 +5,39 @@ import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Seo } from '@/components/Seo'
 import { Reveal } from '@/motion'
-import { getPostBySlug, getRelatedPosts } from '@/content/journal.en'
+import { journalPosts as journalPostsEn, getPostBySlug, getRelatedPosts } from '@/content/journal.en'
+import { journalPosts as journalPostsHi } from '@/content/journal.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { useLocale, localizePath } from '@/lib/i18n'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
+import type { AssetKey } from '@/assets/registry'
 import { PostCard, PostDate } from './PostCard'
 
 /** One page per post, prerendered from journalPosts. */
 export function Component() {
   const { slug } = useParams<{ slug: string }>()
-  const post = slug ? getPostBySlug(slug) : undefined
+  const journalPosts = useLocaleContent(journalPostsEn, journalPostsHi)
+  const ui = useLocaleContent(uiEn, uiHi)
+  const locale = useLocale()
+  const post = slug ? getPostBySlug(journalPosts, slug) : undefined
 
   if (!post) {
     return (
       <div className="mx-auto max-w-(--container-content) px-(--spacing-gutter) py-32 text-center">
-        <Eyebrow>Not Found</Eyebrow>
-        <h1 className="mt-4 text-5xl uppercase">Unknown Post</h1>
-        <Link to="/journal" className="mt-6 inline-block text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass">
-          Back to Journal &rarr;
+        <Eyebrow>{ui.common.notFoundEyebrow}</Eyebrow>
+        <h1 className="mt-4 text-5xl uppercase">{ui.journal.unknownPost}</h1>
+        <Link
+          to={localizePath('/journal', locale)}
+          className="mt-6 inline-block text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass"
+        >
+          {ui.journal.backToJournal} &rarr;
         </Link>
       </div>
     )
   }
 
-  const related = getRelatedPosts(post.slug)
+  const related = getRelatedPosts(journalPosts, post.slug)
 
   return (
     <>
@@ -35,10 +47,10 @@ export function Component() {
         <Container className="max-w-2xl">
           <Reveal>
             <Link
-              to="/journal"
+              to={localizePath('/journal', locale)}
               className="text-[0.625rem] uppercase tracking-(--tracking-eyebrow) text-brass hover:text-ink"
             >
-              &larr; Journal
+              &larr; {ui.journal.backToJournal}
             </Link>
             <p className="mt-6 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass">
               {post.category} &middot; <PostDate date={post.date} />
@@ -50,7 +62,7 @@ export function Component() {
 
       <Container className="max-w-3xl py-10">
         <Reveal>
-          <Figure name={post.cover} className="w-full" priority />
+          <Figure name={post.cover as AssetKey} className="w-full" priority />
         </Reveal>
       </Container>
 
@@ -74,7 +86,7 @@ export function Component() {
         <Section tone="ivory" className="py-16 sm:py-20">
           <Container>
             <Reveal>
-              <Eyebrow as="h2">Related</Eyebrow>
+              <Eyebrow as="h2">{ui.journal.related}</Eyebrow>
             </Reveal>
             <Reveal as="ul" stagger className="mt-6 grid gap-x-8 gap-y-10 sm:grid-cols-2">
               {related.map((p) => (
@@ -97,8 +109,10 @@ Component.displayName = 'JournalPostRoute'
  * integration exists, and copy-link works identically everywhere without one.
  */
 function ShareLink({ slug }: { slug: string }) {
+  const ui = useLocaleContent(uiEn, uiHi)
+  const locale = useLocale()
   const [state, setState] = useState<'idle' | 'copied' | 'blocked'>('idle')
-  const url = `https://savayavas.co/journal/${slug}`
+  const url = `https://savayavas.co${localizePath(`/journal/${slug}`, locale)}`
 
   async function onClick() {
     try {
@@ -117,7 +131,7 @@ function ShareLink({ slug }: { slug: string }) {
   if (state === 'blocked') {
     return (
       <p className="text-xs text-ink-soft">
-        Could not copy automatically. Here is the link:{' '}
+        {ui.journal.copyBlockedNote}{' '}
         <span className="select-all text-ink">{url}</span>
       </p>
     )
@@ -129,7 +143,7 @@ function ShareLink({ slug }: { slug: string }) {
       onClick={onClick}
       className="text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass transition-colors duration-300 hover:text-ink"
     >
-      {state === 'copied' ? 'Link Copied' : 'Share This Post'}
+      {state === 'copied' ? ui.journal.linkCopied : ui.journal.shareThisPost}
     </button>
   )
 }

@@ -2,13 +2,19 @@ import { useEffect } from 'react'
 import { Head } from 'vite-react-ssg'
 import { Outlet } from 'react-router-dom'
 import { verifyFonts } from '@/lib/verifyFonts'
+import { useLocale, LOCALE_HTML_LANG } from '@/lib/i18n'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { OrganizationSchema } from '@/components/Seo'
 import { SmoothScroll } from '@/app/providers/SmoothScroll'
-import { site } from '@/content/site.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
 
 export default function RootLayout() {
+  const locale = useLocale()
+  const site = useLocaleContent(siteEn, siteHi)
+
   useEffect(() => {
     void verifyFonts()
   }, [])
@@ -24,6 +30,11 @@ export default function RootLayout() {
           it here, as the first Helmet tag in the tree, puts it back first. */}
       <Head>
         <meta charSet="utf-8" />
+        {/* The real `lang` attribute, not a class: it drives the `:lang(hi)`
+            CSS overrides (globals.css) that swap headings, eyebrows and
+            script lines to a Devanagari-safe treatment, and it's what a
+            screen reader actually uses to pick a Hindi voice. */}
+        <html lang={LOCALE_HTML_LANG[locale]} />
       </Head>
 
       <OrganizationSchema />

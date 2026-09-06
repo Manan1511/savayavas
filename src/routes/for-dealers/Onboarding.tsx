@@ -1,9 +1,12 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { forDealers } from '@/content/forDealers.en'
+import { forDealers as forDealersEn } from '@/content/forDealers.en'
+import { forDealers as forDealersHi } from '@/content/forDealers.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
 
 export function Onboarding() {
+  const forDealers = useLocaleContent(forDealersEn, forDealersHi)
   const { eyebrow, steps } = forDealers.onboarding
 
   return (

@@ -3,13 +3,18 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { home } from '@/content/home.en'
+import { home as homeEn } from '@/content/home.en'
+import { home as homeHi } from '@/content/home.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { useLocale, localizePath } from '@/lib/i18n'
 
 /**
  * The one place on the homepage where the consumer-facing shirting brand is
  * introduced. Deliberately a doorway, not a pitch — the pitch is /vas.
  */
 export function VasCallout() {
+  const home = useLocaleContent(homeEn, homeHi)
+  const locale = useLocale()
   return (
     <Section tone="ink" className="py-20 sm:py-24">
       <Container>
@@ -23,7 +28,7 @@ export function VasCallout() {
               {home.vasCallout.body}
             </p>
             <Link
-              to={home.vasCallout.cta.to}
+              to={localizePath(home.vasCallout.cta.to, locale)}
               className="mt-8 inline-block border-b border-brass-soft pb-1 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass-soft hover:border-paper hover:text-paper"
             >
               {home.vasCallout.cta.label} &rarr;

@@ -77,3 +77,5 @@ export const vas = {
     description: 'VAS: Savayavas & Co.’s menswear shirting line. Timeless fabrics, thoughtful design, rigorously tested quality, crafted for the modern man.',
   },
 } as const
+
+export type Vas = typeof vas

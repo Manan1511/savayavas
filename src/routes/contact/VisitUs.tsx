@@ -2,8 +2,13 @@ import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
-import { site } from '@/content/site.en'
-import { contactPage } from '@/content/contact.en'
+import { site as siteEn } from '@/content/site.en'
+import { site as siteHi } from '@/content/site.hi'
+import { contactPage as contactPageEn } from '@/content/contact.en'
+import { contactPage as contactPageHi } from '@/content/contact.hi'
+import { useLocaleContent } from '@/lib/useLocaleContent'
+import { ui as uiEn } from '@/content/ui.en'
+import { ui as uiHi } from '@/content/ui.hi'
 
 /**
  * A static map image, not a live Google Maps embed. An iframe embed adds
@@ -12,6 +17,9 @@ import { contactPage } from '@/content/contact.en'
  * instead, so the wayfinding still works, just off-page.
  */
 export function VisitUs() {
+  const site = useLocaleContent(siteEn, siteHi)
+  const contactPage = useLocaleContent(contactPageEn, contactPageHi)
+  const ui = useLocaleContent(uiEn, uiHi)
   const { eyebrow, directionsLabel } = contactPage.visitUs
   const address = site.contact.address.lines.join(', ')
   const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
@@ -40,7 +48,7 @@ export function VisitUs() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <a href={directionsHref} target="_blank" rel="noreferrer noopener" aria-label="Get directions">
+            <a href={directionsHref} target="_blank" rel="noreferrer noopener" aria-label={ui.contactPage.getDirectionsAria}>
               <Figure name="contact.map" className="w-full" />
             </a>
           </Reveal>

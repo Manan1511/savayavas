@@ -1,34 +1,64 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import { site } from '@/content/site.en'
+import { useLocation } from 'react-router-dom'
 
 /**
- * i18n is wired from day one so no component ever hardcodes a string, but only
- * English ships. The IN toggle in the nav stays visibly disabled until Hindi
- * copy and a Devanagari display pairing are signed off — see docs/PLAN.md §2.
+ * Locale routing.
+ *
+ * Phase 1 wired up `react-i18next` on the assumption that content would be
+ * resolved string-by-string via `t()`. That never actually happened: every
+ * route imports a typed content OBJECT directly (`home`, `ourStory`, `vas`,
+ * ...), and localizing that pattern doesn't need a translation-key library at
+ * all — it needs a second object with the same shape and a way to pick
+ * between them. `react-i18next` sat unused ever since; dropped in favour of
+ * this smaller, purpose-built mechanism (see `useLocaleContent`).
+ *
+ * The scheme: English is unprefixed (`/our-story`), Hindi is prefixed
+ * (`/hi/our-story`). Locale is derived from the URL, never from stored
+ * preference or `Accept-Language` — a prerendered static site has no request
+ * to inspect at build time, and a URL a visitor can bookmark, share, and get
+ * from a search result is the only source of truth that survives all of
+ * that.
  */
 
 export const LOCALES = ['en', 'hi'] as const
 export type Locale = (typeof LOCALES)[number]
 
 export const DEFAULT_LOCALE: Locale = 'en'
-export const ENABLED_LOCALES: readonly Locale[] = ['en']
+export const ENABLED_LOCALES: readonly Locale[] = ['en', 'hi']
 
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: 'EN',
   hi: 'IN',
 }
 
-void i18n.use(initReactI18next).init({
-  lng: DEFAULT_LOCALE,
-  fallbackLng: DEFAULT_LOCALE,
-  defaultNS: 'site',
-  resources: {
-    en: { site },
-  },
-  // Deterministic on the server: resources are bundled, nothing loads async,
-  // so prerendered HTML always contains real copy rather than translation keys.
-  interpolation: { escapeValue: false },
-})
+/** True HTML `lang` values, for the root element and `hreflang` links. */
+export const LOCALE_HTML_LANG: Record<Locale, string> = {
+  en: 'en',
+  hi: 'hi',
+}
 
-export default i18n
+const HI_PREFIX = '/hi'
+
+/** Derives the current locale from a pathname alone — no request, no cookie. */
+export function localeFromPathname(pathname: string): Locale {
+  return pathname === HI_PREFIX || pathname.startsWith(`${HI_PREFIX}/`) ? 'hi' : 'en'
+}
+
+/** The same page, stripped of any locale prefix. Always starts with "/". */
+export function delocalizePath(pathname: string): string {
+  if (pathname === HI_PREFIX) return '/'
+  if (pathname.startsWith(`${HI_PREFIX}/`)) return pathname.slice(HI_PREFIX.length)
+  return pathname
+}
+
+/** A canonical (English-shaped) path, in the given locale's URL space. */
+export function localizePath(canonicalPath: string, locale: Locale): string {
+  if (locale === 'en') return canonicalPath
+  if (canonicalPath === '/') return HI_PREFIX
+  return `${HI_PREFIX}${canonicalPath}`
+}
+
+/** Reads the current locale from the URL. The one hook every page needs. */
+export function useLocale(): Locale {
+  const { pathname } = useLocation()
+  return localeFromPathname(pathname)
+}

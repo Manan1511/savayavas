@@ -92,3 +92,5 @@ export const forDealers = {
     description: 'Dealer program, pricing and onboarding for traders, manufacturers, menswear brands and exporters. Partner with Savayavas & Co.',
   },
 } as const
+
+export type ForDealers = typeof forDealers
