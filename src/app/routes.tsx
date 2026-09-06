@@ -24,22 +24,7 @@ export const routes: RouteRecord[] = [
       },
       {
         path: 'collections',
-        element: (
-          <PageStub
-            eyebrow="How We Create"
-            title="Collections"
-            path="/collections"
-            description="Cotton, linen and performance-engineered blends, built on one principle: consistency at scale."
-            sections={[
-              'Materials that speak for themselves',
-              'Positioning: consistency at scale',
-              'The five fabric categories',
-              'Crafted with purpose: spinning, weaving, finishing',
-              'Manufactured under Shubh Shantinath Silk Mills',
-              'Catalogue PDF download',
-            ]}
-          />
-        ),
+        lazy: () => import('@/routes/collections'),
       },
       {
         path: 'collections/:slug',

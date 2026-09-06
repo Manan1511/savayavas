@@ -1,6 +1,6 @@
 # Savayavas & Co. — Build Plan
 
-Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story and /vas built. This document is the contract.
+Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story, /vas and /collections built. This document is the contract.
 
 ---
 
@@ -47,7 +47,7 @@ Status: Phase 1 and Phase 2 complete. Phase 3 in progress: /our-story and /vas b
 | 2 | ~~Home hero copy~~ — ✅ decided, in `content/home.en.ts` | — | Done |
 | 3 | Backend + CMS decision | Forms actually working, catalogue being editable | Before launch |
 | 4 | Hindi copy + Devanagari display face | The IN toggle | Post-launch |
-| 5 | Fabric catalogue data (SKUs, colourways, images per category) | `/collections/:category` having real content | Phase 3 |
+| 5 | Fabric catalogue data (real GSM/weave/composition specs, real colourway photography, SKUs) | `/collections/:category`'s spec table and swatches are currently honest placeholders | Phase 3 (built), data still needed |
 | 6 | Catalogue PDF | `/collections` download CTA | Phase 3 |
 | 7 | Real testimonials + review count + VAS quality stats | Reviews section and `/vas` stats band (both marked `placeholder: true`) | Before launch |
 | 8 | Confirm licensed brand fonts, if any exist | Type swap | Anytime |
@@ -310,6 +310,14 @@ No video assets exist yet, so the Lightbox opens the same still, larger, with it
 The stats band (20+ quality checks, 100% traceability, 1000+ clients, etc.) is marked `placeholder: true` in `content/vas.en.ts`, same convention as `site.reviews` — these are the deck's invented numbers and must be verified or removed before launch.
 
 Verified: no em dashes, all 7 sections present in prerendered HTML, no unexplained hidden content, no sideways scroll at 375px and at the pane's own width, pillar and stat grids resolve to the intended column counts, the reused Lightbox opens the correct tile with the correct caption.
+
+`/collections` and `/collections/:category` — ✅ built. Index: hero (your "It all begins with nature" copy beside the yarn-table image), the positioning paragraph (your text, verbatim), a full-size category grid, a `SplitBand` for "Crafted with Purpose" (the new shared component the plan named but hadn't built yet), the manufacturing band, and a catalogue-PDF CTA. Detail: breadcrumb hero, specification table, colourway swatches, a "who this is for" line, related categories, and a category-prefilled inquiry link.
+
+Two placeholder policies worth flagging together, since they're the same judgement call twice: the specification table renders "To be confirmed" rather than an invented GSM or weave count, because a sourcing buyer might act on that number, and a plausible-looking fake is worse than an honest gap. The catalogue CTA renders visibly disabled with a reason rather than a link to a PDF that doesn't exist. Neither silently no-ops.
+
+Colourway swatches are flat colour blocks from the brand palette with text labels, not photographs standing in for real dye lots — same reasoning as the specification table, one level down.
+
+Verified: no em dashes, no sideways scroll on either page, all six swatches render with correct colours and labels, the inquiry link carries the category (`/contact?category=linen`), spec rows show the pending marker rather than fabricated data, all sections present in the prerendered HTML for both the index and a sampled category page.
 
 **Phase 4 — Polish**
 Lighthouse pass, image formats (AVIF + `srcset`), font subsetting, focus states, keyboard nav through the lightbox and carousel, 404, `sitemap.xml`, `robots.txt`, JSON-LD `Organization`, OG images per route.
