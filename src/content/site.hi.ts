@@ -49,11 +49,29 @@ export const site = {
 
   contact: {
     phone: '+91 98765 43210',
-    email: 'info@savayavas.co',
+    email: 'info@savayavas.co.in',
     instagram: '@savayavas_co',
     hours: 'सोम – शनि : सुबह 10 – शाम 7',
     address: {
-      lines: ['Savayavas & Co.', '123, टेक्सटाइल मार्केट,', 'रिंग रोड, सूरत – 395002,', 'गुजरात, भारत।'],
+      office: {
+        label: 'ऑफिस',
+        lines: [
+          'Savayavas & Co.',
+          '146, Krishna Bhawan, Room No. 27,',
+          'Dr. Viegas Street, Kalbadevi Road,',
+          'मुंबई – 400002,',
+          'महाराष्ट्र, भारत।',
+        ],
+      },
+      factory: {
+        label: 'फैक्ट्री',
+        lines: [
+          'House No. 268, Gala No. 1 and 2,',
+          'Nr Kachru Patil Building, Nr Dhanlaxmi Hotel,',
+          'न्यू कनेरी, भिवंडी – 421302,',
+          'महाराष्ट्र, भारत।',
+        ],
+      },
     },
   },
 

@@ -38,19 +38,38 @@ export const site = {
   },
 
   /**
-   * ⚠️ PLACEHOLDER, transcribed from the concept boards. Passively listed in
-   * the footer this was low-stakes; LeadForm now surfaces this phone and
-   * email as the ACTIVE fallback whenever a submission cannot be sent (which
-   * is every submission, until a backend exists), so an unverified number
-   * here means real leads calling a wrong number. Verify before launch.
+   * Email and both addresses are real, supplied directly from the company's
+   * own letterhead. Phone and Instagram are still the Phase 1 placeholders
+   * and remain unverified: LeadForm surfaces the phone as the ACTIVE
+   * fallback whenever a submission cannot be sent (which is every
+   * submission, until a backend exists), so it must be confirmed before
+   * launch — a real lead calling a wrong number is worse than no number.
    */
   contact: {
     phone: '+91 98765 43210',
-    email: 'info@savayavas.co',
+    email: 'info@savayavas.co.in',
     instagram: '@savayavas_co',
     hours: 'Mon – Sat : 10AM – 7PM',
     address: {
-      lines: ['Savayavas & Co.', '123, Textile Market,', 'Ring Road, Surat – 395002,', 'Gujarat, India.'],
+      office: {
+        label: 'Office',
+        lines: [
+          'Savayavas & Co.',
+          '146, Krishna Bhawan, Room No. 27,',
+          'Dr. Viegas Street, Kalbadevi Road,',
+          'Mumbai – 400002,',
+          'Maharashtra, India.',
+        ],
+      },
+      factory: {
+        label: 'Factory',
+        lines: [
+          'House No. 268, Gala No. 1 and 2,',
+          'Nr Kachru Patil Building, Nr Dhanlaxmi Hotel,',
+          'New Kaneri, Bhiwandi – 421302,',
+          'Maharashtra, India.',
+        ],
+      },
     },
   },
 

@@ -102,10 +102,10 @@ export function OrganizationSchema() {
     email: site.contact.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '123, Textile Market, Ring Road',
-      addressLocality: 'Surat',
-      postalCode: '395002',
-      addressRegion: 'Gujarat',
+      streetAddress: '146, Krishna Bhawan, Room No. 27, Dr. Viegas Street, Kalbadevi Road',
+      addressLocality: 'Mumbai',
+      postalCode: '400002',
+      addressRegion: 'Maharashtra',
       addressCountry: 'IN',
     },
   }
