@@ -35,17 +35,25 @@ const P = (
   brief,
 })
 
+/** Real photography, supplied directly rather than generated. */
+const R = (path: string, aspect: number, alt: string): AssetEntry => ({
+  src: path,
+  aspect,
+  alt,
+  placeholder: false,
+})
+
 export const assets = {
   // --- Home hero collage (each piece is its own layer so the thread can
   // pass between them) ---------------------------------------------------
   'hero.linen-sheet': P('hero-linen-sheet', 16 / 9, '', 'Torn ivory linen sheet, flat lay, soft daylight. Used as the hero backdrop.'),
   'hero.yarn-cone': P('hero-yarn-cone', 3 / 4, '', 'Single navy yarn cone, three-quarter angle, thread trailing off the cone.'),
-  'hero.denim-drape': P('hero-denim-drape', 3 / 4, 'Navy pinstripe shirting fabric draped in folds', 'Navy pinstripe shirting, draped to show weave and fall.'),
-  'hero.shirts-rail': P('hero-shirts-rail', 4 / 3, 'Shirts in graded tones on a rail', 'Row of shirts on wooden hangers, tonal grey-to-navy gradient.'),
-  'hero.model-jacket': P('hero-model-jacket', 3 / 4, 'Man in a tailored jacket in daylight', 'Menswear model, cropped at the chin, warm window light.'),
-  'hero.folded-stack': P('hero-folded-stack', 3 / 4, 'Stack of folded shirting fabrics', 'Folded fabric stack, ivory through navy.'),
-  'hero.swatch-book': P('hero-swatch-book', 4 / 3, 'Savayavas & Co. swatch book fanned open', 'Branded swatch book, fanned, on a dark surface.'),
-  'hero.dark-ribs': P('hero-dark-ribs', 3 / 4, '', 'Rolled dark fabric bolts seen end-on, vertical ribbing.'),
+  'hero.denim-drape': R('/photos/vas-fabric-drape-cane.jpg', 3 / 4, 'VAS printed shirting fabric draped over a cane chair'),
+  'hero.shirts-rail': R('/photos/vas-fabric-folds-pastel.jpg', 4 / 3, 'Blended pastel VAS shirting fabrics in folds'),
+  'hero.model-jacket': R('/photos/vas-hand-swatches.jpg', 3 / 4, 'A hand selecting VAS jacquard fabric swatches'),
+  'hero.folded-stack': R('/photos/vas-fabric-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
+  'hero.swatch-book': R('/photos/vas-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics swatch book fanned open'),
+  'hero.dark-ribs': R('/photos/vas-striped-fabrics.jpg', 3 / 4, 'Striped and pinstriped VAS shirting fabrics fanned out'),
 
   // --- Our Story ---------------------------------------------------------
   'story.mill': P('story-mill', 16 / 9, 'Shuttle loom weaving striped shirting', 'The mill floor. Real machinery, real cloth in progress.'),
@@ -56,7 +64,7 @@ export const assets = {
   'collections.loom': P('collections-loom', 3 / 2, 'Industrial loom weaving pinstripe fabric', 'Loom mid-weave, wide crop.'),
 
   // --- VAS / Quality -----------------------------------------------------
-  'vas.fabric-stack': P('vas-fabric-stack', 3 / 2, 'Folded checked and striped shirting fabrics', 'Hero image for the VAS shirting line.'),
+  'vas.fabric-stack': R('/photos/vas-fabric-cotton-stack.jpg', 3 / 2, 'Folded VAS shirting fabrics beside raw cotton bolls'),
   'quality.tensile': P('quality-tensile', 1, 'Tensile strength testing', 'Testing rig in use, close crop.'),
   'quality.colour': P('quality-colour', 1, 'Colour fastness testing', 'Swatches under test lighting.'),
   'quality.shrinkage': P('quality-shrinkage', 1, 'Shrinkage control gauge', 'Analogue gauge dial, shallow depth of field.'),

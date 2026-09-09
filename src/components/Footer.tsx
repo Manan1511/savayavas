@@ -11,11 +11,8 @@ export function Footer() {
   return (
     <footer className="bg-ink text-paper">
       <div className="mx-auto flex max-w-(--container-content) flex-col items-center gap-6 px-(--spacing-gutter) py-8 sm:flex-row sm:justify-between">
-        <Link
-          to={localizePath('/', locale)}
-          className="font-(family-name:--font-display) font-normal text-lg tracking-[0.06em]"
-        >
-          SAVAYAVAS &amp; CO
+        <Link to={localizePath('/', locale)} aria-label={`${site.brand.name}, home`}>
+          <img src="/logos/savayavas-logo.png" alt="" aria-hidden className="h-8 w-auto rounded-sm bg-paper px-2 py-1" />
         </Link>
 
         <p className="text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-paper/70">

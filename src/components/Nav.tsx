@@ -39,10 +39,10 @@ export function Nav() {
       <div className="mx-auto flex max-w-(--container-content) items-center justify-between px-(--spacing-gutter) py-5">
         <Link
           to={localizePath('/', locale)}
-          className="whitespace-nowrap font-(family-name:--font-display) font-normal text-base tracking-[0.05em] text-ink transition-opacity duration-300 hover:opacity-70 sm:text-xl sm:tracking-[0.06em]"
+          className="shrink-0 transition-opacity duration-300 hover:opacity-70"
           aria-label={`${site.brand.name}, home`}
         >
-          SAVAYAVAS &amp; CO
+          <img src="/logos/savayavas-logo.png" alt="" aria-hidden className="h-7 w-auto sm:h-9" />
         </Link>
 
         <nav aria-label="Primary" className="hidden lg:block">

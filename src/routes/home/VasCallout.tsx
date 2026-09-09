@@ -22,7 +22,8 @@ export function VasCallout() {
           <Reveal className="relative">
             <Eyebrow className="text-brass-soft">{home.vasCallout.eyebrow}</Eyebrow>
             <h2 className="mt-5 text-6xl uppercase tracking-[0.08em] text-paper sm:text-7xl">
-              {home.vasCallout.headline}
+              <span className="sr-only">{home.vasCallout.headline}</span>
+              <img src="/logos/vas-logo.png" alt="" aria-hidden className="h-16 w-auto brightness-0 invert sm:h-20" />
             </h2>
             <p className="u-prose mt-6 text-sm leading-relaxed text-paper/75">
               {home.vasCallout.body}
