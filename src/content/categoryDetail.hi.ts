@@ -8,18 +8,8 @@
  * useLocaleContent, matching how it already imports them individually.
  */
 
-import type { specSchema as SpecSchemaEn, placeholderSwatches as SwatchesEn, whoThisIsFor as WhoEn } from './categoryDetail.en'
+import type { placeholderSwatches as SwatchesEn, whoThisIsFor as WhoEn } from './categoryDetail.en'
 import type { LocaleShape } from '@/lib/localeShape'
-
-export const SPEC_PENDING = 'पुष्टि होना बाकी'
-
-export const specSchema = [
-  { label: 'संरचना' },
-  { label: 'GSM (वज़न)' },
-  { label: 'चौड़ाई' },
-  { label: 'बुनाई' },
-  { label: 'फिनिश' },
-] as const satisfies LocaleShape<typeof SpecSchemaEn>
 
 export const placeholderSwatches = [
   { name: 'आइवरी', hex: '#F2EDE5' },

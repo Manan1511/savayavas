@@ -41,7 +41,7 @@ export function CategoriesGrid() {
                 <h3 className="text-2xl leading-snug text-ink">{c.name}</h3>
                 <p className="mt-4 text-sm leading-relaxed">{c.description}</p>
                 <span className="mt-6 inline-flex items-center gap-1.5 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass">
-                  {ui.collectionsPage.viewSpecification}
+                  {ui.collectionsPage.viewCollection}
                   <span aria-hidden className="transition-transform duration-400 ease-out group-hover:translate-x-1">
                     &rarr;
                   </span>

@@ -33,7 +33,7 @@ export const contactPage = {
   },
 
   seo: {
-    description: 'Get in touch with Savayavas & Co. for trade and export enquiries. Visit our showroom in Surat, Gujarat, or reach us by phone or email.',
+    description: 'Get in touch with Savayavas & Co. for trade and export enquiries. Visit our Mumbai office, or reach us by phone or email.',
   },
 } as const
 

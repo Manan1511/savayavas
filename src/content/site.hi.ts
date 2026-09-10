@@ -19,7 +19,7 @@ import type { LocaleShape } from '@/lib/localeShape'
 
 export const site = {
   brand: {
-    name: 'Savayavas & Co.',
+    name: 'सवायावास & Co.',
     tagline: 'उद्देश्य से निर्मित। विश्वास से बुना हुआ।',
     parentCompany: 'शुभ शांतिनाथ सिल्क मिल्स',
   },
@@ -27,7 +27,7 @@ export const site = {
   nav: {
     items: [
       { label: 'कलेक्शन', to: '/collections' },
-      { label: 'VAS', to: '/vas' },
+      { label: 'वास', to: '/vas' },
       { label: 'हमारी कहानी', to: '/our-story' },
       { label: 'डीलर्स के लिए', to: '/for-dealers' },
       { label: 'जर्नल', to: '/journal' },
@@ -56,7 +56,7 @@ export const site = {
       office: {
         label: 'ऑफिस',
         lines: [
-          'Savayavas & Co.',
+          'सवायावास & Co.',
           '146, Krishna Bhawan, Room No. 27,',
           'Dr. Viegas Street, Kalbadevi Road,',
           'मुंबई – 400002,',
@@ -79,7 +79,7 @@ export const site = {
     placeholder: true,
     eyebrow: 'आपकी बातें',
     headline: 'जो गुणवत्ता को महत्व देते हैं, उनका भरोसा।',
-    intro: 'हमारा समुदाय हमें हर दिन बेहतर करने के लिए प्रेरित करता है। जानिए Savayavas & Co. के साथ उनके अनुभव के बारे में उनकी राय।',
+    intro: 'हमारा समुदाय हमें हर दिन बेहतर करने के लिए प्रेरित करता है। जानिए सवायावास & Co. के साथ उनके अनुभव के बारे में उनकी राय।',
     rating: '4.9',
     ratingOutOf: '5',
     count: '120+',
@@ -90,7 +90,7 @@ export const site = {
         role: 'फैशन डिज़ाइनर, मुंबई',
       },
       {
-        quote: 'हम एक साल से अधिक समय से Savayavas & Co. के साथ काम कर रहे हैं, और गुणवत्ता व सेवा में निरंतरता बेजोड़ है।',
+        quote: 'हम एक साल से अधिक समय से सवायावास & Co. के साथ काम कर रहे हैं, और गुणवत्ता व सेवा में निरंतरता बेजोड़ है।',
         name: 'Arjun Singhal',
         role: 'शर्टिंग निर्माता, लुधियाना',
       },

@@ -34,7 +34,7 @@ export const ui = {
   },
 
   collectionsPage: {
-    viewSpecification: 'View specification',
+    viewCollection: 'View collection',
     comingSoonCatalogue: 'Coming soon. In the meantime, get in touch and we will send it directly.',
   },
 
@@ -43,8 +43,6 @@ export const ui = {
     backToCollections: 'Back to Collections',
     allCollections: 'All Collections',
     collection: 'Collection',
-    specification: 'Specification',
-    specConfirmingNote: 'Full specification data is being confirmed and will be published here shortly.',
     colourways: 'Colourways',
     colourwaysNote: 'Illustrative palette. Actual fabric colourways vary by dye lot and will be photographed for this page.',
     whoThisIsFor: 'Who This Is For',

@@ -14,7 +14,7 @@ export const ui = {
   pageTitles: {
     home: 'होम',
     ourStory: 'हमारी कहानी',
-    vas: 'VAS',
+    vas: 'वास',
     collections: 'कलेक्शन',
     forDealers: 'डीलर्स के लिए',
     contact: 'संपर्क करें',
@@ -38,7 +38,7 @@ export const ui = {
   },
 
   collectionsPage: {
-    viewSpecification: 'स्पेसिफिकेशन देखें',
+    viewCollection: 'कलेक्शन देखें',
     comingSoonCatalogue: 'जल्द आ रहा है। तब तक, संपर्क करें और हम इसे सीधे भेज देंगे।',
   },
 
@@ -47,8 +47,6 @@ export const ui = {
     backToCollections: 'कलेक्शन पर वापस जाएं',
     allCollections: 'सभी कलेक्शन',
     collection: 'कलेक्शन',
-    specification: 'स्पेसिफिकेशन',
-    specConfirmingNote: 'पूरा स्पेसिफिकेशन डेटा पुष्ट किया जा रहा है और जल्द ही यहां प्रकाशित किया जाएगा।',
     colourways: 'रंग विकल्प',
     colourwaysNote: 'दर्शाने के लिए पैलेट। असली फैब्रिक के रंग डाई लॉट के अनुसार अलग हो सकते हैं और इस पेज के लिए फोटो लिए जाएंगे।',
     whoThisIsFor: 'यह किसके लिए है',
@@ -68,7 +66,7 @@ export const ui = {
   },
 
   journal: {
-    seoDescription: 'फैब्रिक, शिल्पकारी और सोर्सिंग पर नोट्स, मिल फ्लोर से लेकर कटिंग टेबल तक। Savayavas & Co. जर्नल।',
+    seoDescription: 'फैब्रिक, शिल्पकारी और सोर्सिंग पर नोट्स, मिल फ्लोर से लेकर कटिंग टेबल तक। सवायावास & Co. जर्नल।',
     contentHub: 'कंटेंट हब',
     intro: 'फैब्रिक, शिल्पकारी और सोर्सिंग पर नोट्स, मिल फ्लोर से लेकर कटिंग टेबल तक।',
     filterAll: 'सभी',

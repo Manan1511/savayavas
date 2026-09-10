@@ -1,22 +1,6 @@
 /**
  * Per-category detail page copy.
- *
- * The specification schema (composition, GSM, width, weave, finish) is
- * intentionally populated with "To be confirmed" rather than invented
- * numbers. A B2B buyer may act on a GSM figure; publishing a plausible-looking
- * but fabricated one is worse than admitting it isn't set yet. Real values
- * are docs/PLAN.md §2, item 5, "Blocked on you".
  */
-
-export const SPEC_PENDING = 'To be confirmed'
-
-export const specSchema = [
-  { label: 'Composition' },
-  { label: 'GSM (Weight)' },
-  { label: 'Width' },
-  { label: 'Weave' },
-  { label: 'Finish' },
-] as const
 
 /**
  * Colourway swatches are flat colour blocks, not photographs: no fabric

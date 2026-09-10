@@ -8,16 +8,12 @@ import { site as siteHi } from '@/content/site.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
 import { useLocale, localizePath } from '@/lib/i18n'
 import {
-  specSchema as specSchemaEn,
   placeholderSwatches as placeholderSwatchesEn,
   whoThisIsFor as whoThisIsForEn,
-  SPEC_PENDING as SPEC_PENDING_EN,
 } from '@/content/categoryDetail.en'
 import {
-  specSchema as specSchemaHi,
   placeholderSwatches as placeholderSwatchesHi,
   whoThisIsFor as whoThisIsForHi,
-  SPEC_PENDING as SPEC_PENDING_HI,
 } from '@/content/categoryDetail.hi'
 import { ui as uiEn } from '@/content/ui.en'
 import { ui as uiHi } from '@/content/ui.hi'
@@ -59,7 +55,6 @@ export function Component() {
       />
 
       <CategoryHero category={category} />
-      <SpecTable />
       <Swatches />
       <WhoThisIsFor slug={category.slug} />
       <RelatedCategories currentSlug={category.slug} />
@@ -101,31 +96,12 @@ function CategoryHero({ category }: { category: ResolvedCategory }) {
             {category.name}
           </h1>
           <p className="u-prose mt-6 text-sm leading-relaxed">{category.description}</p>
-        </Reveal>
-      </Container>
-    </Section>
-  )
-}
 
-function SpecTable() {
-  const specSchema = useLocaleContent(specSchemaEn, specSchemaHi)
-  const SPEC_PENDING = useLocaleContent(SPEC_PENDING_EN, SPEC_PENDING_HI)
-  const ui = useLocaleContent(uiEn, uiHi)
-
-  return (
-    <Section className="py-16 sm:py-20">
-      <Container className="max-w-2xl">
-        <Reveal>
-          <Eyebrow>{ui.category.specification}</Eyebrow>
-          <dl className="mt-6 divide-y divide-greige border-y border-greige">
-            {specSchema.map((row) => (
-              <div key={row.label} className="flex items-center justify-between py-3 text-sm">
-                <dt className="text-ink-soft">{row.label}</dt>
-                <dd className="italic text-stone">{SPEC_PENDING}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-3 text-xs text-stone">{ui.category.specConfirmingNote}</p>
+          {/* Every fabric in the catalogue is sold under the VAS shirting
+              line, not the parent company directly — the product-level mark
+              belongs here, distinct from the Savayavas & Co. lockup in the
+              site chrome. */}
+          <img src="/logos/vas-logo.png" alt="VAS Luxe Fabrics" className="mt-8 h-12 w-auto" />
         </Reveal>
       </Container>
     </Section>
