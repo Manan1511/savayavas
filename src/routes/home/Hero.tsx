@@ -6,7 +6,7 @@ import { WeaveReveal } from '@/motion'
 import { home as homeEn } from '@/content/home.en'
 import { home as homeHi } from '@/content/home.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
-import type { AssetKey } from '@/assets/registry'
+import { asset, type AssetKey } from '@/assets/registry'
 
 /**
  * A torn-paper collage, as on the concept boards.
@@ -54,9 +54,15 @@ export function Hero() {
           bare paper either side on any wider display. */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-[8%] bottom-[8%] bg-ivory"
+        className="absolute inset-x-0 top-[8%] bottom-[8%] overflow-hidden bg-ivory"
         style={{ zIndex: 'var(--z-base)' }}
       >
+        <img
+          src={asset('hero.linen-sheet').src}
+          alt=""
+          aria-hidden
+          className="h-full w-full object-cover opacity-30 mix-blend-multiply"
+        />
         <TornEdge position="top" />
         <TornEdge position="bottom" />
       </div>

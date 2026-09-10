@@ -46,10 +46,10 @@ const R = (path: string, aspect: number, alt: string): AssetEntry => ({
 export const assets = {
   // --- Home hero collage (each piece is its own layer so the thread can
   // pass between them) ---------------------------------------------------
-  'hero.linen-sheet': P('hero-linen-sheet', 16 / 9, '', 'Torn ivory linen sheet, flat lay, soft daylight. Used as the hero backdrop.'),
+  'hero.linen-sheet': R('/photos/vas-fabric-folds-pastel.jpg', 16 / 9, ''),
   'hero.yarn-cone': P('hero-yarn-cone', 3 / 4, '', 'Single navy yarn cone, three-quarter angle, thread trailing off the cone.'),
   'hero.denim-drape': R('/photos/vas-fabric-drape-cane.jpg', 3 / 4, 'VAS printed shirting fabric draped over a cane chair'),
-  'hero.shirts-rail': R('/photos/vas-fabric-folds-pastel.jpg', 4 / 3, 'Blended pastel VAS shirting fabrics in folds'),
+  'hero.shirts-rail': P('hero-shirts-rail', 4 / 3, 'Shirts in graded tones on a rail', 'Row of shirts on wooden hangers, tonal grey-to-navy gradient.'),
   'hero.model-jacket': R('/photos/vas-hand-swatches.jpg', 3 / 4, 'A hand selecting VAS jacquard fabric swatches'),
   'hero.folded-stack': R('/photos/vas-fabric-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
   'hero.swatch-book': R('/photos/vas-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics swatch book fanned open'),
