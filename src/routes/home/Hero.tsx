@@ -93,24 +93,26 @@ export function Hero() {
       {/* Only the type is capped, and centred within the viewport. */}
       <div className="relative mx-auto flex min-h-[78vh] max-w-[1700px] items-center justify-center px-(--spacing-gutter) py-24 sm:min-h-[86vh]">
 
-        {/* A soft ivory halo behind the lockup only: the backdrop texture
-            reads fine on its own, but the small-caps subline is too low a
-            contrast to survive sitting directly on the weave. This lifts the
-            text's own patch of ground without flattening the texture
-            everywhere else, the way a solid panel behind the whole block
-            would. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[34rem] w-[46rem] max-w-[92%] -translate-x-1/2 -translate-y-1/2"
-          style={{
-            zIndex: 'var(--z-content)',
-            background: 'radial-gradient(ellipse at center, var(--color-ivory) 0%, var(--color-ivory) 38%, transparent 72%)',
-          }}
-        />
-
         {/* The lockup owns the centre column, so nothing sits behind the type. */}
         <WeaveReveal className="relative w-full max-w-2xl text-center" warp={18} weft={11}>
           <div style={{ zIndex: 'var(--z-text)' }} className="relative">
+            {/* A soft ivory halo behind the lockup only: the backdrop
+                texture reads fine on its own, but the small-caps subline is
+                too low a contrast to survive sitting directly on the weave.
+                Nested here rather than as a sibling of WeaveReveal so it
+                fades in together with the text as one unit — as a sibling it
+                rendered instantly while the text was still fading in behind
+                it, reading as a blank halo that the type suddenly popped
+                into. */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[34rem] max-w-[130%] -translate-x-1/2 -translate-y-1/2"
+              style={{
+                zIndex: -1,
+                background: 'radial-gradient(ellipse at center, var(--color-ivory) 0%, var(--color-ivory) 38%, transparent 72%)',
+              }}
+            />
+
             <Eyebrow>{home.hero.eyebrow}</Eyebrow>
 
             <h1 className="mt-6">
