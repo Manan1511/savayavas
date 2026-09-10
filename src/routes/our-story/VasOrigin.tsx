@@ -18,8 +18,9 @@ export function VasOrigin() {
       <Container className="max-w-2xl text-center">
         <Reveal>
           <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="mt-5 u-script text-6xl text-brass sm:text-7xl">
-            {headline}
+          <h2 className="mt-5">
+            <span className="sr-only">{headline}</span>
+            <img src="/logos/vas-logo.png" alt="" aria-hidden className="mx-auto h-20 w-auto sm:h-24" />
           </h2>
           <p className="u-prose mx-auto mt-6 text-sm leading-relaxed">{body}</p>
           <Link

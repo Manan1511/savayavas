@@ -98,7 +98,6 @@ export function OrganizationSchema() {
     url: SITE_URL,
     description: 'Premium shirting fabrics manufactured under Shubh Shantinath Silk Mills.',
     parentOrganization: { '@type': 'Organization', name: site.brand.parentCompany },
-    telephone: site.contact.phone,
     email: site.contact.email,
     address: {
       '@type': 'PostalAddress',

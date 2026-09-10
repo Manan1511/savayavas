@@ -269,11 +269,6 @@ function LeadFormResult({ result }: { result: LeadResult }) {
       <p className="text-sm leading-relaxed text-ink">{ui.leadForm.notConfiguredMessage}</p>
       <ul className="mt-4 space-y-1.5 text-sm">
         <li>
-          <a href={`tel:${site.contact.phone.replace(/\s+/g, '')}`} className="text-brass hover:text-ink">
-            {site.contact.phone}
-          </a>
-        </li>
-        <li>
           <a href={`mailto:${site.contact.email}`} className="text-brass hover:text-ink">
             {site.contact.email}
           </a>

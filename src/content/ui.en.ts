@@ -54,7 +54,6 @@ export const ui = {
   },
 
   contactPage: {
-    phoneLabel: 'Phone',
     emailLabel: 'Email',
     instagramLabel: 'Instagram',
     hoursLabel: 'Hours',

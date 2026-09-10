@@ -13,10 +13,9 @@ export function GetInTouch() {
   const site = useLocaleContent(siteEn, siteHi)
   const contactPage = useLocaleContent(contactPageEn, contactPageHi)
   const ui = useLocaleContent(uiEn, uiHi)
-  const { phone, email, instagram, hours } = site.contact
+  const { email, instagram, hours } = site.contact
 
   const rows = [
-    { label: ui.contactPage.phoneLabel, value: phone, href: `tel:${phone.replace(/\s+/g, '')}` },
     { label: ui.contactPage.emailLabel, value: email, href: `mailto:${email}` },
     { label: ui.contactPage.instagramLabel, value: instagram, href: `https://instagram.com/${instagram.replace('@', '')}` },
     { label: ui.contactPage.hoursLabel, value: hours },

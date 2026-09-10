@@ -40,18 +40,13 @@ export const site = {
   footer: {
     tagline: 'उद्देश्य से निर्मित। विश्वास से बुना हुआ।',
     rights: 'सर्वाधिकार सुरक्षित।',
-    social: [
-      { label: 'Instagram', href: 'https://instagram.com/savayavas_co' },
-      { label: 'LinkedIn', href: '#' },
-      { label: 'Pinterest', href: '#' },
-    ],
+    social: [{ label: 'Instagram', href: 'https://instagram.com/savayavas_co' }],
   },
 
   contact: {
-    phone: '+91 98765 43210',
     email: 'info@savayavas.co.in',
     instagram: '@savayavas_co',
-    hours: 'सोम – शनि : सुबह 10 – शाम 7',
+    hours: 'सोम – शनि : सुबह 11 – शाम 7',
     address: {
       office: {
         label: 'ऑफिस',

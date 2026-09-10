@@ -58,7 +58,6 @@ export const ui = {
   },
 
   contactPage: {
-    phoneLabel: 'फोन',
     emailLabel: 'ईमेल',
     instagramLabel: 'इंस्टाग्राम',
     hoursLabel: 'समय',

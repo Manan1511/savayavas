@@ -30,26 +30,20 @@ export const site = {
   footer: {
     tagline: 'Crafted with purpose. Woven with trust.',
     rights: 'All rights reserved.',
-    social: [
-      { label: 'Instagram', href: 'https://instagram.com/savayavas_co' },
-      { label: 'LinkedIn', href: '#' },
-      { label: 'Pinterest', href: '#' },
-    ],
+    social: [{ label: 'Instagram', href: 'https://instagram.com/savayavas_co' }],
   },
 
   /**
    * Email and both addresses are real, supplied directly from the company's
-   * own letterhead. Phone and Instagram are still the Phase 1 placeholders
-   * and remain unverified: LeadForm surfaces the phone as the ACTIVE
-   * fallback whenever a submission cannot be sent (which is every
-   * submission, until a backend exists), so it must be confirmed before
-   * launch — a real lead calling a wrong number is worse than no number.
+   * own letterhead. No phone number is published: none was ever confirmed,
+   * and email is the only fallback contact LeadForm shows when a submission
+   * cannot be sent (which is every submission, until a backend exists).
+   * Instagram is still the unverified Phase 1 placeholder.
    */
   contact: {
-    phone: '+91 98765 43210',
     email: 'info@savayavas.co.in',
     instagram: '@savayavas_co',
-    hours: 'Mon – Sat : 10AM – 7PM',
+    hours: 'Mon – Sat : 11AM – 7PM',
     address: {
       office: {
         label: 'Office',
