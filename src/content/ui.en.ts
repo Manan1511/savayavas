@@ -44,7 +44,7 @@ export const ui = {
     allCollections: 'All Collections',
     collection: 'Collection',
     colourways: 'Colourways',
-    colourwaysNote: 'Illustrative palette. Actual fabric colourways vary by dye lot and will be photographed for this page.',
+    colourwaysNote: 'A representative VAS shade card. Individual fabric colourways vary by dye lot; confirm your exact shade with our team before ordering.',
     whoThisIsFor: 'Who This Is For',
     otherCollections: 'Other Collections',
     sourcingQuestion: 'Sourcing {category}?',

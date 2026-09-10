@@ -2,20 +2,6 @@
  * Per-category detail page copy.
  */
 
-/**
- * Colourway swatches are flat colour blocks, not photographs: no fabric
- * photography exists per colourway yet, and a labelled placeholder is more
- * honest than a stand-in image that implies a specific dye lot.
- */
-export const placeholderSwatches = [
-  { name: 'Ivory', hex: '#F2EDE5' },
-  { name: 'Stone', hex: '#B8B2A6' },
-  { name: 'Navy', hex: '#2B3441' },
-  { name: 'Brass', hex: '#A8845C' },
-  { name: 'Charcoal', hex: '#141414' },
-  { name: 'Greige', hex: '#E4E0D6' },
-] as const
-
 /** One sentence per category: who sources it and why, derived from each
     category's own description in content/site.en.ts rather than a new claim. */
 export const whoThisIsFor: Record<string, string> = {

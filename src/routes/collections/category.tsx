@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
+import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Seo } from '@/components/Seo'
 import { Reveal } from '@/motion'
@@ -7,16 +8,11 @@ import { site as siteEn } from '@/content/site.en'
 import { site as siteHi } from '@/content/site.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
 import { useLocale, localizePath } from '@/lib/i18n'
-import {
-  placeholderSwatches as placeholderSwatchesEn,
-  whoThisIsFor as whoThisIsForEn,
-} from '@/content/categoryDetail.en'
-import {
-  placeholderSwatches as placeholderSwatchesHi,
-  whoThisIsFor as whoThisIsForHi,
-} from '@/content/categoryDetail.hi'
+import { whoThisIsFor as whoThisIsForEn } from '@/content/categoryDetail.en'
+import { whoThisIsFor as whoThisIsForHi } from '@/content/categoryDetail.hi'
 import { ui as uiEn } from '@/content/ui.en'
 import { ui as uiHi } from '@/content/ui.hi'
+import { CATEGORY_IMAGE } from '@/assets/registry'
 
 /**
  * One page per fabric category, prerendered from the taxonomy in
@@ -80,58 +76,53 @@ interface ResolvedCategory {
 function CategoryHero({ category }: { category: ResolvedCategory }) {
   const ui = useLocaleContent(uiEn, uiHi)
   const locale = useLocale()
+  const image = CATEGORY_IMAGE[category.slug]
 
   return (
     <Section tone="ivory" className="pt-32 pb-16 sm:pt-40 sm:pb-20">
-      <Container className="max-w-2xl">
-        <Reveal>
-          <Link
-            to={localizePath('/collections', locale)}
-            className="text-[0.625rem] uppercase tracking-(--tracking-eyebrow) text-brass hover:text-ink"
-          >
-            &larr; {ui.category.allCollections}
-          </Link>
-          <Eyebrow className="mt-6">{ui.category.collection}</Eyebrow>
-          <h1 className="mt-4 text-4xl uppercase leading-[1.05] sm:text-5xl lg:text-6xl">
-            {category.name}
-          </h1>
-          <p className="u-prose mt-6 text-sm leading-relaxed">{category.description}</p>
+      <Container>
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <Reveal>
+            <Link
+              to={localizePath('/collections', locale)}
+              className="text-[0.625rem] uppercase tracking-(--tracking-eyebrow) text-brass hover:text-ink"
+            >
+              &larr; {ui.category.allCollections}
+            </Link>
+            <Eyebrow className="mt-6">{ui.category.collection}</Eyebrow>
+            <h1 className="mt-4 text-4xl uppercase leading-[1.05] sm:text-5xl lg:text-6xl">
+              {category.name}
+            </h1>
+            <p className="u-prose mt-6 text-sm leading-relaxed">{category.description}</p>
 
-          {/* Every fabric in the catalogue is sold under the VAS shirting
-              line, not the parent company directly — the product-level mark
-              belongs here, distinct from the Savayavas & Co. lockup in the
-              site chrome. */}
-          <img src="/logos/vas-logo.png" alt="VAS Luxe Fabrics" className="mt-8 h-12 w-auto" />
-        </Reveal>
+            {/* Every fabric in the catalogue is sold under the VAS shirting
+                line, not the parent company directly — the product-level
+                mark belongs here, distinct from the Savayavas & Co. lockup
+                in the site chrome. */}
+            <img src="/logos/vas-logo.png" alt="VAS Luxe Fabrics" className="mt-8 h-12 w-auto" />
+          </Reveal>
+
+          {image && (
+            <Reveal delay={0.1}>
+              <Figure name={image} className="w-full" priority />
+            </Reveal>
+          )}
+        </div>
       </Container>
     </Section>
   )
 }
 
 function Swatches() {
-  const placeholderSwatches = useLocaleContent(placeholderSwatchesEn, placeholderSwatchesHi)
   const ui = useLocaleContent(uiEn, uiHi)
 
   return (
     <Section tone="ivory" className="py-16 sm:py-20">
-      <Container>
+      <Container className="max-w-md text-center">
         <Reveal>
           <Eyebrow>{ui.category.colourways}</Eyebrow>
-          <p className="mt-3 max-w-md text-xs text-stone">{ui.category.colourwaysNote}</p>
-        </Reveal>
-        <Reveal as="ul" stagger className="mt-6 grid grid-cols-3 gap-4 sm:grid-cols-6">
-          {placeholderSwatches.map((s) => (
-            <li key={s.name} className="text-center">
-              <div
-                className="aspect-square w-full rounded-sm border border-greige"
-                style={{ backgroundColor: s.hex }}
-                aria-hidden
-              />
-              <p className="mt-2 text-[0.625rem] uppercase tracking-(--tracking-eyebrow) text-ink-soft">
-                {s.name}
-              </p>
-            </li>
-          ))}
+          <p className="mx-auto mt-3 max-w-sm text-xs text-stone">{ui.category.colourwaysNote}</p>
+          <Figure name="category.shade-card" className="mx-auto mt-8 max-w-xs" rounded />
         </Reveal>
       </Container>
     </Section>

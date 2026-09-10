@@ -10,7 +10,6 @@ import { WhoItsFor } from './WhoItsFor'
 import { WhatYouGet } from './WhatYouGet'
 import { Onboarding } from './Onboarding'
 import { InquiryForm } from './InquiryForm'
-import { ExportTerms } from './ExportTerms'
 import { Faq } from './Faq'
 
 export function Component() {
@@ -25,7 +24,6 @@ export function Component() {
       <WhatYouGet />
       <Onboarding />
       <InquiryForm />
-      <ExportTerms />
       <Reviews />
       <Faq />
     </>

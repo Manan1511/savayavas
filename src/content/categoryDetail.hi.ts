@@ -8,17 +8,8 @@
  * useLocaleContent, matching how it already imports them individually.
  */
 
-import type { placeholderSwatches as SwatchesEn, whoThisIsFor as WhoEn } from './categoryDetail.en'
+import type { whoThisIsFor as WhoEn } from './categoryDetail.en'
 import type { LocaleShape } from '@/lib/localeShape'
-
-export const placeholderSwatches = [
-  { name: 'आइवरी', hex: '#F2EDE5' },
-  { name: 'स्टोन', hex: '#B8B2A6' },
-  { name: 'नेवी', hex: '#2B3441' },
-  { name: 'ब्रास', hex: '#A8845C' },
-  { name: 'चारकोल', hex: '#141414' },
-  { name: 'ग्रेज', hex: '#E4E0D6' },
-] as const satisfies LocaleShape<typeof SwatchesEn>
 
 export const whoThisIsFor: LocaleShape<typeof WhoEn> = {
   cotton: 'उन निर्माताओं के लिए जो बड़ी मात्रा में फॉर्मल और कैज़ुअल शर्टिंग बनाते हैं और जिन्हें हर बैच में भरोसेमंद गुणवत्ता चाहिए।',

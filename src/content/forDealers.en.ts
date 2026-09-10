@@ -56,12 +56,6 @@ export const forDealers = {
     ],
   },
 
-  exportTerms: {
-    eyebrow: 'Export Terms',
-    headline: 'Advance payment, every export order.',
-    body: 'For all export orders, full payment is required in advance, prior to production. This applies without exception and is confirmed again before any export order is placed.',
-  },
-
   faq: {
     eyebrow: 'Questions',
     items: [

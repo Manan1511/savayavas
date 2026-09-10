@@ -46,25 +46,33 @@ const R = (path: string, aspect: number, alt: string): AssetEntry => ({
 export const assets = {
   // --- Home hero collage (each piece is its own layer so the thread can
   // pass between them) ---------------------------------------------------
-  'hero.linen-sheet': R('/photos/vas-fabric-folds-pastel.jpg', 16 / 9, ''),
-  'hero.yarn-cone': P('hero-yarn-cone', 3 / 4, '', 'Single navy yarn cone, three-quarter angle, thread trailing off the cone.'),
-  'hero.denim-drape': R('/photos/vas-fabric-drape-cane.jpg', 3 / 4, 'VAS printed shirting fabric draped over a cane chair'),
-  'hero.shirts-rail': P('hero-shirts-rail', 4 / 3, 'Shirts in graded tones on a rail', 'Row of shirts on wooden hangers, tonal grey-to-navy gradient.'),
-  'hero.model-jacket': R('/photos/vas-hand-swatches.jpg', 3 / 4, 'A hand selecting VAS jacquard fabric swatches'),
-  'hero.folded-stack': R('/photos/vas-fabric-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
-  'hero.swatch-book': R('/photos/vas-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics swatch book fanned open'),
-  'hero.dark-ribs': R('/photos/vas-striped-fabrics.jpg', 3 / 4, 'Striped and pinstriped VAS shirting fabrics fanned out'),
+  'hero.linen-sheet': R('/photos/lyocell-pastel-fold.jpg', 16 / 9, ''),
+  'hero.yarn-cone': R('/photos/filler-yarn-cone-pink.jpg', 3 / 4, 'A single dyed yarn cone amid rows of undyed cones on the mill floor'),
+  'hero.denim-drape': R('/photos/fashion-poly-drape-cane.jpg', 3 / 4, 'VAS printed shirting fabric draped over a cane chair'),
+  'hero.shirts-rail': R('/photos/cotton-hanger-tonal.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),
+  'hero.model-jacket': R('/photos/fashion-poly-hand-swatches.jpg', 3 / 4, 'A hand selecting VAS jacquard fabric swatches'),
+  'hero.folded-stack': R('/photos/polyester-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
+  'hero.swatch-book': R('/photos/linen-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics swatch book fanned open'),
+  'hero.dark-ribs': R('/photos/fashion-poly-bw-rolls.jpg', 3 / 4, 'Rolled black and white printed shirting fabric, seen end-on'),
 
   // --- Our Story ---------------------------------------------------------
-  'story.mill': P('story-mill', 16 / 9, 'Shuttle loom weaving striped shirting', 'The mill floor. Real machinery, real cloth in progress.'),
+  'story.mill': R('/photos/filler-fabric-rolls.jpg', 16 / 9, 'Rolled fabric bolts standing upright'),
   'story.founders': P('story-founders', 4 / 3, 'The Parmar family', 'Portrait of the founding brothers, or an archival photograph.'),
 
   // --- Collections -------------------------------------------------------
-  'collections.yarn-table': P('collections-yarn-table', 3 / 2, 'Cotton bolls and yarn cones on a workbench', 'Raw material still life: cotton, linen, yarn cones, natural light.'),
-  'collections.loom': P('collections-loom', 3 / 2, 'Industrial loom weaving pinstripe fabric', 'Loom mid-weave, wide crop.'),
+  'collections.yarn-table': R('/photos/cotton-lantern-stack.jpg', 3 / 2, 'Folded fabrics beside a lantern'),
+  'collections.loom': R('/photos/filler-fabric-rolls.jpg', 3 / 2, 'Rolled fabric bolts standing upright'),
+
+  // --- Per-category detail page hero -------------------------------------
+  'category.cotton': R('/photos/cotton-jacquard-swirl.jpg', 3 / 4, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
+  'category.linen': R('/photos/linen-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics linen swatch book fanned open'),
+  'category.lyocell-cotton': R('/photos/lyocell-colour-drape.jpg', 3 / 4, 'Lyocell cotton fabric in pink, yellow and blue, draped'),
+  'category.polyester-cotton': R('/photos/polyester-cotton-stripes.jpg', 3 / 4, 'Polyester cotton shirting fabrics in fine stripes, fanned'),
+  'category.fashion-polyesters': R('/photos/fashion-poly-bw-rolls.jpg', 3 / 4, 'Rolled black and white printed fashion polyester fabric'),
+  'category.shade-card': R('/photos/filler-shade-card.jpg', 2 / 3, 'A VAS Luxe Fabrics shade card, twelve numbered shades on a hanger'),
 
   // --- VAS / Quality -----------------------------------------------------
-  'vas.fabric-stack': R('/photos/vas-fabric-cotton-stack.jpg', 3 / 2, 'Folded VAS shirting fabrics beside raw cotton bolls'),
+  'vas.fabric-stack': R('/photos/polyester-cotton-stack.jpg', 3 / 2, 'Folded VAS shirting fabrics beside raw cotton bolls'),
   'quality.tensile': P('quality-tensile', 1, 'Tensile strength testing', 'Testing rig in use, close crop.'),
   'quality.colour': P('quality-colour', 1, 'Colour fastness testing', 'Swatches under test lighting.'),
   'quality.shrinkage': P('quality-shrinkage', 1, 'Shrinkage control gauge', 'Analogue gauge dial, shallow depth of field.'),
@@ -89,14 +97,27 @@ export const assets = {
   'tribe.14': P('tribe-14', 0.64, '', "Tailor's measuring tape laid across checked fabric."),
 
   // --- Contact -----------------------------------------------------------
-  'contact.fabric-fold': P('contact-fabric-fold', 3 / 2, 'Folded textured fabrics in neutral tones', 'Soft neutral fabric folds, calm and quiet.'),
-  'contact.map': P('contact-map', 3 / 2, 'Map showing the Savayavas & Co. showroom in Surat', 'Static map export. Deliberately not a live embed. See docs/PLAN.md.'),
+  'contact.fabric-fold': R('/photos/filler-embroidered-drape.jpg', 3 / 2, 'Embroidered VAS fabric draped over a cane chair'),
+  'contact.map': P('contact-map', 3 / 2, 'Map showing the Savayavas & Co. office in Mumbai', 'Static map export. Deliberately not a live embed. See docs/PLAN.md.'),
 } as const satisfies Record<string, AssetEntry>
 
 export type AssetKey = keyof typeof assets
 
 export function asset(key: AssetKey): AssetEntry {
   return assets[key]
+}
+
+/**
+ * One hero photo per fabric category, keyed by the same slug as
+ * `site.categories`. Shared by the category detail page, the Collections
+ * grid and the Home category strip so all three stay in sync.
+ */
+export const CATEGORY_IMAGE: Record<string, AssetKey> = {
+  cotton: 'category.cotton',
+  linen: 'category.linen',
+  'lyocell-cotton': 'category.lyocell-cotton',
+  'polyester-cotton': 'category.polyester-cotton',
+  'fashion-polyesters': 'category.fashion-polyesters',
 }
 
 /** Every asset still awaiting real photography. Used by `npm run assets:check`. */
