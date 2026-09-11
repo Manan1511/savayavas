@@ -6,8 +6,8 @@ import { ourStory as ourStoryHi } from '@/content/ourStory.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
 
 /**
- * A single full-bleed image between the family story and the tribe wall. No
- * card, no copy block: this is a breath, not another section to read.
+ * A single full-bleed image closing out the page's story. No card, no copy
+ * block: this is a breath, not another section to read.
  */
 export function MillBand() {
   const ourStory = useLocaleContent(ourStoryEn, ourStoryHi)

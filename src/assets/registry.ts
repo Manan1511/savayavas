@@ -81,28 +81,6 @@ export const assets = {
 
   // --- VAS / Quality -----------------------------------------------------
   'vas.fabric-stack': R('/photos/cotton-jacquard-swirl.jpg', 3 / 2, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
-  'quality.tensile': P('quality-tensile', 1, 'Tensile strength testing', 'Testing rig in use, close crop.'),
-  'quality.colour': P('quality-colour', 1, 'Colour fastness testing', 'Swatches under test lighting.'),
-  'quality.shrinkage': P('quality-shrinkage', 1, 'Shrinkage control gauge', 'Analogue gauge dial, shallow depth of field.'),
-  'quality.pilling': P('quality-pilling', 1, 'Pilling resistance testing', 'Fabric surface under test apparatus.'),
-  'quality.finish': P('quality-finish', 1, 'Finished fabric inspection', 'Hand inspecting finished cloth.'),
-
-  // --- Our Story: Tribe wall ---------------------------------------------
-  // Fourteen tiles, aspect matched to a tall poster crop (deck reference).
-  'tribe.01': P('tribe-01', 0.64, '', 'Loom mid-weave, close crop on the moving warp.'),
-  'tribe.02': P('tribe-02', 0.64, '', 'Folded ivory linen, texture filling the frame.'),
-  'tribe.03': P('tribe-03', 0.64, '', 'Man in an open-collar shirt, fabric texture visible, warm light.'),
-  'tribe.04': P('tribe-04', 0.64, '', 'Row of navy and grey yarn cones.'),
-  'tribe.05': P('tribe-05', 0.64, '', 'Hands measuring and marking fabric on a cutting table.'),
-  'tribe.06': P('tribe-06', 0.64, '', 'Checked fabric swatches fanned with a tailor tape.'),
-  'tribe.07': P('tribe-07', 0.64, '', 'Folded shirts stacked in graded tones.'),
-  'tribe.08': P('tribe-08', 0.64, '', 'Raw cotton bolls, close and textural.'),
-  'tribe.09': P('tribe-09', 0.64, '', 'Striped shirting fabric bolt, unrolled.'),
-  'tribe.10': P('tribe-10', 0.64, '', 'Savayavas & Co. swatch book beside a business card.'),
-  'tribe.11': P('tribe-11', 0.64, '', 'Hands measuring fabric with a tape, mid-motion.'),
-  'tribe.12': P('tribe-12', 0.64, '', 'Folded beige fabric, shallow depth of field.'),
-  'tribe.13': P('tribe-13', 0.64, '', 'Rolled fabric bolts stacked end-on.'),
-  'tribe.14': P('tribe-14', 0.64, '', "Tailor's measuring tape laid across checked fabric."),
 
   // --- Contact -----------------------------------------------------------
   'contact.fabric-fold': R('/photos/filler-embroidered-drape.jpg', 3 / 2, 'Embroidered VAS fabric draped over a cane chair'),

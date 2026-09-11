@@ -41,11 +41,11 @@ export const vas = {
     headline: 'From fibre to finish, every stage is monitored with precision.',
     intro: 'Because for us, true luxury lies in the details you don’t have to think about, but can always feel.',
     tiles: [
-      { asset: 'quality.tensile', title: 'Tensile Strength', body: 'Tested for durability that stands the test of time.' },
-      { asset: 'quality.colour', title: 'Colour Fastness', body: 'Colours that stay true, even after multiple washes.' },
-      { asset: 'quality.shrinkage', title: 'Shrinkage Control', body: 'Engineered to maintain shape and size.' },
-      { asset: 'quality.pilling', title: 'Pilling Resistance', body: 'Smooth finish that stays refined, wear after wear.' },
-      { asset: 'quality.finish', title: 'Perfect Finish', body: 'Impeccable touch, fall and overall finish.' },
+      { title: 'Tensile Strength', body: 'Tested for durability that stands the test of time.' },
+      { title: 'Colour Fastness', body: 'Colours that stay true, even after multiple washes.' },
+      { title: 'Shrinkage Control', body: 'Engineered to maintain shape and size.' },
+      { title: 'Pilling Resistance', body: 'Smooth finish that stays refined, wear after wear.' },
+      { title: 'Perfect Finish', body: 'Impeccable touch, fall and overall finish.' },
     ],
   },
 

@@ -1,31 +1,24 @@
-import { useState } from 'react'
 import { Eyebrow } from '@/components/Eyebrow'
-import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
-import { Lightbox } from '@/components/Lightbox'
 import { Reveal } from '@/motion'
 import { vas as vasEn } from '@/content/vas.en'
 import { vas as vasHi } from '@/content/vas.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
-import { ui as uiEn } from '@/content/ui.en'
-import { ui as uiHi } from '@/content/ui.hi'
-import type { AssetKey } from '@/assets/registry'
+import { pillarIconProps } from '@/components/IconPillar'
 
 /**
- * Five test tiles, reusing the Lightbox built for the Our Story Tribe wall
- * rather than a second bespoke modal. `Lightbox` takes `{asset, caption}`, so
- * the test title doubles as the caption here.
+ * Five test tiles. Previously rendered as enlargeable photos, but no
+ * photography of the actual tests exists (or ever will, without a real lab
+ * shoot) — a flat placeholder colour block standing in for a photo reads as
+ * a photo that failed to load, and it doesn't literally exist as a photo
+ * to be true. Line icons, matching the pillar icons used elsewhere on this
+ * page, are honest about being a symbol rather than a photograph and give
+ * each test its own quick visual anchor.
  */
 export function DetailTiles() {
   const vas = useLocaleContent(vasEn, vasHi)
-  const ui = useLocaleContent(uiEn, uiHi)
   const { eyebrow, headline, intro } = vas.detail
-  /** See the equivalent comment in our-story/TribeWall.tsx: `asset` is an
-      untranslated `AssetKey` identifier that `LocaleShape` widens to `string`
-      along with the real copy fields, so it is cast back here. */
-  const tiles = vas.detail.tiles as readonly { asset: AssetKey; title: string; body: string }[]
-  const [openAt, setOpenAt] = useState<number | null>(null)
-  const items = tiles.map((t) => ({ asset: t.asset, caption: t.title }))
+  const tiles = vas.detail.tiles as readonly { title: string; body: string }[]
 
   return (
     <Section tone="ivory" className="py-20 sm:py-28">
@@ -37,34 +30,65 @@ export function DetailTiles() {
             <p className="u-prose mt-4 text-sm leading-relaxed">{intro}</p>
           </Reveal>
 
-          <Reveal as="ul" stagger className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+          <Reveal as="ul" stagger className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
             {tiles.map((tile, i) => (
-              <li key={tile.asset}>
-                <button
-                  type="button"
-                  onClick={() => setOpenAt(i)}
-                  className="group block w-full text-left"
-                  aria-label={`${ui.common.view}: ${tile.title}`}
-                >
-                  <Figure
-                    name={tile.asset}
-                    rounded
-                    className="w-full transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <p className="mt-3 text-[0.6875rem] uppercase leading-snug tracking-(--tracking-eyebrow) text-ink">
-                    {tile.title}
-                  </p>
-                  <p className="mt-1 text-xs leading-snug text-ink-soft">{tile.body}</p>
-                </button>
+              <li key={tile.title}>
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-brass/45">
+                  <TestIcon index={i} />
+                </div>
+                <p className="mt-3 text-[0.6875rem] uppercase leading-snug tracking-(--tracking-eyebrow) text-ink">
+                  {tile.title}
+                </p>
+                <p className="mt-1 text-xs leading-snug text-ink-soft">{tile.body}</p>
               </li>
             ))}
           </Reveal>
         </div>
       </Container>
-
-      {openAt !== null && (
-        <Lightbox items={items} index={openAt} onClose={() => setOpenAt(null)} onNavigate={setOpenAt} />
-      )}
     </Section>
   )
+}
+
+/** Tensile strength, colour fastness, shrinkage control, pilling resistance, perfect finish, in order. */
+function TestIcon({ index }: { index: number }) {
+  const p = pillarIconProps
+
+  switch (index) {
+    case 0: // tensile strength: fabric under tension between two clamps
+      return (
+        <svg {...p}>
+          <path d="M4 12h3M17 12h3" />
+          <path d="M7 8v8M17 8v8" />
+          <path d="M7 12h10" />
+        </svg>
+      )
+    case 1: // colour fastness: a droplet that stays true (checkmark inside)
+      return (
+        <svg {...p}>
+          <path d="M12 3c3.5 4.2 6 7.4 6 10.2a6 6 0 0 1-12 0C6 10.4 8.5 7.2 12 3Z" />
+          <path d="M9.3 13.3l1.8 1.8 3.6-3.8" />
+        </svg>
+      )
+    case 2: // shrinkage control: inward-facing corner brackets, holding size
+      return (
+        <svg {...p}>
+          <path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4" />
+        </svg>
+      )
+    case 3: // pilling resistance: a smooth plane, magnified
+      return (
+        <svg {...p}>
+          <circle cx="10" cy="10" r="6" />
+          <path d="M14.3 14.3 20 20" />
+          <path d="M7.5 10h5" />
+        </svg>
+      )
+    default: // perfect finish: a sparkle
+      return (
+        <svg {...p}>
+          <path d="M12 3v5M12 16v5M3 12h5M16 12h5" />
+          <path d="M12 8.5 13.2 12 12 15.5 10.8 12Z" />
+        </svg>
+      )
+  }
 }

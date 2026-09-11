@@ -54,28 +54,6 @@ export const ourStory = {
     caption: 'Real machinery. Real cloth, in progress.',
   },
 
-  tribe: {
-    eyebrow: 'Our World. Our People.',
-    headline: 'Savayavas & Co. Tribe',
-    intro: 'A glimpse into the hands, hearts and heritage behind every thread. Crafted with intention. Carried by a community that believes in timeless quality.',
-    items: [
-      { asset: 'tribe.01', caption: 'Woven with Precision' },
-      { asset: 'tribe.02', caption: 'Timeless Textures' },
-      { asset: 'tribe.03', caption: 'Crafted for the Modern Man' },
-      { asset: 'tribe.04', caption: 'The Finest Yarns' },
-      { asset: 'tribe.05', caption: 'Made with Intention' },
-      { asset: 'tribe.06', caption: 'Curated for Every Detail' },
-      { asset: 'tribe.07', caption: 'Elevating Everyday' },
-      { asset: 'tribe.08', caption: 'Rooted in Natural Fibres' },
-      { asset: 'tribe.09', caption: 'Designed to Last' },
-      { asset: 'tribe.10', caption: 'Thoughtful by Design' },
-      { asset: 'tribe.11', caption: 'Heritage Meets Innovation' },
-      { asset: 'tribe.12', caption: 'Feel the Difference' },
-      { asset: 'tribe.13', caption: 'Made Responsibly for Tomorrow' },
-      { asset: 'tribe.14', caption: 'Perfect in Every Stitch' },
-    ],
-  },
-
   seo: {
     description: 'Three brothers, one mill, three decades of thread. The story of Shubh Shantinath Silk Mills and the family behind Savayavas & Co.',
   },

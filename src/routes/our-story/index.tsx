@@ -9,7 +9,6 @@ import { Founders } from './Founders'
 import { NameMoment } from './NameMoment'
 import { VasOrigin } from './VasOrigin'
 import { MillBand } from './MillBand'
-import { TribeWall } from './TribeWall'
 
 export function Component() {
   const ourStory = useLocaleContent(ourStoryEn, ourStoryHi)
@@ -23,7 +22,6 @@ export function Component() {
       <NameMoment />
       <VasOrigin />
       <MillBand />
-      <TribeWall />
     </>
   )
 }
