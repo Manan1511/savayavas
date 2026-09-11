@@ -20,7 +20,6 @@ export const site = {
       { label: 'VAS', to: '/vas' },
       { label: 'Our Story', to: '/our-story' },
       { label: 'For Dealers', to: '/for-dealers' },
-      { label: 'Journal', to: '/journal' },
       { label: 'Contact', to: '/contact' },
     ],
     cta: { label: 'Enquire Now', to: '/contact' },

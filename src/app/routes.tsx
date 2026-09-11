@@ -1,22 +1,22 @@
 import type { RouteRecord } from 'vite-react-ssg'
 import RootLayout from '@/app/RootLayout'
 import { site } from '@/content/site.en'
-import { journalPosts } from '@/content/journal.en'
 
 /**
- * The nine routes from docs/PLAN.md §6, mounted twice: once at `/` (English)
- * and once at `/hi` (Hindi) — see docs/PLAN.md §9 and src/lib/i18n.ts for the
- * locale scheme. `RootLayout`, and every route component beneath it, is
- * locale-agnostic: each resolves its own content via `useLocaleContent`
- * reading the URL, so the exact same lazy-loaded component tree serves both
- * mounts. The only place a locale actually needs to be known here is
- * `getStaticPaths`, since a dynamic route's prerendered file list has to
- * include both `/collections/:slug` and `/hi/collections/:slug`.
+ * The routes from docs/PLAN.md §6 (journal removed), mounted twice: once at
+ * `/` (English) and once at `/hi` (Hindi) — see docs/PLAN.md §9 and
+ * src/lib/i18n.ts for the locale scheme. `RootLayout`, and every route
+ * component beneath it, is locale-agnostic: each resolves its own content
+ * via `useLocaleContent` reading the URL, so the exact same lazy-loaded
+ * component tree serves both mounts. The only place a locale actually needs
+ * to be known here is `getStaticPaths`, since a dynamic route's prerendered
+ * file list has to include both `/collections/:slug` and
+ * `/hi/collections/:slug`.
  *
- * Categories (site.categories) and journal posts stay locale-agnostic here
- * deliberately: slugs are shared between languages (`/hi/collections/linen`,
- * not a translated slug), so a URL means the same category in either
- * language and a link never needs to know which locale it's in to work.
+ * Categories (site.categories) stay locale-agnostic here deliberately:
+ * slugs are shared between languages (`/hi/collections/linen`, not a
+ * translated slug), so a URL means the same category in either language and
+ * a link never needs to know which locale it's in to work.
  *
  * Home is eager (it's the entry point and must paint fast); everything else
  * is lazy so the landing page doesn't pay for pages nobody has visited yet.
@@ -48,16 +48,6 @@ function buildChildRoutes(localePrefix: '' | '/hi'): RouteRecord[] {
     {
       path: 'for-dealers',
       lazy: () => import('@/routes/for-dealers'),
-    },
-    {
-      path: 'journal',
-      lazy: () => import('@/routes/journal'),
-    },
-    {
-      path: 'journal/:slug',
-      lazy: () => import('@/routes/journal/post'),
-      // Prerender one static page per journal post, per locale.
-      getStaticPaths: () => journalPosts.map((p) => `${localePrefix}/journal/${p.slug}`),
     },
     {
       path: 'contact',

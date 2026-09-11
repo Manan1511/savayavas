@@ -30,7 +30,6 @@ export const site = {
       { label: 'वास', to: '/vas' },
       { label: 'हमारी कहानी', to: '/our-story' },
       { label: 'डीलर्स के लिए', to: '/for-dealers' },
-      { label: 'जर्नल', to: '/journal' },
       { label: 'संपर्क करें', to: '/contact' },
     ],
     cta: { label: 'पूछताछ करें', to: '/contact' },

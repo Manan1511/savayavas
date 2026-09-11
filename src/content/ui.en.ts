@@ -14,7 +14,6 @@ export const ui = {
     collections: 'Collections',
     forDealers: 'For Dealers',
     contact: 'Contact',
-    journal: 'Journal',
     pageNotFound: 'Page Not Found',
   },
 
@@ -58,23 +57,6 @@ export const ui = {
     instagramLabel: 'Instagram',
     hoursLabel: 'Hours',
     getDirectionsAria: 'Get directions',
-  },
-
-  journal: {
-    seoDescription: 'Notes on fabric, craft and sourcing, from the mill floor to the cutting table. The Savayavas & Co. journal.',
-    contentHub: 'Content Hub',
-    intro: 'Notes on fabric, craft and sourcing, from the mill floor to the cutting table.',
-    filterAll: 'All',
-    noPostsInCategory: 'No posts in this category yet.',
-    unknownPost: 'Unknown Post',
-    backToJournal: 'Journal',
-    related: 'Related',
-    shareThisPost: 'Share This Post',
-    linkCopied: 'Link Copied',
-    copyBlockedNote: 'Could not copy automatically. Here is the link:',
-    onInstagram: 'On Instagram',
-    instagramCtaHeadline: 'More from the mill floor, in between posts.',
-    followHandle: 'Follow {handle}',
   },
 
   leadForm: {

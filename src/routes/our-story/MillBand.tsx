@@ -14,7 +14,7 @@ export function MillBand() {
   return (
     <section className="relative bg-ink">
       <Reveal>
-        <Figure name="story.mill" className="w-full" imgClassName="opacity-90" />
+        <Figure name="story.mill" className="max-h-[60vh] w-full sm:max-h-[28rem]" imgClassName="opacity-90" />
       </Reveal>
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent px-(--spacing-gutter) py-8">
         <Eyebrow className="text-brass-soft">{ourStory.mill.eyebrow}</Eyebrow>

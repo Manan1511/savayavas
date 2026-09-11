@@ -65,7 +65,7 @@ export const assets = {
 
   // --- Per-category detail page hero -------------------------------------
   'category.cotton': R('/photos/cotton-jacquard-swirl.jpg', 3 / 4, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
-  'category.linen': R('/photos/linen-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics linen swatch book fanned open'),
+  'category.linen': R('/photos/linen-swatch-book.jpg', 3 / 4, 'VAS Luxe Fabrics linen swatch book fanned open'),
   'category.lyocell-cotton': R('/photos/lyocell-colour-drape.jpg', 3 / 4, 'Lyocell cotton fabric in pink, yellow and blue, draped'),
   'category.polyester-cotton': R('/photos/polyester-cotton-stripes.jpg', 3 / 4, 'Polyester cotton shirting fabrics in fine stripes, fanned'),
   'category.fashion-polyesters': R('/photos/fashion-poly-bw-rolls.jpg', 3 / 4, 'Rolled black and white printed fashion polyester fabric'),

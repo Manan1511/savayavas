@@ -2,11 +2,11 @@
  * Generates dist/sitemap.xml after the prerender build.
  *
  * Runs as plain Node (no TS runtime available in this script, same
- * constraint as scripts/assets.mjs), so the two sources of dynamic slugs
- * (fabric categories, journal posts) are read by parsing their content
- * modules' source text rather than importing them. The list of static
- * top-level routes is a literal array here: it changes rarely, and duplicating
- * it is far simpler than executing TypeScript from a build script.
+ * constraint as scripts/assets.mjs), so the dynamic slugs (fabric
+ * categories) are read by parsing their content module's source text rather
+ * than importing it. The list of static top-level routes is a literal array
+ * here: it changes rarely, and duplicating it is far simpler than executing
+ * TypeScript from a build script.
  *
  * If a new static route is added to src/app/routes.tsx, add it to
  * STATIC_ROUTES below too.
@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url'
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const SITE_URL = 'https://savayavas.co'
 
-const STATIC_ROUTES = ['/', '/our-story', '/collections', '/vas', '/for-dealers', '/journal', '/contact']
+const STATIC_ROUTES = ['/', '/our-story', '/collections', '/vas', '/for-dealers', '/contact']
 
 async function extractSlugs(relativePath) {
   const src = await readFile(join(root, relativePath), 'utf8')
@@ -33,12 +33,10 @@ async function extractSlugs(relativePath) {
 }
 
 const categorySlugs = await extractSlugs('src/content/site.en.ts')
-const journalSlugs = await extractSlugs('src/content/journal.en.ts')
 
 const canonicalPaths = [
   ...STATIC_ROUTES,
   ...categorySlugs.map((s) => `/collections/${s}`),
-  ...journalSlugs.map((s) => `/journal/${s}`),
 ]
 
 function localize(path, locale) {
@@ -73,5 +71,5 @@ ${urlEntries.join('\n')}
 
 await writeFile(join(root, 'dist/sitemap.xml'), xml)
 console.log(
-  `Wrote dist/sitemap.xml with ${urlEntries.length} URLs (${canonicalPaths.length} pages x 2 locales: ${STATIC_ROUTES.length} static, ${categorySlugs.length} categories, ${journalSlugs.length} journal posts).`,
+  `Wrote dist/sitemap.xml with ${urlEntries.length} URLs (${canonicalPaths.length} pages x 2 locales: ${STATIC_ROUTES.length} static, ${categorySlugs.length} categories).`,
 )

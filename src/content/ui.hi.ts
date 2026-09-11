@@ -18,7 +18,6 @@ export const ui = {
     collections: 'कलेक्शन',
     forDealers: 'डीलर्स के लिए',
     contact: 'संपर्क करें',
-    journal: 'जर्नल',
     pageNotFound: 'पेज नहीं मिला',
   },
 
@@ -62,23 +61,6 @@ export const ui = {
     instagramLabel: 'इंस्टाग्राम',
     hoursLabel: 'समय',
     getDirectionsAria: 'दिशा-निर्देश पाएं',
-  },
-
-  journal: {
-    seoDescription: 'फैब्रिक, शिल्पकारी और सोर्सिंग पर नोट्स, मिल फ्लोर से लेकर कटिंग टेबल तक। सवायावास & Co. जर्नल।',
-    contentHub: 'कंटेंट हब',
-    intro: 'फैब्रिक, शिल्पकारी और सोर्सिंग पर नोट्स, मिल फ्लोर से लेकर कटिंग टेबल तक।',
-    filterAll: 'सभी',
-    noPostsInCategory: 'इस श्रेणी में अभी कोई पोस्ट नहीं है।',
-    unknownPost: 'अज्ञात पोस्ट',
-    backToJournal: 'जर्नल',
-    related: 'संबंधित',
-    shareThisPost: 'यह पोस्ट शेयर करें',
-    linkCopied: 'लिंक कॉपी हो गया',
-    copyBlockedNote: 'अपने आप कॉपी नहीं हो सका। यहां लिंक है:',
-    onInstagram: 'इंस्टाग्राम पर',
-    instagramCtaHeadline: 'मिल फ्लोर से और भी, पोस्ट के बीच में।',
-    followHandle: '{handle} को फॉलो करें',
   },
 
   leadForm: {
