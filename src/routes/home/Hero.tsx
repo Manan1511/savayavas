@@ -131,21 +131,6 @@ export function Hero() {
             </p>
           </div>
         </WeaveReveal>
-
-        {/* Below xl the collage would crowd the type, so a single strip of
-            fabric sits under the lockup instead of around it. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center gap-3 opacity-90 xl:hidden"
-          style={{ zIndex: 'var(--z-content)' }}
-        >
-          <div className="w-28 translate-y-6 -rotate-3">
-            <Figure name="hero.denim-drape" priority />
-          </div>
-          <div className="w-28 translate-y-10 rotate-2">
-            <Figure name="hero.folded-stack" priority />
-          </div>
-        </div>
       </div>
     </Section>
   )
