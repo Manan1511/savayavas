@@ -46,14 +46,22 @@ const R = (path: string, aspect: number, alt: string): AssetEntry => ({
 export const assets = {
   // --- Home hero collage (each piece is its own layer so the thread can
   // pass between them) ---------------------------------------------------
+  //
+  // All seven pieces are deliberately drawn from one visual family: fabric
+  // shot against a clean white or off-white ground, soft-to-mid saturation,
+  // with brass/skin warmth as the only accent. Mixing in the mill-floor
+  // yarn cones (desaturated, industrial), the cane-chair drape (warm wood)
+  // and the black-and-white printed rolls (stark graphic) put four
+  // different colour temperatures and three different photographic styles
+  // in one frame, and the collage read as a grab bag rather than a set.
   'hero.linen-sheet': R('/photos/lyocell-pastel-fold.jpg', 16 / 9, ''),
-  'hero.yarn-cone': R('/photos/filler-yarn-cone-pink.jpg', 3 / 4, 'A single dyed yarn cone amid rows of undyed cones on the mill floor'),
-  'hero.denim-drape': R('/photos/fashion-poly-drape-cane.jpg', 3 / 4, 'VAS printed shirting fabric draped over a cane chair'),
+  'hero.yarn-cone': R('/photos/filler-shears-brown.jpg', 3 / 4, 'Brass tailor shears resting on folded VAS shirting fabric'),
+  'hero.denim-drape': R('/photos/lyocell-colour-drape.jpg', 3 / 4, 'Lyocell cotton shirting in pink, yellow and blue, hanging in folds'),
   'hero.shirts-rail': R('/photos/cotton-hanger-tonal.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),
   'hero.model-jacket': R('/photos/filler-hands-cutting.jpg', 3 / 4, 'Hands cutting VAS shirting fabric with tailor shears'),
   'hero.folded-stack': R('/photos/polyester-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
   'hero.swatch-book': R('/photos/linen-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics swatch book fanned open'),
-  'hero.dark-ribs': R('/photos/fashion-poly-bw-rolls.jpg', 3 / 4, 'Rolled black and white printed shirting fabric, seen end-on'),
+  'hero.dark-ribs': R('/photos/polyester-cotton-stripes.jpg', 3 / 4, 'Striped polyester cotton shirting fabrics, fanned out'),
 
   // --- Our Story ---------------------------------------------------------
   'story.mill': R('/photos/filler-fabric-rolls.jpg', 16 / 9, 'Rolled fabric bolts standing upright'),
