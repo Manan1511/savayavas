@@ -50,7 +50,7 @@ export const assets = {
   'hero.yarn-cone': R('/photos/filler-yarn-cone-pink.jpg', 3 / 4, 'A single dyed yarn cone amid rows of undyed cones on the mill floor'),
   'hero.denim-drape': R('/photos/fashion-poly-drape-cane.jpg', 3 / 4, 'VAS printed shirting fabric draped over a cane chair'),
   'hero.shirts-rail': R('/photos/cotton-hanger-tonal.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),
-  'hero.model-jacket': R('/photos/fashion-poly-hand-swatches.jpg', 3 / 4, 'A hand selecting VAS jacquard fabric swatches'),
+  'hero.model-jacket': R('/photos/filler-hands-cutting.jpg', 3 / 4, 'Hands cutting VAS shirting fabric with tailor shears'),
   'hero.folded-stack': R('/photos/polyester-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
   'hero.swatch-book': R('/photos/linen-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics swatch book fanned open'),
   'hero.dark-ribs': R('/photos/fashion-poly-bw-rolls.jpg', 3 / 4, 'Rolled black and white printed shirting fabric, seen end-on'),
@@ -72,7 +72,7 @@ export const assets = {
   'category.shade-card': R('/photos/filler-shade-card.jpg', 2 / 3, 'A VAS Luxe Fabrics shade card, twelve numbered shades on a hanger'),
 
   // --- VAS / Quality -----------------------------------------------------
-  'vas.fabric-stack': R('/photos/polyester-cotton-stack.jpg', 3 / 2, 'Folded VAS shirting fabrics beside raw cotton bolls'),
+  'vas.fabric-stack': R('/photos/cotton-jacquard-swirl.jpg', 3 / 2, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
   'quality.tensile': P('quality-tensile', 1, 'Tensile strength testing', 'Testing rig in use, close crop.'),
   'quality.colour': P('quality-colour', 1, 'Colour fastness testing', 'Swatches under test lighting.'),
   'quality.shrinkage': P('quality-shrinkage', 1, 'Shrinkage control gauge', 'Analogue gauge dial, shallow depth of field.'),
