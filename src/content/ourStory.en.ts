@@ -26,7 +26,7 @@ export const ourStory = {
   },
 
   /**
-   * The typographic centrepiece. सावयव and वस् are set in Noto Serif
+   * The typographic centrepiece. सावयव and वास are set in Noto Serif
    * Devanagari regardless of active locale: the etymology is the point of the
    * section, and it must render correctly even on the English build.
    */
@@ -34,7 +34,7 @@ export const ourStory = {
     eyebrow: 'The Name',
     headline: 'Every word already existed. We just joined two of them.',
     savayav: { script: 'सावयव', roman: 'Savayav', meaning: 'various types' },
-    vas: { script: 'वस्', roman: 'Vas', meaning: 'fabric, or vastra' },
+    vas: { script: 'वास', roman: 'Vas', meaning: 'fabric, or vastra' },
     body: [
       'Savayavas & Co. is the next chapter, carried forward by the second generation: Priyank Parmar and Sherin Parmar.',
       'The name itself tells the story. Savayav means various types. Vas means fabric. Together: various types of fabrics.',

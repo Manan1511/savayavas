@@ -8,7 +8,7 @@ import { useLocaleContent } from '@/lib/useLocaleContent'
 /**
  * The single best piece of copy on the site, given the room to be one.
  *
- * सावयव and वस् are set in Noto Serif Devanagari regardless of the active
+ * सावयव and वास are set in Noto Serif Devanagari regardless of the active
  * locale: this is the etymology behind the entire brand name, not a
  * translated aside, and it must render correctly on the English build.
  *
