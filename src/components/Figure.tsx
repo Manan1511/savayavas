@@ -13,6 +13,7 @@ export function Figure({
   imgClassName = '',
   priority = false,
   rounded = false,
+  aspect,
 }: {
   name: AssetKey
   className?: string
@@ -20,11 +21,13 @@ export function Figure({
   /** Set on the hero image only; everything else stays lazy. */
   priority?: boolean
   rounded?: boolean
+  /** Overrides the registry's declared aspect ratio for this usage only. */
+  aspect?: number
 }) {
   const a = asset(name)
 
   return (
-    <div className={`overflow-hidden bg-greige ${rounded ? 'rounded-sm' : ''} ${className}`} style={{ aspectRatio: a.aspect }}>
+    <div className={`overflow-hidden bg-greige ${rounded ? 'rounded-sm' : ''} ${className}`} style={{ aspectRatio: aspect ?? a.aspect }}>
       <img
         src={a.src}
         alt={a.alt}
