@@ -10,8 +10,7 @@ import type { LocaleShape } from '@/lib/localeShape'
 export const home = {
   hero: {
     eyebrow: 'विभिन्न प्रकार के फैब्रिक',
-    script: 'वही कपड़ा,',
-    headline: 'हर एक बैच में',
+    headline: ['उद्देश्यपूर्ण डिज़ाइन', 'सटीक फैब्रिक'],
     subline: 'कॉटन। लिनन। इंजीनियर्ड ब्लेंड्स। एक टुकड़े की कटिंग-सिलाई से लेकर बड़े पैमाने पर उत्पादन तक।',
   },
 

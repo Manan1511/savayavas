@@ -10,10 +10,8 @@
 export const home = {
   hero: {
     eyebrow: 'Various Types of Fabrics',
-    /** Script line, set in the script face. */
-    script: 'The same cloth,',
-    /** All-caps Didone anchor. The line that has to survive a three-second skim. */
-    headline: 'Every Single Batch',
+    /** All-caps Didone anchor, two lines. The line that has to survive a three-second skim. */
+    headline: ['Purposeful Design', 'Precision Fabric'],
     /** Small-caps triad, matching the deck's rhythm. */
     subline: 'Cotton. Linen. Engineered blends. From single-piece cut & sew to bulk production runs.',
   },

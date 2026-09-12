@@ -54,7 +54,7 @@ export const assets = {
   // and the black-and-white printed rolls (stark graphic) put four
   // different colour temperatures and three different photographic styles
   // in one frame, and the collage read as a grab bag rather than a set.
-  'hero.linen-sheet': R('/photos/lyocell-pastel-fold.jpg', 16 / 9, ''),
+  'hero.linen-sheet': R('/photos/lyocell-pastel-fold-crop.jpg', 16 / 9, ''),
   'hero.yarn-cone': R('/photos/filler-shears-brown.jpg', 3 / 4, 'Brass tailor shears resting on folded VAS shirting fabric'),
   'hero.denim-drape': R('/photos/lyocell-colour-drape.jpg', 3 / 4, 'Lyocell cotton shirting in pink, yellow and blue, hanging in folds'),
   'hero.shirts-rail': R('/photos/cotton-hanger-tonal.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),

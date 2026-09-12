@@ -94,7 +94,7 @@ export function Hero() {
       <div className="relative mx-auto flex min-h-[78vh] max-w-[1700px] items-center justify-center px-(--spacing-gutter) py-24 sm:min-h-[86vh]">
 
         {/* The lockup owns the centre column, so nothing sits behind the type. */}
-        <WeaveReveal className="relative w-full max-w-2xl text-center" warp={18} weft={11}>
+        <WeaveReveal className="relative w-full max-w-2xl text-center lg:max-w-4xl xl:max-w-5xl" warp={18} weft={11}>
           <div style={{ zIndex: 'var(--z-text)' }} className="relative">
             {/* A soft ivory halo behind the lockup only: the backdrop
                 texture reads fine on its own, but the small-caps subline is
@@ -106,7 +106,7 @@ export function Hero() {
                 into. */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[34rem] max-w-[130%] -translate-x-1/2 -translate-y-1/2"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[34rem] max-w-[130%] -translate-x-1/2 -translate-y-1/2 lg:w-[44rem] xl:w-[50rem]"
               style={{
                 zIndex: -1,
                 background: 'radial-gradient(ellipse at center, var(--color-ivory) 0%, var(--color-ivory) 38%, transparent 72%)',
@@ -116,12 +116,14 @@ export function Hero() {
             <Eyebrow>{home.hero.eyebrow}</Eyebrow>
 
             <h1 className="mt-6">
-              <span className="block u-script text-4xl leading-[1.15] tracking-normal text-brass sm:text-5xl lg:text-6xl">
-                {home.hero.script}
-              </span>
-              <span className="mt-1 block text-[2.75rem] uppercase leading-[0.92] sm:text-6xl lg:text-7xl xl:text-8xl">
-                {home.hero.headline}
-              </span>
+              {home.hero.headline.map((line) => (
+                <span
+                  key={line}
+                  className="block text-[2.75rem] uppercase leading-[0.92] sm:text-6xl lg:whitespace-nowrap lg:text-7xl"
+                >
+                  {line}
+                </span>
+              ))}
             </h1>
 
             <div className="mx-auto mt-8 h-px w-14 bg-brass" />
