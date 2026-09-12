@@ -56,6 +56,7 @@ export function Categories() {
                   {image && (
                     <Figure
                       name={image}
+                      aspect={1}
                       className="w-full"
                       imgClassName="transition-transform duration-500 group-hover:scale-105"
                     />
