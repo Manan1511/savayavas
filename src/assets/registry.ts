@@ -56,12 +56,12 @@ export const assets = {
   // in one frame, and the collage read as a grab bag rather than a set.
   'hero.linen-sheet': R('/photos/lyocell-pastel-fold-crop.jpg', 16 / 9, ''),
   'hero.yarn-cone': R('/photos/filler-shears-brown.jpg', 3 / 4, 'Brass tailor shears resting on folded VAS shirting fabric'),
-  'hero.denim-drape': R('/photos/lyocell-colour-drape.jpg', 3 / 4, 'Lyocell cotton shirting in pink, yellow and blue, hanging in folds'),
+  'hero.denim-drape': R('/photos/fashion-poly-hand-swatches.jpg', 3 / 4, 'A hand arranging printed fashion polyester swatches in dusty pink, blue and grey'),
   'hero.shirts-rail': R('/photos/cotton-hanger-tonal.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),
   'hero.model-jacket': R('/photos/filler-hands-cutting.jpg', 3 / 4, 'Hands cutting VAS shirting fabric with tailor shears'),
   'hero.folded-stack': R('/photos/polyester-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
-  'hero.swatch-book': R('/photos/linen-swatch-book.jpg', 4 / 3, 'VAS Luxe Fabrics swatch book fanned open'),
-  'hero.dark-ribs': R('/photos/polyester-cotton-stripes.jpg', 3 / 4, 'Striped polyester cotton shirting fabrics, fanned out'),
+  'hero.swatch-book': R('/photos/filler-vas-swatch-card.jpg', 4 / 3, 'VAS Luxe Fabrics swatch card, fifteen numbered shades fanned open'),
+  'hero.dark-ribs': R('/photos/filler-swatch-fan-pastel.jpg', 3 / 4, 'Fabric swatches fanned out in soft pastel and neutral tones'),
 
   // --- Our Story ---------------------------------------------------------
   'story.mill': R('/photos/filler-fabric-rolls.jpg', 16 / 9, 'Rolled fabric bolts standing upright'),
@@ -69,7 +69,7 @@ export const assets = {
 
   // --- Collections -------------------------------------------------------
   'collections.yarn-table': R('/photos/cotton-lantern-stack.jpg', 3 / 2, 'Folded fabrics beside a lantern'),
-  'collections.loom': R('/photos/filler-fabric-rolls.jpg', 3 / 2, 'Rolled fabric bolts standing upright'),
+  'collections.loom': R('/photos/filler-floral-print-fold.jpg', 3 / 2, 'Floral-print fabric folded in soft grey and dusty rose'),
 
   // --- Per-category detail page hero -------------------------------------
   'category.cotton': R('/photos/cotton-jacquard-swirl.jpg', 3 / 4, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
@@ -80,7 +80,7 @@ export const assets = {
   'category.shade-card': R('/photos/filler-shade-card.jpg', 2 / 3, 'A VAS Luxe Fabrics shade card, twelve numbered shades on a hanger'),
 
   // --- VAS / Quality -----------------------------------------------------
-  'vas.fabric-stack': R('/photos/cotton-jacquard-swirl.jpg', 3 / 2, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
+  'vas.fabric-stack': R('/photos/filler-silk-ribbon-stack.jpg', 3 / 2, 'Folded VAS fabric strips in jewel-toned silks'),
 
   // --- Contact -----------------------------------------------------------
   'contact.fabric-fold': R('/photos/filler-embroidered-drape.jpg', 3 / 2, 'Embroidered VAS fabric draped over a cane chair'),
