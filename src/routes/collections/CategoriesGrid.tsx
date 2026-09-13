@@ -33,7 +33,7 @@ export function CategoriesGrid() {
           <h2 className="mt-4 text-3xl uppercase leading-tight sm:text-4xl">{headline}</h2>
         </Reveal>
 
-        <Reveal as="ul" stagger className="mt-10 grid gap-px border border-greige bg-greige sm:grid-cols-2">
+        <Reveal as="ul" stagger className="mt-10 grid gap-px border border-greige bg-greige sm:grid-cols-2 lg:grid-cols-3">
           {site.categories.map((c) => {
             const image = CATEGORY_THUMBNAIL[c.slug]
             return (
@@ -50,10 +50,10 @@ export function CategoriesGrid() {
                     imgClassName="transition-transform duration-500 group-hover:scale-105"
                   />
                 )}
-                <div className="flex flex-1 flex-col p-8 sm:p-10">
-                  <h3 className="text-2xl leading-snug text-ink">{c.name}</h3>
-                  <p className="mt-4 text-sm leading-relaxed">{c.description}</p>
-                  <span className="mt-6 inline-flex items-center gap-1.5 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass">
+                <div className="flex flex-1 flex-col p-6 sm:p-7">
+                  <h3 className="text-xl leading-snug text-ink">{c.name}</h3>
+                  <p className="mt-3 text-sm leading-relaxed">{c.description}</p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass">
                     {ui.collectionsPage.viewCollection}
                     <span aria-hidden className="transition-transform duration-400 ease-out group-hover:translate-x-1">
                       &rarr;
