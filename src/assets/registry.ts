@@ -22,19 +22,6 @@ export interface AssetEntry {
   brief?: string
 }
 
-const P = (
-  key: string,
-  aspect: number,
-  alt: string,
-  brief: string,
-): AssetEntry => ({
-  src: `/placeholders/${key}.svg`,
-  aspect,
-  alt,
-  placeholder: true,
-  brief,
-})
-
 /** Real photography, supplied directly rather than generated. */
 const R = (path: string, aspect: number, alt: string): AssetEntry => ({
   src: path,
@@ -65,7 +52,6 @@ export const assets = {
 
   // --- Our Story ---------------------------------------------------------
   'story.mill': R('/photos/filler-fabric-rolls.jpg', 16 / 9, 'Rolled fabric bolts standing upright'),
-  'story.founders': P('story-founders', 4 / 3, 'The Parmar family', 'Portrait of the founding brothers, or an archival photograph.'),
 
   // --- Collections -------------------------------------------------------
   'collections.yarn-table': R('/photos/cotton-lantern-stack.jpg', 3 / 2, 'Folded fabrics beside a lantern'),
@@ -89,7 +75,6 @@ export const assets = {
 
   // --- Contact -----------------------------------------------------------
   'contact.fabric-fold': R('/photos/filler-embroidered-drape.jpg', 3 / 2, 'Embroidered VAS fabric draped over a cane chair'),
-  'contact.map': P('contact-map', 3 / 2, 'Map showing the Savayavas & Co. office in Mumbai', 'Static map export. Deliberately not a live embed. See docs/PLAN.md.'),
 } as const satisfies Record<string, AssetEntry>
 
 export type AssetKey = keyof typeof assets

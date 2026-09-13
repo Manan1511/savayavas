@@ -1,5 +1,4 @@
 import { Eyebrow } from '@/components/Eyebrow'
-import { Figure } from '@/components/Figure'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
 import { site as siteEn } from '@/content/site.en'
@@ -7,24 +6,16 @@ import { site as siteHi } from '@/content/site.hi'
 import { contactPage as contactPageEn } from '@/content/contact.en'
 import { contactPage as contactPageHi } from '@/content/contact.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
-import { ui as uiEn } from '@/content/ui.en'
-import { ui as uiHi } from '@/content/ui.hi'
 
 /**
- * A static map image, not a live Google Maps embed. An iframe embed adds
- * roughly 500KB and third-party cookies to what is otherwise the site's
- * quietest page (docs/PLAN.md §6). "Get Directions" opens Maps directly
- * instead, so the wayfinding still works, just off-page.
- *
  * Two real addresses (office, factory), not one: the office is the
- * customer-facing trade address and gets the map image; the factory is
- * listed alongside it with its own directions link, same as an invoice
- * or letterhead would show both.
+ * customer-facing trade address; the factory is listed alongside it with
+ * its own directions link, same as an invoice or letterhead would show
+ * both. "Get Directions" opens Maps directly rather than an embed.
  */
 export function VisitUs() {
   const site = useLocaleContent(siteEn, siteHi)
   const contactPage = useLocaleContent(contactPageEn, contactPageHi)
-  const ui = useLocaleContent(uiEn, uiHi)
   const { eyebrow, directionsLabel } = contactPage.visitUs
   const { office, factory } = site.contact.address
   const directionsHref = (lines: readonly string[]) =>
@@ -33,26 +24,13 @@ export function VisitUs() {
   return (
     <Section tone="ivory" className="py-16 sm:py-20">
       <Container>
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <Eyebrow>{eyebrow}</Eyebrow>
-            <div className="mt-5 grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
-              <AddressBlock label={office.label} lines={office.lines} directionsLabel={directionsLabel} directionsHref={directionsHref(office.lines)} />
-              <AddressBlock label={factory.label} lines={factory.lines} directionsLabel={directionsLabel} directionsHref={directionsHref(factory.lines)} />
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <a
-              href={directionsHref(office.lines)}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={ui.contactPage.getDirectionsAria}
-            >
-              <Figure name="contact.map" className="w-full" />
-            </a>
-          </Reveal>
-        </div>
+        <Reveal>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <div className="mt-5 grid gap-10 sm:grid-cols-2">
+            <AddressBlock label={office.label} lines={office.lines} directionsLabel={directionsLabel} directionsHref={directionsHref(office.lines)} />
+            <AddressBlock label={factory.label} lines={factory.lines} directionsLabel={directionsLabel} directionsHref={directionsHref(factory.lines)} />
+          </div>
+        </Reveal>
       </Container>
     </Section>
   )

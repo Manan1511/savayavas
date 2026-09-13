@@ -35,16 +35,6 @@ export const collectionsPage = {
     body: 'Every collection is manufactured under Shubh Shantinath Silk Mills, backed by three decades of textile manufacturing expertise. Whether you are sourcing for a tailoring network, a garment manufacturing unit or an export order, our collections are built to move: from loom to cut table, reliably.',
   },
 
-  catalogue: {
-    eyebrow: 'Full Range',
-    headline: 'Download our catalogue.',
-    body: 'A complete overview of every fabric family, composition and finish.',
-    ctaLabel: 'Download Catalogue (PDF)',
-    /** No PDF exists yet. The button renders visibly disabled rather than a
-        dead or broken link — see docs/PLAN.md §2, item 6. */
-    available: false,
-  },
-
   seo: {
     description: 'Cotton, linen and performance-engineered blends, built on one principle: consistency at scale. Explore the Savayavas & Co. fabric collections.',
   },

@@ -38,7 +38,6 @@ export const ui = {
 
   collectionsPage: {
     viewCollection: 'कलेक्शन देखें',
-    comingSoonCatalogue: 'जल्द आ रहा है। तब तक, संपर्क करें और हम इसे सीधे भेज देंगे।',
   },
 
   category: {
@@ -60,7 +59,6 @@ export const ui = {
     emailLabel: 'ईमेल',
     instagramLabel: 'इंस्टाग्राम',
     hoursLabel: 'समय',
-    getDirectionsAria: 'दिशा-निर्देश पाएं',
   },
 
   leadForm: {

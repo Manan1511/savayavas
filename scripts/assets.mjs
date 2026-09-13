@@ -38,7 +38,6 @@ async function readRegistry() {
     }
     out.push({ key, aspect })
   }
-  if (out.length === 0) throw new Error('No placeholder entries found in registry.ts')
   return out
 }
 
@@ -70,13 +69,17 @@ if (cmd === 'generate') {
   console.log(`Generated ${entries.length} placeholders in public/placeholders/`)
 } else if (cmd === 'check') {
   const strict = process.env.VITE_STRICT_ASSETS === '1'
-  console.log(`${entries.length} asset(s) still on placeholders:`)
-  for (const e of entries) console.log(`  · ${e.key}`)
-  if (strict) {
-    console.error('\nVITE_STRICT_ASSETS=1 — refusing to build with placeholder assets.')
-    process.exit(1)
+  if (entries.length === 0) {
+    console.log('No placeholder assets remaining — every entry has real photography.')
+  } else {
+    console.log(`${entries.length} asset(s) still on placeholders:`)
+    for (const e of entries) console.log(`  · ${e.key}`)
+    if (strict) {
+      console.error('\nVITE_STRICT_ASSETS=1 — refusing to build with placeholder assets.')
+      process.exit(1)
+    }
+    console.log('\nNot strict — build allowed. Set VITE_STRICT_ASSETS=1 for production.')
   }
-  console.log('\nNot strict — build allowed. Set VITE_STRICT_ASSETS=1 for production.')
 } else {
   console.error(`Unknown command "${cmd}". Use "generate" or "check".`)
   process.exit(1)

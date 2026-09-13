@@ -23,7 +23,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <Figure name="collections.yarn-table" className="w-full" priority />
+            <Figure name="collections.yarn-table" className="w-full" priority focus="object-center" />
           </Reveal>
         </div>
       </Container>

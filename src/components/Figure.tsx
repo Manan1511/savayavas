@@ -21,6 +21,7 @@ export function Figure({
   priority = false,
   rounded = false,
   aspect,
+  focus = 'object-right-top',
 }: {
   name: AssetKey
   className?: string
@@ -30,6 +31,9 @@ export function Figure({
   rounded?: boolean
   /** Overrides the registry's declared aspect ratio for this usage only. */
   aspect?: number
+  /** Crop anchor as a Tailwind object-position class. Override to
+      'object-center' for a source photo that carries no logo to protect. */
+  focus?: string
 }) {
   const a = asset(name)
 
@@ -41,7 +45,7 @@ export function Figure({
         loading={priority ? 'eager' : 'lazy'}
         decoding={priority ? 'sync' : 'async'}
         fetchPriority={priority ? 'high' : 'auto'}
-        className={`h-full w-full object-cover object-right-top ${imgClassName}`}
+        className={`h-full w-full object-cover ${focus} ${imgClassName}`}
         // Decorative images carry alt="" and must be hidden from the a11y tree.
         aria-hidden={a.alt === '' ? true : undefined}
       />

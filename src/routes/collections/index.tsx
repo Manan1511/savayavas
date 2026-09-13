@@ -9,7 +9,6 @@ import { Hero } from './Hero'
 import { Positioning } from './Positioning'
 import { CategoriesGrid } from './CategoriesGrid'
 import { Manufacturing } from './Manufacturing'
-import { CatalogueCta } from './CatalogueCta'
 
 export function Component() {
   const collectionsPage = useLocaleContent(collectionsPageEn, collectionsPageHi)
@@ -29,7 +28,6 @@ export function Component() {
       </SplitBand>
 
       <Manufacturing />
-      <CatalogueCta />
     </>
   )
 }

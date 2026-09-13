@@ -34,7 +34,6 @@ export const ui = {
 
   collectionsPage: {
     viewCollection: 'View collection',
-    comingSoonCatalogue: 'Coming soon. In the meantime, get in touch and we will send it directly.',
   },
 
   category: {
@@ -56,7 +55,6 @@ export const ui = {
     emailLabel: 'Email',
     instagramLabel: 'Instagram',
     hoursLabel: 'Hours',
-    getDirectionsAria: 'Get directions',
   },
 
   leadForm: {
