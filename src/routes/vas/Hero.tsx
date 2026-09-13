@@ -47,7 +47,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={0.15}>
-          <Figure name="vas.fabric-stack" className="w-full" priority />
+          <Figure name="vas.modern-man" className="w-full" priority />
         </Reveal>
       </div>
     </Section>

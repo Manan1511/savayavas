@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
-import { Figure } from '@/components/Figure'
+import { VideoFigure } from '@/components/VideoFigure'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
 import { home as homeEn } from '@/content/home.en'
@@ -37,7 +37,7 @@ export function VasCallout() {
           </Reveal>
 
           <Reveal>
-            <Figure name="vas.fabric-stack" />
+            <VideoFigure src="/videos/discover-vas.mp4" poster="/videos/discover-vas-poster.jpg" aspect={9 / 16} className="mx-auto max-w-xs" />
           </Reveal>
         </div>
       </Container>
