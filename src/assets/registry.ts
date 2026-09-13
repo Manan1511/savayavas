@@ -73,14 +73,19 @@ export const assets = {
 
   // --- Per-category detail page hero -------------------------------------
   'category.cotton': R('/photos/cotton-jacquard-swirl.jpg', 3 / 4, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
-  'category.linen': R('/photos/linen-swatch-book.jpg', 3 / 4, 'VAS Luxe Fabrics linen swatch book fanned open'),
+  'category.linen': R('/photos/filler-linen-tonal-fan.jpg', 3 / 4, 'VAS Luxe Fabrics linen swatches fanned in tonal mauve, taupe and grey'),
   'category.lyocell-cotton': R('/photos/lyocell-colour-drape.jpg', 3 / 4, 'Lyocell cotton fabric in pink, yellow and blue, draped'),
   'category.polyester-cotton': R('/photos/polyester-cotton-stripes.jpg', 3 / 4, 'Polyester cotton shirting fabrics in fine stripes, fanned'),
-  'category.fashion-polyesters': R('/photos/fashion-poly-bw-rolls.jpg', 3 / 4, 'Rolled black and white printed fashion polyester fabric'),
+  'category.fashion-polyesters': R('/photos/filler-floral-cane-drape.jpg', 3 / 4, 'Floral-print fashion polyester fabric draped over a cane chair'),
   'category.shade-card': R('/photos/filler-shade-card.jpg', 2 / 3, 'A VAS Luxe Fabrics shade card, twelve numbered shades on a hanger'),
 
+  // --- Category grid/card thumbnails --------------------------------------
+  // Defaults to the detail-hero photo above (see CATEGORY_THUMBNAIL); only
+  // cotton has a distinct crop tuned for the square card format.
+  'category.cotton-thumbnail': R('/photos/filler-cotton-tape-measure.jpg', 1, "100% Cotton fabric with a tailor's tape measure"),
+
   // --- VAS / Quality -----------------------------------------------------
-  'vas.fabric-stack': R('/photos/filler-silk-ribbon-stack.jpg', 3 / 2, 'Folded VAS fabric strips in jewel-toned silks'),
+  'vas.fabric-stack': R('/photos/filler-shears-cone-lantern-crop.jpg', 3 / 2, 'Tailor shears and folded VAS fabric beside a brass lantern and yarn cone'),
 
   // --- Contact -----------------------------------------------------------
   'contact.fabric-fold': R('/photos/filler-embroidered-drape.jpg', 3 / 2, 'Embroidered VAS fabric draped over a cane chair'),
@@ -104,6 +109,16 @@ export const CATEGORY_IMAGE: Record<string, AssetKey> = {
   'lyocell-cotton': 'category.lyocell-cotton',
   'polyester-cotton': 'category.polyester-cotton',
   'fashion-polyesters': 'category.fashion-polyesters',
+}
+
+/**
+ * Grid/card thumbnail per category, used by the Collections grid and the
+ * Home category strip. Defaults to the same photo as the detail-page hero;
+ * cotton overrides to a crop suited to the square card format.
+ */
+export const CATEGORY_THUMBNAIL: Record<string, AssetKey> = {
+  ...CATEGORY_IMAGE,
+  cotton: 'category.cotton-thumbnail',
 }
 
 /** Every asset still awaiting real photography. Used by `npm run assets:check`. */

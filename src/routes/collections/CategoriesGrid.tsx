@@ -11,7 +11,7 @@ import { useLocaleContent } from '@/lib/useLocaleContent'
 import { ui as uiEn } from '@/content/ui.en'
 import { ui as uiHi } from '@/content/ui.hi'
 import { useLocale, localizePath } from '@/lib/i18n'
-import { CATEGORY_IMAGE } from '@/assets/registry'
+import { CATEGORY_THUMBNAIL } from '@/assets/registry'
 
 /**
  * Larger than Home's category strip: this is the dedicated catalogue page,
@@ -35,7 +35,7 @@ export function CategoriesGrid() {
 
         <Reveal as="ul" stagger className="mt-10 grid gap-px border border-greige bg-greige sm:grid-cols-2">
           {site.categories.map((c) => {
-            const image = CATEGORY_IMAGE[c.slug]
+            const image = CATEGORY_THUMBNAIL[c.slug]
             return (
             <li key={c.slug} className="bg-paper">
               <Link

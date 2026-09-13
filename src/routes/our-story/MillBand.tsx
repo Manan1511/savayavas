@@ -16,9 +16,9 @@ export function MillBand() {
       <Reveal>
         <Figure name="story.mill" className="max-h-[60vh] w-full sm:max-h-[28rem]" imgClassName="opacity-90" />
       </Reveal>
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent px-(--spacing-gutter) py-8">
-        <Eyebrow className="text-brass-soft">{ourStory.mill.eyebrow}</Eyebrow>
-        <p className="mt-1 text-xs text-paper/85">{ourStory.mill.caption}</p>
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/95 via-ink/60 to-transparent px-(--spacing-gutter) pt-16 pb-8">
+        <Eyebrow className="text-brass-soft drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">{ourStory.mill.eyebrow}</Eyebrow>
+        <p className="mt-1 text-xs text-paper/85 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">{ourStory.mill.caption}</p>
       </div>
     </section>
   )
