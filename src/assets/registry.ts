@@ -44,7 +44,7 @@ export const assets = {
   'hero.linen-sheet': R('/photos/lyocell-pastel-fold-crop.jpg', 16 / 9, ''),
   'hero.yarn-cone': R('/photos/filler-shears-brown.jpg', 3 / 4, 'Brass tailor shears resting on folded VAS shirting fabric'),
   'hero.denim-drape': R('/photos/filler-fabric-swatches-hand.jpg', 3 / 4, 'A hand arranging printed fashion polyester swatches in dusty pink, blue and grey'),
-  'hero.shirts-rail': R('/photos/cotton-hanger-tonal.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),
+  'hero.shirts-rail': R('/photos/filler-scarves-hanger-crop.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),
   'hero.model-jacket': R('/photos/filler-hands-cutting.jpg', 3 / 4, 'Hands cutting VAS shirting fabric with tailor shears'),
   'hero.folded-stack': R('/photos/polyester-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
   'hero.swatch-book': R('/photos/filler-vas-swatch-card.jpg', 4 / 3, 'VAS Luxe Fabrics swatch card, fifteen numbered shades fanned open'),
