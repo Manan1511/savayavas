@@ -23,5 +23,26 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Netlify Forms detects submittable forms by scanning the deployed
+         HTML at build time, not at runtime — the real form is rendered by
+         React and posted via fetch() from submitLead.ts, so this static,
+         hidden twin exists purely so Netlify's crawler has something to
+         find and register. Field names must match the fetch() payload
+         exactly. Kept here (outside #root, in the raw HTML template) so
+         it survives on every prerendered page rather than needing its own
+         route. See src/lib/submitLead.ts. -->
+    <form name="lead" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="kind" />
+      <input type="text" name="name" />
+      <input type="text" name="company" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <textarea name="message"></textarea>
+      <input type="text" name="category" />
+      <input type="text" name="acknowledgedExportTerms" />
+      <input type="text" name="meta" />
+      <input name="bot-field" />
+    </form>
   </body>
 </html>
