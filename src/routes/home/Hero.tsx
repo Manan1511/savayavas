@@ -32,8 +32,8 @@ interface Piece {
 /** Left of the lockup. */
 const LEFT: Piece[] = [
   { name: 'hero.yarn-cone', className: 'left-[1%] top-[-6%] w-[7rem] rotate-[-8deg] xl:w-[9rem]', floats: true },
-  { name: 'hero.denim-drape', className: 'left-[1%] top-[26%] w-[13rem] xl:w-[16rem]' },
-  { name: 'hero.shirts-rail', className: 'left-[-3%] bottom-[-8%] w-[15rem] xl:w-[19rem]' },
+  { name: 'hero.shirts-rail', className: 'left-[1%] top-[26%] w-[13rem] xl:w-[16rem]' },
+  { name: 'hero.denim-drape', className: 'left-[-3%] bottom-[-8%] w-[15rem] xl:w-[19rem]' },
 ]
 
 /** Right of the lockup. */
