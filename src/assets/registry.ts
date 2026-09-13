@@ -44,7 +44,7 @@ export const assets = {
   'hero.linen-sheet': R('/photos/hero/lyocell-pastel-fold-crop.jpg', 16 / 9, ''),
   'hero.yarn-cone': R('/photos/hero/filler-shears-brown.jpg', 3 / 4, 'Brass tailor shears resting on folded VAS shirting fabric'),
   'hero.denim-drape': R('/photos/hero/filler-fabric-swatches-hand.jpg', 3 / 4, 'A hand arranging printed fashion polyester swatches in dusty pink, blue and grey'),
-  'hero.shirts-rail': R('/photos/hero/filler-scarves-hanger-crop.jpg', 4 / 3, 'Four fabric lengths tied to a hanger in a tonal gradient'),
+  'hero.shirts-rail': R('/photos/hero/filler-floral-print-fold.jpg', 4 / 3, 'Floral-print fabric folded in soft grey and dusty rose'),
   'hero.model-jacket': R('/photos/hero/filler-hands-cutting.jpg', 3 / 4, 'Hands cutting VAS shirting fabric with tailor shears'),
   'hero.folded-stack': R('/photos/hero/polyester-cotton-stack.jpg', 3 / 4, 'Folded VAS shirting fabrics beside raw cotton bolls'),
   'hero.swatch-book': R('/photos/hero/filler-vas-swatch-card.jpg', 4 / 3, 'VAS Luxe Fabrics swatch card, fifteen numbered shades fanned open'),
@@ -55,7 +55,7 @@ export const assets = {
 
   // --- Collections -------------------------------------------------------
   'collections.yarn-table': R('/photos/collections/cotton-lantern-stack.jpg', 3 / 2, 'Folded fabrics beside a lantern'),
-  'collections.loom': R('/photos/collections/filler-floral-print-fold.jpg', 3 / 2, 'Floral-print fabric folded in soft grey and dusty rose'),
+  'collections.loom': R('/photos/collections/filler-scarves-hanger-crop.jpg', 3 / 2, 'Four VAS scarves knotted on a wooden hanger'),
 
   // --- Per-category detail page hero -------------------------------------
   'category.cotton': R('/photos/categories/cotton/cotton-jacquard-swirl.jpg', 3 / 4, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
