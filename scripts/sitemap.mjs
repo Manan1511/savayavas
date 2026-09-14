@@ -23,7 +23,7 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const SITE_URL = 'https://savayavas.co'
+const SITE_URL = 'https://savayavas.com'
 
 const STATIC_ROUTES = ['/', '/our-story', '/collections', '/vas', '/for-dealers', '/contact']
 

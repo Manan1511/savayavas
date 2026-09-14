@@ -4,7 +4,7 @@ import { site as siteHi } from '@/content/site.hi'
 import { useLocale, localizePath } from '@/lib/i18n'
 import { useLocaleContent } from '@/lib/useLocaleContent'
 
-const SITE_URL = 'https://savayavas.co'
+const SITE_URL = 'https://savayavas.com'
 
 export interface SeoProps {
   title: string

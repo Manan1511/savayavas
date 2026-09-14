@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://savayavas.co/sitemap.xml
+Sitemap: https://savayavas.com/sitemap.xml
