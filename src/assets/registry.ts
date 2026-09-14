@@ -73,6 +73,7 @@ export const assets = {
   'category.linen-thumbnail': R('/photos/categories/linen/linen-swatches-thumbnail.jpg', 1, 'A wave of linen shirting fabrics in cream, blue, maroon, olive and navy'),
   'category.lyocell-cotton-thumbnail': R('/photos/categories/lyocell-cotton/lyocell-colour-drape.jpg', 1, 'Lyocell cotton fabric in pink, yellow and blue, draped'),
   'category.polyester-cotton-thumbnail': R('/photos/categories/polyester-cotton/polyester-cotton-thumbnail.jpg', 1, 'Folded polyester cotton fabrics beside raw cotton bolls'),
+  'category.fashion-polyesters-thumbnail': R('/photos/categories/fashion-polyesters/fashion-poly-bw-rolls-thumbnail.jpg', 1, 'Rolled black and white printed fashion polyester fabric'),
 
   // --- VAS / Quality -----------------------------------------------------
   'vas.modern-man': R('/photos/vas/modern-man-cutting.jpg', 3 / 4, 'Hands cutting VAS shirting fabric with tailor shears'),
@@ -103,8 +104,8 @@ export const CATEGORY_IMAGE: Record<string, AssetKey> = {
 /**
  * Grid/card thumbnail per category, used by the Collections grid and the
  * Home category strip. Defaults to the same photo as the detail-page hero;
- * cotton, linen, lyocell-cotton and polyester-cotton override to a crop
- * suited to the square card format.
+ * every category currently overrides to a crop suited to the square card
+ * format.
  */
 export const CATEGORY_THUMBNAIL: Record<string, AssetKey> = {
   ...CATEGORY_IMAGE,
@@ -112,6 +113,7 @@ export const CATEGORY_THUMBNAIL: Record<string, AssetKey> = {
   linen: 'category.linen-thumbnail',
   'lyocell-cotton': 'category.lyocell-cotton-thumbnail',
   'polyester-cotton': 'category.polyester-cotton-thumbnail',
+  'fashion-polyesters': 'category.fashion-polyesters-thumbnail',
 }
 
 /** Every asset still awaiting real photography. Used by `npm run assets:check`. */
