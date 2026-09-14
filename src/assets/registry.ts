@@ -60,17 +60,18 @@ export const assets = {
   // --- Per-category detail page hero -------------------------------------
   'category.cotton': R('/photos/categories/cotton/cotton-jacquard-swirl.jpg', 3 / 4, '100% Cotton jacquard fabric, swirled to show sheen and drape'),
   'category.linen': R('/photos/categories/linen/linen-striped-fan-hero.jpg', 3 / 4, 'VAS Luxe Fabrics linen shirting in blue, tan, green and maroon pinstripes'),
-  'category.lyocell-cotton': R('/photos/categories/lyocell-cotton/lyocell-colour-drape.jpg', 3 / 4, 'Lyocell cotton fabric in pink, yellow and blue, draped'),
+  'category.lyocell-cotton': R('/photos/categories/lyocell-cotton/lyocell-tonal-fan.jpg', 3 / 4, 'Lyocell cotton fabric fanned in tonal mauve, taupe and grey'),
   'category.polyester-cotton': R('/photos/categories/polyester-cotton/polyester-cotton-stripes.jpg', 3 / 4, 'Polyester cotton shirting fabrics in fine stripes, fanned'),
   'category.fashion-polyesters': R('/photos/categories/fashion-polyesters/fashion-poly-swatches-hero.jpg', 3 / 4, 'A hand arranging printed fashion polyester swatches'),
   'category.shade-card': R('/photos/categories/filler-shade-card.jpg', 2 / 3, 'A VAS Luxe Fabrics shade card, twelve numbered shades on a hanger'),
 
   // --- Category grid/card thumbnails --------------------------------------
   // Defaults to the detail-hero photo above (see CATEGORY_THUMBNAIL); cotton,
-  // linen and polyester-cotton have a distinct crop tuned for the square
-  // card format.
+  // linen, lyocell-cotton and polyester-cotton have a distinct crop tuned
+  // for the square card format.
   'category.cotton-thumbnail': R('/photos/categories/cotton/filler-cotton-tape-measure.jpg', 1, "100% Cotton fabric with a tailor's tape measure"),
   'category.linen-thumbnail': R('/photos/categories/linen/linen-swatches-thumbnail.jpg', 1, 'A wave of linen shirting fabrics in cream, blue, maroon, olive and navy'),
+  'category.lyocell-cotton-thumbnail': R('/photos/categories/lyocell-cotton/lyocell-colour-drape.jpg', 1, 'Lyocell cotton fabric in pink, yellow and blue, draped'),
   'category.polyester-cotton-thumbnail': R('/photos/categories/polyester-cotton/polyester-cotton-thumbnail.jpg', 1, 'Folded polyester cotton fabrics beside raw cotton bolls'),
 
   // --- VAS / Quality -----------------------------------------------------
@@ -102,13 +103,14 @@ export const CATEGORY_IMAGE: Record<string, AssetKey> = {
 /**
  * Grid/card thumbnail per category, used by the Collections grid and the
  * Home category strip. Defaults to the same photo as the detail-page hero;
- * cotton, linen and polyester-cotton override to a crop suited to the
- * square card format.
+ * cotton, linen, lyocell-cotton and polyester-cotton override to a crop
+ * suited to the square card format.
  */
 export const CATEGORY_THUMBNAIL: Record<string, AssetKey> = {
   ...CATEGORY_IMAGE,
   cotton: 'category.cotton-thumbnail',
   linen: 'category.linen-thumbnail',
+  'lyocell-cotton': 'category.lyocell-cotton-thumbnail',
   'polyester-cotton': 'category.polyester-cotton-thumbnail',
 }
 
