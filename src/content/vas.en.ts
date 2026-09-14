@@ -18,7 +18,7 @@ export const vas = {
   },
 
   intro: {
-    body: 'VAS is our menswear shirting line, and the first full expression of everything Savayavas stands for. The root Vas means fabric: cloth made with the discipline of a family that has spent three generations learning what a shirt is supposed to feel like.',
+    body: 'VAS is our menswear shirting fabric line, and the first full expression of everything Savayavas stands for. The root Vas means fabric: cloth made with the discipline of a family that has spent three generations learning what a shirt is supposed to feel like.',
     cta: { label: 'Read the full story', to: '/our-story' },
   },
 
