@@ -96,6 +96,7 @@ export function OrganizationSchema() {
     '@type': 'Organization',
     name: site.brand.name,
     url: SITE_URL,
+    logo: `${SITE_URL}/logos/savayavas-logo.png`,
     description: 'Premium shirting fabrics manufactured under Shubh Shantinath Silk Mills.',
     parentOrganization: { '@type': 'Organization', name: site.brand.parentCompany },
     email: site.contact.email,
