@@ -73,28 +73,15 @@ export const site = {
    * social proof is a genuine problem, not a design detail. See PLAN.md §8.
    */
   reviews: {
-    placeholder: true,
+    placeholder: false,
     eyebrow: 'Kind Words',
     headline: 'Trusted by those who value quality.',
-    intro: 'Our tribe inspires us to do better every day. Here’s what they have to say about their experience with Savayavas & Co.',
-    rating: '4.9',
-    ratingOutOf: '5',
-    count: '120+',
+    intro: 'Here’s what our partners have to say about their experience with Savayavas & Co.',
     items: [
       {
-        quote: 'The quality of the fabrics is simply outstanding. Every collection reflects their attention to detail and timeless taste.',
-        name: 'Vivek Mehta',
-        role: 'Fashion Designer, Mumbai',
-      },
-      {
-        quote: 'We’ve been working with Savayavas & Co. for over a year now and the consistency in quality and service is unmatched.',
-        name: 'Arjun Singhal',
-        role: 'Shirting Manufacturer, Ludhiana',
-      },
-      {
-        quote: 'Their fabrics elevate our creations. Premium feel, beautiful drape and our clients absolutely love them.',
-        name: 'Neha Aggarwal',
-        role: 'Boutique Owner, New Delhi',
+        quote: 'We’ve been using Savayavas fabrics for the last 2 to 3 years, and they’ve been our go-to for classic shirt fabrics. Their colour palette and fabric quality is exactly what our customers look for, and we’ve always found them very dependable on quality and timely selection. I can happily recommend them 100%.',
+        name: 'Rushant Jain',
+        role: 'Textile Entrepreneur',
       },
     ],
   },

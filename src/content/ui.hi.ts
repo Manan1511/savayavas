@@ -79,7 +79,6 @@ export const ui = {
   },
 
   reviews: {
-    basedOnReviews: '{count} समीक्षाओं के आधार पर',
     previousReview: 'पिछली समीक्षा',
     nextReview: 'अगली समीक्षा',
   },

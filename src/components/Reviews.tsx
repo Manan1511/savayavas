@@ -19,8 +19,9 @@ import { ui as uiHi } from '@/content/ui.hi'
 export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
   const site = useLocaleContent(siteEn, siteHi)
   const ui = useLocaleContent(uiEn, uiHi)
-  const { items, rating, ratingOutOf, count, eyebrow, headline, intro } = site.reviews
+  const { items, eyebrow, headline, intro } = site.reviews
   const [index, setIndex] = useState(0)
+  const hasCarousel = items.length > 1
 
   const go = (delta: number) => setIndex((i) => (i + delta + items.length) % items.length)
 
@@ -32,25 +33,15 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
             <Eyebrow>{eyebrow}</Eyebrow>
             <h2 className="mt-4 text-3xl uppercase leading-tight sm:text-4xl">{headline}</h2>
             <p className="u-prose mt-5 text-sm leading-relaxed">{intro}</p>
-
-            <div className="mt-10">
-              <p className="font-(family-name:--font-display) font-normal text-6xl leading-none text-ink">
-                {rating}
-                <span className="text-2xl text-stone">/{ratingOutOf}</span>
-              </p>
-              <p className="mt-3 text-[0.625rem] uppercase tracking-(--tracking-eyebrow) text-ink-soft">
-                {ui.reviews.basedOnReviews.replace('{count}', count)}
-              </p>
-            </div>
           </div>
 
           <div>
-            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className={`grid gap-6 ${hasCarousel ? 'sm:grid-cols-2 lg:grid-cols-3' : ''}`}>
               {items.map((r, i) => (
                 <li
                   key={r.name}
                   // On small screens show one at a time; on desktop show all three.
-                  className={`${i === index ? 'block' : 'hidden'} bg-paper p-7 sm:block`}
+                  className={`${!hasCarousel || i === index ? 'block' : 'hidden'} bg-paper p-7 ${hasCarousel ? 'sm:block' : ''}`}
                 >
                   <p className="font-(family-name:--font-display) font-normal text-4xl leading-none text-brass/50" aria-hidden>
                     &ldquo;
@@ -64,17 +55,19 @@ export function Reviews({ tone = 'ivory' }: { tone?: 'paper' | 'ivory' }) {
               ))}
             </ul>
 
-            <div className="mt-6 flex items-center gap-3 sm:hidden">
-              <CarouselButton label={ui.reviews.previousReview} onClick={() => go(-1)}>
-                &larr;
-              </CarouselButton>
-              <span className="text-xs tabular-nums text-stone">
-                {index + 1} / {items.length}
-              </span>
-              <CarouselButton label={ui.reviews.nextReview} onClick={() => go(1)}>
-                &rarr;
-              </CarouselButton>
-            </div>
+            {hasCarousel && (
+              <div className="mt-6 flex items-center gap-3 sm:hidden">
+                <CarouselButton label={ui.reviews.previousReview} onClick={() => go(-1)}>
+                  &larr;
+                </CarouselButton>
+                <span className="text-xs tabular-nums text-stone">
+                  {index + 1} / {items.length}
+                </span>
+                <CarouselButton label={ui.reviews.nextReview} onClick={() => go(1)}>
+                  &rarr;
+                </CarouselButton>
+              </div>
+            )}
           </div>
         </Reveal>
       </Container>

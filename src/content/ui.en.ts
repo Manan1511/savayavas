@@ -75,7 +75,6 @@ export const ui = {
   },
 
   reviews: {
-    basedOnReviews: 'Based on {count} reviews',
     previousReview: 'Previous review',
     nextReview: 'Next review',
   },
