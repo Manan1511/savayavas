@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { usePrefersReducedMotion } from '@/lib/motion'
+import { setLenis } from '@/lib/lenisInstance'
 
 /**
  * Lenis drives scrolling and ScrollTrigger reads from it, so the thread's
@@ -17,6 +18,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     if (reducedMotion) return
 
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true })
+    setLenis(lenis)
 
     lenis.on('scroll', ScrollTrigger.update)
 
@@ -27,6 +29,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     return () => {
       gsap.ticker.remove(raf)
       lenis.destroy()
+      setLenis(null)
     }
   }, [reducedMotion])
 

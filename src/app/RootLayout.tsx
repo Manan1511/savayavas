@@ -8,6 +8,7 @@ import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { OrganizationSchema } from '@/components/Seo'
 import { SmoothScroll } from '@/app/providers/SmoothScroll'
+import { ScrollToTop } from '@/app/providers/ScrollToTop'
 import { site as siteEn } from '@/content/site.en'
 import { site as siteHi } from '@/content/site.hi'
 
@@ -21,6 +22,8 @@ export default function RootLayout() {
 
   return (
     <SmoothScroll>
+      <ScrollToTop />
+
       {/* vite-react-ssg splices every Helmet-collected tag in as a block
           immediately after the literal <head>, ahead of index.html's own
           static content (confirmed by reading its prerender source — it does

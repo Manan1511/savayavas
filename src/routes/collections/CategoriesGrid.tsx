@@ -33,11 +33,15 @@ export function CategoriesGrid() {
           <h2 className="mt-4 text-3xl uppercase leading-tight sm:text-4xl">{headline}</h2>
         </Reveal>
 
-        <Reveal as="ul" stagger className="mt-10 grid gap-px border border-greige bg-greige sm:grid-cols-2 lg:grid-cols-3">
+        <Reveal
+          as="ul"
+          stagger
+          className="mt-10 flex flex-wrap justify-center gap-px border border-greige bg-greige"
+        >
           {site.categories.map((c) => {
             const image = CATEGORY_THUMBNAIL[c.slug]
             return (
-            <li key={c.slug} className="bg-paper">
+            <li key={c.slug} className="w-full bg-paper sm:w-[calc(50%-0.5px)] lg:w-[calc(33.333%-0.667px)]">
               <Link
                 to={localizePath(`/collections/${c.slug}`, locale)}
                 className="group flex h-full flex-col transition-colors duration-400 hover:bg-ivory"
