@@ -2,29 +2,21 @@
  * Lead submission adapter.
  *
  * Every form on the site calls this one function, so swapping the transport
- * later is a change to this file alone rather than to six form components.
+ * is a change to this file alone rather than to multiple form components.
  *
- * Transport: Netlify Forms. No server of our own, no third-party account, no
- * cost at this site's volume (free tier is 100 submissions/month) — Netlify
- * scans the deployed HTML at build time for a form matching the name below
- * (see the hidden twin in index.html) and, from then on, POSTing to "/" with
- * that form-name registers a submission. Notification emails are configured
- * in the Netlify dashboard (Site settings → Forms → Form notifications),
- * not in code, and are not something this file can set up on its own.
+ * Transport: StaticForms (https://api.staticforms.dev/submit).
+ * A third-party form-handling endpoint for static websites. Form submissions
+ * are routed directly to the email registered with the accessKey / apiKey.
  *
- * Honesty rule, carried over from before a transport existed: until
- * `LEAD_TRANSPORT_CONFIGURED` is true, the UI must NOT tell a visitor that
- * someone will be in touch. Callers render the fallback contact details
- * instead. Promising follow-up we cannot deliver is worse than no form.
+ * Honesty rule: until a key is configured (via VITE_STATIC_FORMS_ACCESS_KEY or VITE_STATIC_FORMS_KEY),
+ * the UI must NOT tell a visitor that someone will be in touch. In development or
+ * if unconfigured, we log the payload to the console and return { status: 'not-configured' },
+ * allowing the caller to render direct fallback contact details instead.
  */
 
-const NETLIFY_FORM_NAME = 'lead'
-
-function encodeFormData(data: Record<string, string>): string {
-  return Object.entries(data)
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    .join('&')
-}
+const STATIC_FORMS_ENDPOINT = 'https://api.staticforms.dev/submit'
+const STATIC_FORMS_REPLY_TO = '@'
+const DEFAULT_SUBJECT_PREFIX = '[Savayavas & Co.]'
 
 export type LeadKind =
   | 'trade-inquiry'
@@ -52,42 +44,121 @@ export type LeadResult =
   | { status: 'not-configured'; reason: string }
   | { status: 'error'; reason: string }
 
-/** Drives the UI's success copy. False only if Netlify Forms is ever pulled out. */
-export const LEAD_TRANSPORT_CONFIGURED = true
+interface StaticFormsPayload {
+  apiKey: string
+  accessKey: string
+  name: string
+  email: string
+  phone?: string
+  subject: string
+  replyTo: string
+  honeypot: string
+  message: string
+}
+
+interface StaticFormsResponse {
+  success: boolean
+  message?: string
+}
+
+const KIND_LABELS: Record<LeadKind, string> = {
+  'trade-inquiry': 'Trade Inquiry',
+  'export-inquiry': 'Export Inquiry',
+  'dealer-onboarding': 'Dealer Onboarding',
+  'swatch-request': 'Swatch Request',
+  'catalogue-download': 'Catalogue Download',
+}
+
+function getStaticFormsKey(): string | undefined {
+  return (
+    import.meta.env.VITE_STATIC_FORMS_ACCESS_KEY ||
+    import.meta.env.VITE_STATIC_FORMS_KEY ||
+    import.meta.env.VITE_STATIC_FORMS_API_KEY
+  )?.trim()
+}
+
+function buildStructuredMessage(lead: Lead): string {
+  const parts: string[] = []
+
+  parts.push(`Inquiry Type: ${KIND_LABELS[lead.kind] ?? lead.kind}`)
+  parts.push(`Name: ${lead.name}`)
+  if (lead.company) parts.push(`Company: ${lead.company}`)
+  parts.push(`Email: ${lead.email}`)
+  if (lead.phone) parts.push(`Phone: ${lead.phone}`)
+  if (lead.category) parts.push(`Collection / Category: ${lead.category}`)
+  if (lead.acknowledgedExportTerms !== undefined) {
+    parts.push(`Export Terms Acknowledged: ${lead.acknowledgedExportTerms ? 'Yes' : 'No'}`)
+  }
+  if (lead.meta && Object.keys(lead.meta).length > 0) {
+    for (const [key, value] of Object.entries(lead.meta)) {
+      parts.push(`${key}: ${value}`)
+    }
+  }
+
+  parts.push('\n--- Message ---')
+  parts.push(lead.message?.trim() || '(No additional message provided)')
+
+  return parts.join('\n')
+}
+
+/** Drives the UI's success copy. True when StaticForms key is configured. */
+export const LEAD_TRANSPORT_CONFIGURED = Boolean(getStaticFormsKey())
 
 export async function submitLead(lead: Lead): Promise<LeadResult> {
-  // Netlify Forms only runs on an actual Netlify deploy. The dev server
-  // (`npm run dev`, and any other static host) has nothing at "/" to
-  // receive this, so submissions are logged instead of thrown at a 404.
-  if (import.meta.env.DEV) {
-    console.info('[submitLead] dev mode, not posting to Netlify:', lead)
-    return { status: 'not-configured', reason: 'Netlify Forms only runs on a Netlify deploy.' }
+  const key = getStaticFormsKey()
+
+  if (!key) {
+    console.info('[submitLead] StaticForms key is not configured. Submission payload:', lead)
+    return {
+      status: 'not-configured',
+      reason: 'StaticForms key is not configured. Set VITE_STATIC_FORMS_ACCESS_KEY or VITE_STATIC_FORMS_KEY to enable automated delivery.',
+    }
+  }
+
+  const subject = `${DEFAULT_SUBJECT_PREFIX} ${KIND_LABELS[lead.kind] ?? lead.kind} from ${lead.name}`
+  const payload: StaticFormsPayload = {
+    apiKey: key,
+    accessKey: key,
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
+    subject,
+    replyTo: STATIC_FORMS_REPLY_TO,
+    honeypot: '',
+    message: buildStructuredMessage(lead),
   }
 
   try {
-    const response = await fetch('/', {
+    const response = await fetch(STATIC_FORMS_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encodeFormData({
-        'form-name': NETLIFY_FORM_NAME,
-        'bot-field': '',
-        kind: lead.kind,
-        name: lead.name,
-        company: lead.company ?? '',
-        email: lead.email,
-        phone: lead.phone ?? '',
-        message: lead.message ?? '',
-        category: lead.category ?? '',
-        acknowledgedExportTerms: lead.acknowledgedExportTerms ? 'yes' : '',
-        meta: lead.meta ? JSON.stringify(lead.meta) : '',
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(payload),
     })
 
     if (!response.ok) {
-      return { status: 'error', reason: `Netlify Forms responded with ${response.status}.` }
+      return {
+        status: 'error',
+        reason: `StaticForms returned HTTP status ${response.status}.`,
+      }
     }
-    return { status: 'delivered' }
-  } catch {
-    return { status: 'error', reason: 'The request failed before reaching Netlify.' }
+
+    const data = (await response.json()) as StaticFormsResponse
+    if (data.success) {
+      return { status: 'delivered' }
+    }
+
+    return {
+      status: 'error',
+      reason: data.message || 'StaticForms rejected the submission.',
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown network failure'
+    return {
+      status: 'error',
+      reason: `Failed to connect to StaticForms: ${message}`,
+    }
   }
 }

@@ -30,9 +30,9 @@ export const collectionsPage = {
   },
 
   manufacturing: {
-    eyebrow: 'Under the Guidance of',
+    eyebrow: 'Manufactured by',
     headline: 'Shubh Shantinath Silk Mills',
-    body: 'Every collection is manufactured under Shubh Shantinath Silk Mills, backed by three decades of textile manufacturing expertise. Whether you are sourcing for a tailoring network, a garment manufacturing unit or an export order, our collections are built to move: from loom to cut table, reliably.',
+    body: 'Every collection is manufactured under the guidance of Shubh Shantinath Silk Mills, backed by three decades of textile manufacturing expertise. Whether you are sourcing for a tailoring network, a garment manufacturing unit or an export order, our collections are built to move: from loom to cut table, reliably.',
   },
 
   seo: {
