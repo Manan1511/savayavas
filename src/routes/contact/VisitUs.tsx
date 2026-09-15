@@ -13,13 +13,15 @@ import { useLocaleContent } from '@/lib/useLocaleContent'
  * its own directions link, same as an invoice or letterhead would show
  * both. "Get Directions" opens Maps directly rather than an embed.
  */
+/** The office's actual Google Maps listing, supplied directly rather than
+    derived from the address text via a search query. */
+const OFFICE_DIRECTIONS_HREF = 'https://maps.app.goo.gl/aMQzemuTK5yDevgd6?g_st=iw'
+
 export function VisitUs() {
   const site = useLocaleContent(siteEn, siteHi)
   const contactPage = useLocaleContent(contactPageEn, contactPageHi)
   const { eyebrow, directionsLabel } = contactPage.visitUs
   const { office, factory } = site.contact.address
-  const directionsHref = (lines: readonly string[]) =>
-    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lines.join(', '))}`
 
   return (
     <Section tone="ivory" className="py-16 sm:py-20">
@@ -27,8 +29,8 @@ export function VisitUs() {
         <Reveal>
           <Eyebrow>{eyebrow}</Eyebrow>
           <div className="mt-5 grid gap-10 sm:grid-cols-2">
-            <AddressBlock label={office.label} lines={office.lines} directionsLabel={directionsLabel} directionsHref={directionsHref(office.lines)} />
-            <AddressBlock label={factory.label} lines={factory.lines} directionsLabel={directionsLabel} directionsHref={directionsHref(factory.lines)} />
+            <AddressBlock label={office.label} lines={office.lines} directionsLabel={directionsLabel} directionsHref={OFFICE_DIRECTIONS_HREF} />
+            <AddressBlock label={factory.label} lines={factory.lines} />
           </div>
         </Reveal>
       </Container>
@@ -44,8 +46,8 @@ function AddressBlock({
 }: {
   label: string
   lines: readonly string[]
-  directionsLabel: string
-  directionsHref: string
+  directionsLabel?: string
+  directionsHref?: string
 }) {
   return (
     <div>
@@ -57,14 +59,16 @@ function AddressBlock({
           </span>
         ))}
       </address>
-      <a
-        href={directionsHref}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="mt-4 inline-block border-b border-brass pb-1 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass transition-colors duration-300 hover:border-ink hover:text-ink"
-      >
-        {directionsLabel} &rarr;
-      </a>
+      {directionsHref && (
+        <a
+          href={directionsHref}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="mt-4 inline-block border-b border-brass pb-1 text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-brass transition-colors duration-300 hover:border-ink hover:text-ink"
+        >
+          {directionsLabel} &rarr;
+        </a>
+      )}
     </div>
   )
 }
