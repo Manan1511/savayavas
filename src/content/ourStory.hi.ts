@@ -24,7 +24,13 @@ export const ourStory = {
       'शुभ शांतिनाथ सिल्क मिल्स की शुरुआत तीन भाइयों से हुई: अरविंद परमार, विनोद परमार और परेश परमार। उन्होंने मिलकर मुंबई के टेक्सटाइल व्यापार में तीन दशकों में एक मजबूत निर्माण नींव खड़ी की।',
       'भाइयों के बीच साझा विश्वास के रूप में जो शुरू हुआ, वह निर्माण विशेषज्ञता के ऐसे भंडार में बदल गया जिसका दावा ज़्यादातर ब्रांड केवल कागज़ पर करते हैं।',
     ],
-    names: ['Arvind Parmar', 'Vinod Parmar', 'Paresh Parmar'],
+    people: [
+      { name: 'Arvind Parmar', photo: 'story.founder.arvind' },
+      { name: 'Vinod Parmar', photo: 'story.founder.vinod' },
+      { name: 'Paresh Parmar', photo: 'story.founder.paresh' },
+      { name: 'Priyank Parmar', photo: 'story.founder.priyank' },
+      { name: 'Sherin Parmar', photo: 'story.founder.sherin' },
+    ],
   },
 
   name: {

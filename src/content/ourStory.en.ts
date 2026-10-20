@@ -22,7 +22,13 @@ export const ourStory = {
       'Shubh Shantinath Silk Mills began with three brothers: Arvind Parmar, Vinod Parmar and Paresh Parmar. Together they built a manufacturing foundation in Mumbai’s textile trade over three decades.',
       'What started as shared conviction between siblings grew into a body of manufacturing expertise most brands only claim on paper.',
     ],
-    names: ['Arvind Parmar', 'Vinod Parmar', 'Paresh Parmar'],
+    people: [
+      { name: 'Arvind Parmar', photo: 'story.founder.arvind' },
+      { name: 'Vinod Parmar', photo: 'story.founder.vinod' },
+      { name: 'Paresh Parmar', photo: 'story.founder.paresh' },
+      { name: 'Priyank Parmar', photo: 'story.founder.priyank' },
+      { name: 'Sherin Parmar', photo: 'story.founder.sherin' },
+    ],
   },
 
   /**

@@ -4,7 +4,7 @@
  * rendering English inside a Hindi page.
  *
  * Not translated: route paths (`to`), hrefs, phone/email, slugs — anything
- * that is an identifier rather than copy. Person names in the (placeholder)
+ * that is an identifier rather than copy. Person and company names in partner
  * reviews are kept in Latin script, as is standard practice even in Hindi
  * business writing; city names are set in Devanagari since they're part of
  * the sentence, not a proper-noun label.
@@ -79,6 +79,16 @@ export const site = {
         quote: 'हम पिछले 2 से 3 सालों से सवायावास के फैब्रिक इस्तेमाल कर रहे हैं, और क्लासिक शर्ट फैब्रिक के लिए वे हमारी पहली पसंद रहे हैं। उनका रंग पैलेट और फैब्रिक की गुणवत्ता बिल्कुल वैसी है जैसी हमारे ग्राहक चाहते हैं, और गुणवत्ता व समय पर डिलीवरी के मामले में हमें वे हमेशा भरोसेमंद लगे हैं। मैं उन्हें पूरे दिल से सुझाता हूं।',
         name: 'Rushant Jain',
         role: 'टेक्सटाइल उद्यमी',
+      },
+      {
+        quote: 'We’ve been using Savayavas fabrics for the last 5 years, and they’ve been our trusted source for classic shirt fabrics. Their colour range has always worked really well for our men’s customer base, and we’ve consistently found the quality and selection reliable. I can personally vouch for them 100%.',
+        name: 'Urvash',
+        role: 'Warping Theories',
+      },
+      {
+        quote: 'We have been associated with Savayavas for the past 3 years and are very satisfied with their quality and service. They offer an excellent range of poly-cotton, 100% cotton, cotton-linen, 100% linen, and digitally printed shirting fabrics. Since launching our own brand, Klub Seven, for hand-embroidered shirts, their quick delivery and consistent stock availability of colours and designs have been a great support to our business. A reliable fabric partner, highly recommended!',
+        name: 'Tapas',
+        role: 'Klub Seven',
       },
     ],
   },

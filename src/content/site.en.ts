@@ -66,12 +66,7 @@ export const site = {
     },
   },
 
-  /**
-   * ⚠️ PLACEHOLDER DATA — transcribed from the concept boards, which invented
-   * them. The rating, the review count and these three testimonials are not
-   * real and must be replaced or removed before launch. Publishing invented
-   * social proof is a genuine problem, not a design detail. See PLAN.md §8.
-   */
+  /** Partner testimonials supplied directly by the brand. */
   reviews: {
     placeholder: false,
     eyebrow: 'Kind Words',
@@ -82,6 +77,16 @@ export const site = {
         quote: 'We’ve been using Savayavas fabrics for the last 2 to 3 years, and they’ve been our go-to for classic shirt fabrics. Their colour palette and fabric quality is exactly what our customers look for, and we’ve always found them very dependable on quality and timely selection. I can happily recommend them 100%.',
         name: 'Rushant Jain',
         role: 'Textile Entrepreneur',
+      },
+      {
+        quote: 'We’ve been using Savayavas fabrics for the last 5 years, and they’ve been our trusted source for classic shirt fabrics. Their colour range has always worked really well for our men’s customer base, and we’ve consistently found the quality and selection reliable. I can personally vouch for them 100%.',
+        name: 'Urvash',
+        role: 'Warping Theories',
+      },
+      {
+        quote: 'We have been associated with Savayavas for the past 3 years and are very satisfied with their quality and service. They offer an excellent range of poly-cotton, 100% cotton, cotton-linen, 100% linen, and digitally printed shirting fabrics. Since launching our own brand, Klub Seven, for hand-embroidered shirts, their quick delivery and consistent stock availability of colours and designs have been a great support to our business. A reliable fabric partner, highly recommended!',
+        name: 'Tapas',
+        role: 'Klub Seven',
       },
     ],
   },

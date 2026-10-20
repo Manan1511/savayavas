@@ -51,6 +51,11 @@ export const assets = {
   'hero.dark-ribs': R('/photos/hero/filler-swatch-fan-pastel.jpg', 3 / 4, 'Fabric swatches fanned out in soft pastel and neutral tones'),
 
   // --- Our Story ---------------------------------------------------------
+  'story.founder.arvind': R('/photos/story/founder-arvind-parmar.jpeg', 2 / 3, 'Portrait of Arvind Parmar'),
+  'story.founder.vinod': R('/photos/story/founder-vinod-parmar.jpeg', 2 / 3, 'Portrait of Vinod Parmar'),
+  'story.founder.paresh': R('/photos/story/founder-paresh-parmar.jpeg', 2 / 3, 'Portrait of Paresh Parmar'),
+  'story.founder.priyank': R('/photos/story/founder-priyank-parmar.jpeg', 2 / 3, 'Portrait of Priyank Parmar'),
+  'story.founder.sherin': R('/photos/story/founder-sherin-parmar.jpeg', 2 / 3, 'Portrait of Sherin Parmar'),
   'story.mill': R('/photos/story/filler-fabric-rolls.jpg', 16 / 9, 'Rolled fabric bolts standing upright'),
 
   // --- Collections -------------------------------------------------------
