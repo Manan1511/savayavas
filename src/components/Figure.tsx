@@ -1,4 +1,5 @@
 import { asset, type AssetKey } from '@/assets/registry'
+import { OptimizedImage } from '@/components/OptimizedImage'
 
 /**
  * The only way an image reaches the page.
@@ -39,12 +40,14 @@ export function Figure({
 
   return (
     <div className={`overflow-hidden bg-greige ${rounded ? 'rounded-sm' : ''} ${className}`} style={{ aspectRatio: aspect ?? a.aspect }}>
-      <img
+      <OptimizedImage
+        webpSrc={a.webpSrc}
         src={a.src}
         alt={a.alt}
         loading={priority ? 'eager' : 'lazy'}
-        decoding={priority ? 'sync' : 'async'}
+        decoding="async"
         fetchPriority={priority ? 'high' : 'auto'}
+        pictureClassName="block h-full w-full"
         className={`h-full w-full object-cover ${focus} ${imgClassName}`}
         // Decorative images carry alt="" and must be hidden from the a11y tree.
         aria-hidden={a.alt === '' ? true : undefined}

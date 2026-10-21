@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { Section, Container } from '@/components/Section'
 import { Seo } from '@/components/Seo'
 import { Reveal } from '@/motion'
@@ -99,7 +100,7 @@ function CategoryHero({ category }: { category: ResolvedCategory }) {
                 line, not the parent company directly — the product-level
                 mark belongs here, distinct from the Savayavas & Co. lockup
                 in the site chrome. */}
-            <img src="/logos/vas-logo.png" alt="VAS Luxe Fabrics" className="mt-8 h-12 w-auto" />
+            <OptimizedImage src="/logos/vas-logo.png" webpSrc="/logos/vas-logo.webp" alt="VAS Luxe Fabrics" className="mt-8 h-12 w-auto" />
           </Reveal>
 
           {image && (

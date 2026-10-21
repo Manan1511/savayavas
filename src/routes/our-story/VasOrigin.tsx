@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
 import { ourStory as ourStoryEn } from '@/content/ourStory.en'
@@ -20,7 +21,7 @@ export function VasOrigin() {
           <Eyebrow>{eyebrow}</Eyebrow>
           <h2 className="mt-5">
             <span className="sr-only">{headline}</span>
-            <img src="/logos/vas-logo.png" alt="" aria-hidden className="mx-auto h-20 w-auto sm:h-24" />
+            <OptimizedImage src="/logos/vas-logo.png" webpSrc="/logos/vas-logo.webp" alt="" aria-hidden className="mx-auto h-20 w-auto sm:h-24" />
           </h2>
           <p className="u-prose mx-auto mt-6 text-sm leading-relaxed">{body}</p>
           <Link

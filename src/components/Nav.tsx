@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { site as siteEn } from '@/content/site.en'
 import { site as siteHi } from '@/content/site.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
@@ -42,7 +43,7 @@ export function Nav() {
           className="shrink-0 transition-opacity duration-300 hover:opacity-70"
           aria-label={`${site.brand.name}, home`}
         >
-          <img src="/logos/savayavas-logo.png" alt="" aria-hidden className="h-7 w-auto sm:h-9" />
+          <OptimizedImage src="/logos/savayavas-logo.png" webpSrc="/logos/savayavas-logo.webp" alt="" aria-hidden className="h-7 w-auto sm:h-9" />
         </Link>
 
         <nav aria-label="Primary" className="hidden lg:block">

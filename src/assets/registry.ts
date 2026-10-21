@@ -12,6 +12,8 @@
 export interface AssetEntry {
   /** Path under /public, or an imported URL once assets are real. */
   src: string
+  /** Optional browser-native compressed version of the same image. */
+  webpSrc?: string
   /** Final intended aspect ratio, width / height. Layout depends on this. */
   aspect: number
   /** Required. An empty string is only valid for decorative assets. */
@@ -25,6 +27,7 @@ export interface AssetEntry {
 /** Real photography, supplied directly rather than generated. */
 const R = (path: string, aspect: number, alt: string): AssetEntry => ({
   src: path,
+  ...(path.match(/\.jpe?g$/i) ? { webpSrc: path.replace(/\.jpe?g$/i, '.webp') } : {}),
   aspect,
   alt,
   placeholder: false,

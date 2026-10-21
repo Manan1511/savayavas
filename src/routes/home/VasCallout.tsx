@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Eyebrow } from '@/components/Eyebrow'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { VideoFigure } from '@/components/VideoFigure'
 import { Section, Container } from '@/components/Section'
 import { Reveal } from '@/motion'
@@ -23,7 +24,7 @@ export function VasCallout() {
             <Eyebrow className="text-brass-soft">{home.vasCallout.eyebrow}</Eyebrow>
             <h2 className="mt-5 text-6xl uppercase tracking-[0.08em] text-paper sm:text-7xl">
               <span className="sr-only">{home.vasCallout.headline}</span>
-              <img src="/logos/vas-logo.png" alt="" aria-hidden className="h-16 w-auto brightness-0 invert sm:h-20" />
+              <OptimizedImage src="/logos/vas-logo.png" webpSrc="/logos/vas-logo.webp" alt="" aria-hidden className="h-16 w-auto brightness-0 invert sm:h-20" />
             </h2>
             <p className="u-prose mt-6 text-sm leading-relaxed text-paper/75">
               {home.vasCallout.body}
@@ -37,7 +38,7 @@ export function VasCallout() {
           </Reveal>
 
           <Reveal>
-            <VideoFigure src="/videos/discover-vas.mp4" poster="/videos/discover-vas-poster.jpg" aspect={9 / 16} className="mx-auto max-w-xs" />
+            <VideoFigure src="/videos/discover-vas.mp4" poster="/videos/discover-vas-poster.webp" aspect={9 / 16} className="mx-auto max-w-xs" />
           </Reveal>
         </div>
       </Container>

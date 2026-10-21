@@ -1,5 +1,6 @@
 import { Eyebrow } from '@/components/Eyebrow'
 import { Figure } from '@/components/Figure'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { Section } from '@/components/Section'
 import { TornEdge } from '@/components/TornEdge'
 import { WeaveReveal } from '@/motion'
@@ -57,10 +58,15 @@ export function Hero() {
         className="absolute inset-x-0 top-[8%] bottom-[8%] overflow-hidden bg-ivory"
         style={{ zIndex: 'var(--z-base)' }}
       >
-        <img
+        <OptimizedImage
+          webpSrc={asset('hero.linen-sheet').webpSrc}
           src={asset('hero.linen-sheet').src}
           alt=""
           aria-hidden
+          loading="eager"
+          decoding="async"
+          fetchPriority="low"
+          pictureClassName="block h-full w-full"
           className="h-full w-full object-cover opacity-30 mix-blend-multiply"
         />
         <TornEdge position="top" />
@@ -85,7 +91,7 @@ export function Hero() {
               piece.floats ? 'drop-shadow-[0_18px_28px_rgba(20,20,20,0.22)]' : ''
             }`}
           >
-            <Figure name={piece.name} priority />
+            <Figure name={piece.name} />
           </div>
         ))}
       </div>

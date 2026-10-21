@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { site as siteEn } from '@/content/site.en'
 import { site as siteHi } from '@/content/site.hi'
 import { useLocaleContent } from '@/lib/useLocaleContent'
@@ -12,7 +13,7 @@ export function Footer() {
     <footer className="bg-ink text-paper">
       <div className="mx-auto flex max-w-(--container-content) flex-col items-center gap-6 px-(--spacing-gutter) py-8 sm:flex-row sm:justify-between">
         <Link to={localizePath('/', locale)} aria-label={`${site.brand.name}, home`}>
-          <img src="/logos/savayavas-logo.png" alt="" aria-hidden className="h-8 w-auto rounded-sm bg-paper px-2 py-1" />
+          <OptimizedImage src="/logos/savayavas-logo.png" webpSrc="/logos/savayavas-logo.webp" alt="" aria-hidden className="h-8 w-auto rounded-sm bg-paper px-2 py-1" />
         </Link>
 
         <p className="text-[0.6875rem] uppercase tracking-(--tracking-eyebrow) text-paper/70">
